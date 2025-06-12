@@ -224,6 +224,7 @@ WE-FTT/
 │   ├── association_mining.py   # Knowledge mining algorithms
 │   ├── models/
 │   │   ├── we_ftt.py          # WE-FTT model implementation
+│   │   ├── baselines.py       # Baseline models implementation
 │   │   └── components.py      # Reusable model components
 │   └── utils.py               # Utility functions
 ├── scripts/
@@ -328,7 +329,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Contact
 
-- **Pan Xiong** - Institute of Earthquake Forecasting, China Earthquake Administration
 - Email: xiong.pan@gmail.com
 
 ### Support
