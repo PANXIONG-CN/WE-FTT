@@ -272,5 +272,13 @@ lightgbm_results.txt
 # Keep important directories but ignore their contents
 results/
 !results/.gitkeep
+!results/main_model/.gitkeep
+!results/baseline_models/.gitkeep
+!results/ablation_study/.gitkeep
 data/processed/
 !data/processed/.gitkeep
+
+# Exclude specific directories and files from repository
+docs/
+CHANGELOG.md
+REFACTORING_GUIDE.md

@@ -32,36 +32,14 @@ The WE-FTT model addresses the challenge of identifying reliable satellite-based
 
 Applied to AMSR-2 brightness temperature data (2013–2023), our approach reveals distinct precursor signatures across different environments and achieves significantly improved detection performance (~84% accuracy, MCC ~0.84).
 
-### 🔬 Methodology Workflow
+### 🔬 Methodology Overview
 
-```mermaid
-flowchart TD
-    subgraph "A. Data Preparation & Preprocessing"
-        A1[Raw Data Collection<br>(AMSR-2, Catalog, Environment)] --> A2{Surface Type Classification<br>(5 Zones)};
-        A2 --> A3{Spatio-temporal Sampling<br>(Dobrovolsky Radius)};
-        A3 --> A4[Generate Seismic &<br>Non-Seismic Samples];
-    end
+The WE-FTT framework follows a four-stage process:
 
-    subgraph "B. Knowledge Mining"
-        A4 --> B1{K-Means Clustering<br>(Discretize MBT Data)};
-        B1 --> B2{Apriori Association<br>Rule Mining};
-        B2 --> B3[Extract High-Confidence<br>Freq-Polarization Combinations];
-        B3 --> B4[Calculate Feature Weights];
-    end
-
-    subgraph "C. Knowledge-Guided Deep Learning"
-        C1(MBT Features) --> C3;
-        B4 -- Weights --> C2(Feature Weights);
-        C2 --> C3{WE-FTT Model};
-        C3 --> C4[Model Training & Evaluation];
-    end
-
-    subgraph "D. Result Analysis"
-        C4 --> D1[Performance Comparison];
-        C4 --> D2[Ablation Study];
-        C4 --> D3[Physical Interpretation];
-    end
-```
+1. **Data Preparation & Preprocessing**: Surface type classification and spatio-temporal sampling
+2. **Knowledge Mining**: K-means clustering and association rule mining to extract frequency-polarization signatures
+3. **Knowledge-Guided Deep Learning**: Integration of mined weights into the WE-FTT model
+4. **Result Analysis**: Performance comparison, ablation studies, and physical interpretation
 
 ## ✨ Key Features
 
@@ -120,8 +98,8 @@ Place your earthquake catalog and MBT data in the `data/raw/` directory:
 
 ```bash
 data/raw/
-├── 13-23EQ.csv          # Earthquake catalog
-└── mbt_data.parquet     # MBT brightness temperature data
+├── earthquake_catalog.csv  # Earthquake catalog
+└── mbt_data.parquet        # MBT brightness temperature data
 ```
 
 ### 2. Run Data Preprocessing
@@ -236,10 +214,7 @@ WE-FTT/
 ├── data/
 │   ├── raw/                    # Raw, immutable data
 │   └── processed/              # Processed datasets and mining results
-├── docs/
-│   ├── paper/                  # LaTeX paper source and figures
-│   └── ablation_study_notes.pdf
-├── results/
+├── results/                    # Training and experiment results (excluded from git)
 │   ├── main_model/             # WE-FTT model results
 │   ├── baseline_models/        # Baseline model results
 │   └── ablation_study/         # Ablation study results
@@ -310,23 +285,6 @@ Results are automatically saved with:
 
 ## 📊 Results
 
-### Main Results
-
-| Model | Accuracy | F1-Score | MCC | Cohen's κ | ROC-AUC |
-|-------|----------|----------|-----|-----------|---------|
-| **WE-FTT** | **84.2%** | **0.841** | **0.684** | **0.683** | **0.921** |
-| FT-Transformer | 81.5% | 0.814 | 0.631 | 0.630 | 0.894 |
-| Random Forest | 78.3% | 0.782 | 0.567 | 0.566 | 0.856 |
-| CatBoost | 79.1% | 0.790 | 0.583 | 0.582 | 0.863 |
-| TabNet | 77.8% | 0.777 | 0.558 | 0.556 | 0.849 |
-
-### Ablation Study Insights
-
-- **Weight Enhancement**: +2.7% accuracy improvement
-- **Dynamic Focal Loss**: +1.2% accuracy vs. standard cross-entropy
-- **Multi-head Attention**: +1.8% accuracy vs. single-head
-- **Position Encoding**: +0.9% accuracy improvement
-
 ### Key Findings
 
 1. Knowledge-guided weights significantly improve performance
@@ -367,27 +325,11 @@ pytest tests/
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 📚 Citation
-
-If you use this code or find our work helpful, please cite our paper:
-
-```bibtex
-@article{Xiong2024WEFTT,
-  title={Knowledge-guided deep learning reveals environment-specific microwave precursors to major earthquakes},
-  author={Pan Xiong and Cheng Long and Huiyu Zhou and Roberto Battiston and Angelo De Santis and Xuhui Shen},
-  journal={Your Journal Name},
-  year={2024},
-  volume={XX},
-  pages={XXX--XXX},
-  doi={10.xxxx/xxxxx}
-}
-```
 
 ## 📞 Contact
 
 - **Pan Xiong** - Institute of Earthquake Forecasting, China Earthquake Administration
-- **Xuhui Shen** (Corresponding Author) - National Space Science Center, Chinese Academy of Sciences
-- Email: shenxh@nssc.ac.cn
+- Email: xiong.pan@gmail.com
 
 ### Support
 
