@@ -1,3 +1,6 @@
+## Quick Test
+This is a test pull request created directly from the GitHub web interface.
+
 # WE-FTT: Weight-Enhanced Feature-based Transformer for Earthquake Precursor Detection
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -347,5 +350,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 [📖 Documentation](https://we-ftt.readthedocs.io) • 
 [🐛 Issues](https://github.com/PANXIONG-CN/WE-FTT/issues) • 
 [💬 Discussions](https://github.com/PANXIONG-CN/WE-FTT/discussions)
+
 
 </div>
