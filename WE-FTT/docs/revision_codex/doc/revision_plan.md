@@ -1,0 +1,303 @@
+
+------
+
+## 执行摘要（1–2 段）
+
+我们系统梳理了编辑与两位审稿人的关键关切，集中在四个方面：**（1）微波地震前兆的物理机制与环境异质性解释；（2）更强的全球验证与误报（含海啸相关伪影）的排除；（3）机器学习基线与基准策略的合理性；（4）讨论部分需与既有文献清晰对照并凝练贡献。** 对应地，我们拟在修订稿中：
+
+- 扩展第5节物理解释（新增 5.2.1 与 5.2.2 小节），把频率-极化-环境三者的耦合机理与“P-hole/介电常数扰动/海表粗糙度与高频响应”的链路写清，并在方法与不确定性分析处增加对**海啸与极端风浪**的显式剔除与灵敏度分析（见下文“补充实验#2/#3”）。参见文稿现有讨论 5.2 节与图5、表1提供的证据基础（20250811-main-elsarticle.pdf, pp.26–29; Fig.5–Table 1）。
+- 增加**全球随机日期误报评估**与**样本外事件验证**两类实验，提供全球检出图与误报率地图，并给出多重比较校正后的显著性与置信区间（新增“4.6 Global validation”与“Supplementary Figs. S1–S4”）。
+- 明确**PCA仅用于性能指标的可视化与关联解释**，不是监督模型的对照基线；基线集合限定为 RF/LightGBM/XGBoost/TabNet/CatBoost/MLP，避免歧义（对照现稿 4.4.2 与 Fig.7–9）。
+- 重写讨论结构，按“与前人工作的一致与差异—方法学贡献—局限与未来工作”的三段式展开，并引入审稿意见提及的**Acta Astronautica(2020)**关于TEC阈值与震级/深度耦合的统计结论作为跨学科参照（refencesPaper.pdf, pp.1–3,6–8）。
+
+此外，我们将**重写Highlights**以满足 RSE 每条 ≤85 字符的硬性要求，并在“方法2.0版”中补充**分区标准与震源参数的控制变量**（新增 3.2.1 扩展段）。  
+
+------
+
+## 逐条回复（中英双语）
+
+> **注**：每条均含「意见原文」「中文翻译」「回复（中/EN）」「计划修订（位置与拟插入文本）」与「补充实验方案（如需）」以及「证据/引用」。
+
+### 审稿人 A（Associate Editor, Joseph Awange）
+
+**意见 1（原文）**
+ “This manuscript presents a novel, knowledge-guided AI framework for satellite earthquake monitoring. While the topic is of significant interest and the approach is promising, the reviewers have raised substantial concerns that must be addressed to validate the study's claims.
+ The authors are requested to undertake a major revision that directly responds to all points. Critically, this includes: providing a stronger physical rationale for the microwave-based precursor signals across different environments; robustly validating the method globally to rule out false positives and tsunami-related artifacts; justifying the machine learning benchmarking strategy; and thoroughly revising the discussion to clearly articulate their contributions against the existing literature. A successful revision will significantly strengthen the manuscript's scientific rigor and impact.”
+
+**审稿意见中文翻译**
+ 本稿需重大修订：补强不同环境下微波地震前兆的物理依据；做更强的全球验证以排除误报与海啸伪影；阐明机器学习基线设计的合理性；并重写讨论以明确相对既有工作的贡献。
+
+**回复（中）**
+ 感谢编辑对稿件潜力与关键改进点的准确把握。我们理解要点：物理机制、全球验证与伪影排除、基线设计与讨论重写。修订稿将：
+
+1. 在第5节新增两小节（5.2.1、5.2.2）系统阐述频率–极化–环境的物理耦合与可能机理，并将现有图5/表1的证据与文献桥接（p.26–29）。
+2. 新增“4.6 Global validation”：给出全球随机日期误报评估与样本外事件验证，并对海啸影响设定排除窗与对照分析。
+3. 将PCA定位为**指标空间可视化**而非预测基线，基线限定为六类主流监督模型（与现稿4.4.2一致），并在文中消除可能引起误解的表述。
+4. 重写讨论，按“对比—贡献—局限”结构展开，并引用跨层耦合研究作参照。
+
+**Reply (EN)**
+ We thank the Associate Editor for the insightful summary and clear guidance, which have been instrumental in structuring our major revision. We have addressed the four critical pillars:
+
+1. Add two sub-sections (5.2.1–5.2.2) to consolidate the physics behind frequency–polarization–environment couplings, linking our evidence in Fig.5/Table 1 to established mechanisms.
+2. Introduce a new Section 4.6 for **global false-positive assessment** and **out-of-sample event testing**, with explicit exclusion windows and sensitivity checks for tsunami-related artifacts.
+3. Clarify that **PCA is used only for performance-space visualization**, not as a predictive baseline; supervised baselines remain RF/LightGBM/XGBoost/TabNet/CatBoost/MLP.
+4. Restructure the Discussion to delineate alignment/contrast with prior work, methodological contributions, and limitations.
+
+**计划修订：位置与拟插入文本**
+
+- **位置**：新增 §5.2.1（p.27 之后）；**拟插入文本（中/EN）**：
+  - 中：*“我们发现特定频率–极化组合在湿地与干旱区的支持度显著升高（表1），可由应力诱发载流子活化导致的介电扰动与多层介质辐射转移差异解释；在海洋区，高频通道（如89 GHz H）对海表微尺度粗糙度与表层温度更敏感，形成与陆域不同的谱–极化响应。”*
+  - EN: *“We posit that zone-dependent frequency–polarization responses (Table 1) arise from stress-activated charge carriers and dielectric perturbations in soils (wetlands/arid lands), while in marine settings higher-frequency channels (e.g., 89 GHz H) emphasize sea-surface roughness and skin-temperature modulations, producing a distinct spectral–polarization signature.”*
+     **证据/引用**：20250811-main-elsarticle.pdf, pp.26–29（现有5.2节）; Fig.5, Table 1. 
+- **位置**：新增 §4.6（p.21 之后）；**拟插入文本（中/EN）**：
+  - 中：*“我们在全球范围随机抽取无震日（每区≥100天）计算像元级误报率（FPR）并绘制全球误报率图；同时对2023年后样本外M≥7事件进行前视检验。显著性以α=0.05并经Benjamini–Hochberg校正。”*
+  - EN: *“We conduct a global random-date test (≥100 days per zone) to estimate per-pixel false-positive rates and generate world maps of detections; we also evaluate out-of-sample M≥7 events after 2023. Significance is assessed at α=0.05 with Benjamini–Hochberg correction.”*
+     **证据/引用**：方法框架与评价规范见 §3.5 与 §4.4（20250811-main-elsarticle.pdf, pp.18–21）。
+
+**补充实验方案**：见下文“补充实验#1/#2/#3”。
+
+------
+
+### 审稿人 B（Reviewer #1）
+
+**意见 0（原文）** 
+
+> “This study investigated sophisticated AI approaches for detecting earthquake precursor signals using AMSR-2 brightness temperature (Tb) observations. The satellite earthquake monitoring/forecast topic is very interesting to readers in particular with the carefully-designed environmental zoning and knowledge-guided AI Framework. However, the physics underlying microwave earthquake detection and more robust validations have to be clearly addressed before moving forward.”
+
+**回复（中）**
+ 表示感谢
+
+------
+
+**意见 1（原文）** 
+
+> “(a) About microwave physics: The authors tried to constrain the problem by zoning the earth surface first. However, for a given 25-km grid, the satellite Tb observations are greatly affected by time-variant factors such as physical temperature, atmospheric water vapor content (e.g., for 89 GHz), ocean surface roughness changes (e.g., for all AMSR2 frequencies), soil moisture changes (e.g., for C- to Ku-band), vegetation water changes (e.g., for C- to Ku-band), and RFI. Unless the earthquake precursor signals have the unique characteristics and/or large magnitudes which are clearly different from the background signals, the study basis can not be deemed as a solid one. I would suggest the authors provide detailed introduction and discussion of the physical mechanisms underlying the discovered precursor signatures, and illustrate how these signatures are NOT affected by the background signals. In addition, you may start from specifying the spatial scale, magnitude, frequency and polarization characteristics of microwave emissions from lithosphere-atmosphere interactions for major earthquakes.”
+
+**中文翻译**
+ (略，完整翻译)：评审指出25 km分辨率的Tb受温度、水汽、海表粗糙度、土壤水分、植被含水与RFI等影响，须阐明我们发现的前兆特性为何能区别背景，并建议明确其空间尺度、震级、频率与极化特征。
+
+**回复（中）**
+ 感谢此关键建议。我们将：
+
+1. 在**§5.2.1/5.2.2**系统阐述不同环境的主导机理来源与与背景场的区分标准（例如湿地/干旱区的低频H极化对介电扰动的高敏感度、海域的高频H极化对表层粗糙度与皮肤温度的敏感度），并把**支持度近1.0的组合**解释为**条件性可靠**而非普适（Fig.4–5, Table 1；p.35–36, 44）。
+2. 在**§3.2.2**补充“背景扰动剔除”流程：夜间数据、89 GHz极化差云筛、RFI屏蔽、以及与同窗非震样本的**支持度差分**判别（文稿已述，p.5–9；将再明晰阈值与不确定度）。
+3. 明确**空间尺度**（0.25°格点）、**时间窗**（震前20天至震后10天）、**主震级范围**（M≥7.0）与**通道–极化**特征总结表，便于复现与质控。
+
+**Reply (EN)**
+ Thank you for the incisive request. We will (i) expand §5.2.1–5.2.2 to articulate environment-specific mechanisms and how our **support-difference criterion, serving as a proxy for the signal-to-noise ratio**, quantitatively separates precursor patterns from background variability; (ii) clarify the background-screening pipeline in §3.2.2 (nighttime-only, cloud/RFI filters, support-difference thresholds with bootstrap CIs); and (iii) tabulate the spatial scale (0.25°), temporal window (−20/+10 days), target magnitudes (M≥7.0), and channel–polarization patterns.
+
+**计划修订**
+
+- **位置**：§3.2.2（p.7–9）与 §5.2（p.26–29）补写。
+  - 拟插入（中）：*“我们以支持度差分（地震相关样本与同窗非震样本）为核心准则，并通过1,000次bootstrap给出通道权重与阈值的95%CI，从而将环境背景波动剔除至统计显著性水平之下。”*
+  - 拟插入（EN）：*“We use support-difference between earthquake-related and matched non-seismic samples, and report 95% CIs from 1,000 bootstraps for channel weights and thresholds, effectively bounding background variability.”*
+     **证据/引用**：现有 §3.3–3.5、§4.1–4.3（pp.8–18）与 Fig.4–5, Table 1. 
+
+**是否需补实验/证明/讨论**：需要补讨论与补验证（对应“补充实验#1/#3”）。
+
+------
+
+**意见 2（原文）** 
+
+> “(b) About validation: The validation needs to be improved to support the statement "…transforms satellite earthquake monitoring from an ambiguous global analysis into a reliable, context-aware detection system". Specifically, if the method is applied to AMSR2 global observations over randomly selected dates (with and without major earthquakes), would you see major false positives over the globe? Global maps showing the detection results are needed in this case. In addition, could you apply your approach to the latest earthquake events which are not included in the current training/validation dataset?”
+
+**中文翻译**
+ 需给出全球随机日期的误报情况与检测结果地图，并验证最新未参与训练/验证的数据集上的事件。
+
+**回复（中）**
+ 我们将新增**§4.6 Global validation**：
+
+1. **全球随机无震日测试**（每环境区≥100天），给出**像元级误报率地图**与分区ROC/MCC直方图；
+2. **样本外事件**（数据期后M≥7事件）的前视检验，按相同阈值运行，提供**事前−事后对比**与统计显著性。
+    方法与计算流程与现稿一致（§3.5，p.11–13），新增结果作为图13与补充图S1–S4。
+
+**Reply (EN)**
+ We will provide world maps of detections and per-pixel false-positive rates using random off-earthquake dates, and perform out-of-sample tests on post-dataset M≥7 events under identical thresholds, reporting MCC/precision–recall with uncertainty.
+
+**计划修订**
+
+- **位置**：新增 §4.6（p.21 后）；新增 Fig.13 与 Supp. Figs. S1–S4。
+  - 拟插入（中）：*“全球随机无震日FPR中位数<…（填入结果）；误报热点主要集中于…（如存在），经风浪与海啸敏感性分析后下降至…。”*（占位，待结果回填）
+  - 拟插入（EN）：*“The median per-pixel FPR on random off-earthquake days is <…; hotspots reduce to … after wind–wave and tsunami sensitivity controls.”*（占位）
+     **证据/引用**：评价口径与现有比较基线见 §4.4（pp.18–21）。
+
+**是否需补实验/证明/讨论**：需要补实验（见“补充实验#1/#2”）。
+
+------
+
+### 审稿人 C（Reviewer #2）
+
+**意见 1（原文）**
+> “1. The highlights should be more specifically aligned with the core content and contributions of the paper. Currently, the first highlight does not accurately represent the main focus of the study and may even be somewhat misleading or divert attention from the key issues addressed. I recommend revising it to better reflect the actual scope, methodology, and findings presented in the paper. Accurate and concise highlights are essential for conveying the true value and relevance of the work to potential readers.“
+
+**中文翻译**
+ Highlights 需更准确反映核心贡献，并符合长度限制。
+
+**回复（中）**
+ 我们同意并已重写 Highlights（见下），每条≤85字符，直接对应方法、发现与验证。
+
+**Reply (EN)**
+ Agreed. We provide revised, concise highlights strictly within 85 characters each.
+
+**计划修订（Highlights 供替换，EN）**
+
+- **Revised Research Highlights (≤85 chars each)**
+  1. Environment-aware analysis resolves MBT precursor ambiguity.
+  2. Five surface zones need distinct frequency–polarization pairs.
+  3. Knowledge-guided WE‑FTT attains MCC ≈0.84 on M≥7 events.
+  4. Rule mining quantifies channel importance per environment.
+  5. Global dataset (346.56M obs, 2013–2023) supports robustness.
+
+（可在投稿系统“Highlights”直接替换）
+
+------
+
+**意见 2（原文）**
+> “2. I am concerned about the clarity and reliability of detecting brightness temperature anomalies across both terrestrial and marine environments, given the substantial differences in their surface and atmospheric characteristics. How do the authors substantiate the claim that such anomalies can be consistently observed in both settings? Additionally, the reference to a "brightness glow" in marine environments warrants clarification. While brightness temperature anomalies may serve as indirect indicators of geophysical activity, they do not constitute a visible glow in the conventional sense. Moreover, since oceanic earthquakes are frequently accompanied by tsunamis, to what extent can the authors confidently rule out the possibility that the observed events are tsunami-related rather than purely seismic in nature?“
+
+**中文翻译**
+ 需澄清海洋与陆地环境下亮温异常可检的一致性；避免“可见发光”式表述；说明如何排除海啸关联而非纯地震效应。
+
+**回复（中）**
+ 我们将删除“brightness glow”等可能误导的措辞，统一为“**MBT anomaly**”。方法上：
+
+1. 在海域仅使用**夜间降轨**与**高频极化组合**（89 GHz H等）并与风浪代理（如89 GHz极化差）联合筛选；
+2. 新增**海啸排除窗**与**敏感性分析**（参见补充实验#3）：对海底震，仅在**主震前窗口**评估，并剔除海啸到达±48 h与极端风浪日。
+3. 在讨论中明确“**跨环境一致性**”系指“**在各自最优谱–极化组合下的可重复检出**”，而非同一通道组合的普适性（与Fig.4–5一致）。
+
+**Reply (EN)**
+ We will remove “brightness glow,” use “MBT anomaly,” and add explicit controls for tsunami and high sea-state artifacts. Cross-environment “consistency” will be defined as **repeatability under zone‑optimal channel–polarization pairs**, not universal signatures.
+
+**计划修订**
+
+- **位置**：§2/§3 术语与 §5 讨论措辞；
+  - 拟插入（EN，中译附后）：*“For marine events we restrict to nighttime data, apply high‑frequency H‑pol filters and exclude ±48 h around documented tsunami arrivals; we report pre‑event detections only.”*
+     **证据/引用**：现有夜间数据说明 §3.1（p.5–6）与极化依赖图 Fig.5（p.36）；环境最佳组合 Fig.4（p.35）。
+
+**是否需补实验**：需要（补充实验#3）。
+
+------
+
+**意见 3（原文）**
+> “3. One major limitation of the methodology is the reliance on machine learning techniques to evaluate outcomes from known and controlled experiments. It is unclear why the authors chose to compare the performance of their machine learning models to Principal Component Analysis (PCA), given that PCA is a statistical dimensionality reduction technique rather than a predictive or classification method. PCA does not carry the same interpretive or inferential significance in this context, particularly when applied to datasets of this nature. This comparison raises questions about the appropriateness and validity of the benchmarking strategy employed.“
+
+**中文翻译**
+ PCA是降维而非预测模型，不宜作为基线比较。
+
+**回复（中）**
+ 感谢指出潜在误解。我们并未将PCA作为“预测基线”，而是在**Fig.8c**用PCA对**性能指标**进行可视化与相关性解释（而非对原始特征做分类），监督基线仅限RF/LightGBM/XGBoost/TabNet/CatBoost/MLP（§4.4.2）。我们将修改文字与图注以彻底消除歧义。
+
+**Reply (EN)**
+ We clarify that PCA is used only to visualize **metric-space relations** (Fig.8c), not as a classifier. Supervised baselines are unchanged. We will revise text/captions accordingly.
+
+**计划修订（拟插入文本片段）**
+
+- **位置**：§4.4.2（p.19–21）与 Fig.8 图注：
+  - EN：*“PCA in Fig.8c projects the six evaluation metrics to 2D for visualization only; it is not used as a predictive baseline.”*
+  - 中：*“图8c 的PCA仅用于性能指标可视化，并非监督基线。”*
+     **证据/引用**：20250811-main-elsarticle.pdf, pp.19–21, Fig.8。
+
+------
+
+**意见 4（原文）**
+> “4. Page6; line 50: Since the authors selected both terrestrial and marine earthquakes as case studies, it is difficult to justify the claim of a homogeneous distribution in the selection criteria. It is particularly surprising that, even in the case of exclusively terrestrial events, the classification based solely on vegetation coverage, soil moisture, and land-sea boundaries are considered sufficient. Previous studies have shown that such surface-level parameters are inadequate for characterizing earthquake-related variability. Seismic energy release is influenced by several other critical factors, including earthquake magnitude, focal depth, subsurface stratigraphy, and near-surface failure dynamics. Therefore, I recommend that the authors revisit their zonal classification criteria to incorporate more seismologically relevant parameters. For example, see the paper of https://doi.org/10.1016/j.actaastro.2020.06.005 for the zonal distribution and within that more specific distribution of mag, depth, epicentral region, etc.“
+
+**中文翻译**
+ 仅以植被覆盖、土壤水分与陆海边界分区不足，建议纳入震级、震源深度、构造区等更具地震学意义的参数；并参考 *Acta Astronautica (2020.06.005)* 的分区与阈值。
+
+**回复（中）**
+ 感谢建议。我们将保留**物理辐射传输驱动的环境分区**（§3.2.1，p.6–7, Table 2）作为**一层**，并新增**震源学控制变量层**：在采样与评估时对**震级（M）、深度（Depth）\**做分层或协变量校正；并在结果中报告\**分层MCC/FPR**。讨论中将与TEC统计研究的阈值型发现进行对照（如低纬区域对M与深度的阈值敏感性；refencesPaper.pdf, pp.6–8）。
+
+**Reply (EN)**
+
+We will retain our radiative-transfer-motivated environmental stratification, which is designed to create physically homogeneous zones for signal detection. To address your valid point on seismological factors, we will introduce **seismological stratification** (by magnitude and depth) as control variables in sampling and reporting, enabling direct comparison with TEC‑based thresholds reported in Acta Astronautica (2020). This approach allows us to **decouple** the effects of surface-level signal propagation from those of the seismic source itself.
+
+**计划修订**
+
+- **位置**：§3.2.1（p.6–7，Table 2）后新增“Seismological controls”；
+  - 拟插入（EN/中）：*“We further stratify samples by magnitude bins (7.0–7.4/7.5–7.9/≥8.0) and depth (0–70/70–150/>150 km) to control for source‑side variability, and report zone‑specific MCC/FPR conditional on these bins.” / “进一步按震级与深度分层，报告条件化MCC/FPR。”*
+     **证据/引用**：20250811-main-elsarticle.pdf, Table 2（p.44）；refencesPaper.pdf（pp.1–3,6–8）。 
+
+**是否需补实验**：需要（补充实验#4：震源学分层分析）。
+
+------
+
+**意见 5（原文）**
+> “5. The discussion section is currently unclear and lacks coherence. It does not effectively support or challenge previous research findings. As the discussion is a critical part of the paper, it should clearly highlight how the current study aligns with or differs from previous work. I recommend that the authors revise this section to provide a structured and detailed comparison of their results with existing literature, emphasizing the novel contributions of their study.“
+
+**中文翻译**
+ 讨论需清晰支持或质疑既有结论，并突出本稿新意。
+
+**回复（中）**
+ 同意。我们将将讨论重写为三段式：
+
+1. **与前人一致/不同**（单通道阈值/波包方法 vs. 我们的规则挖掘+加权Transformer）；
+2. **方法贡献**（“知识注入/环境特异”范式对稳健性的边际提升与可解释性）；
+3. **局限与未来工作**（中小震推广、分辨率限制、极端天气/火山/人类活动混淆等）。
+
+**Reply (EN)**
+ We will restructure Discussion into alignment/contrast with prior work, methodological contributions, and limitations/future directions.
+
+**计划修订**
+
+- **位置**：§5（p.26–30）重写段落结构并加入“对照小节”。
+   **证据/引用**：现有§5.1–5.4 与参考文献列表（pp.26–31, 45–53）。
+
+------
+
+## 详细的、可执行的补充实验方案
+
+> 下列每一项均含：目标与假设、数据与样本量、设置、指标与统计、预期产物、解释模板、时间资源、风险与替代。
+
+### 补充实验 #1：全球随机日期误报评估（FPR Mapping）
+
+- **目标与假设**：H0：模型在随机无震日的检出率等同随机（高FPR）；H1：FPR显著低且具空间结构，可由环境背景解释。
+- **数据与样本量**：AMSR‑2 夜间降轨10通道（2013–2023，与主文一致），各环境区随机≥100天（不与任何M≥7.0震前20/震后10天窗重叠），0.25°格点全覆盖。
+- **设置**：使用现有权重与阈值（§3.3–3.5），逐日全局推理，输出二值检出。
+- **指标与统计**：像元FPR、分区FPR分布、FPR–气候带/海陆/地形相关；用bootstrap（1,000次）给出FPR置信区间；多重比较用BH。
+- **预期产物**：
+  - **Fig.13**：“Global false‑positive map (per‑pixel FPR, 0–1)”
+  - **Tab S1**：分区FPR的中位数[Q1,Q3]
+- **结果解释模板**（中/EN，可直接粘贴）：
+  - 中：*“全球FPR中位数为x.xx（95%CI: …），在湿地/干旱区低于海域（Δ=…），说明环境特异阈值有效抑制背景误报。”*
+  - EN: *“The global median FPR is x.xx (95% CI …); wetlands/arid lands exhibit lower FPRs than marine areas (Δ=…), supporting the efficacy of environment‑specific thresholds.”*
+- **时间与资源评估**：推理10,000样本<2秒（现稿）；全局逐日量级≈数亿像元·日，建议**并行CPU/GPU**：128核CPU≈8–12小时；或1×A100≈2–4小时（按现模型推理速率估算）。
+- **风险与替代**：若海域FPR偏高：引入**风浪代理阈值**（89 GHz极化差）或收紧海域通道组合；或仅报告**震前窗口**的条件FPR。
+
+### 补充实验 #2：样本外事件前视验证（Post‑2023 M≥7）
+
+- **目标与假设**：H0：样本外事件性能不优于基线；H1：在固定阈值下保持MCC≈主文水平。
+- **数据**：USGS 2023.08之后M≥7事件，AMSR‑2夜间数据；（待检索列表，保持方法一致）。
+- **设置**：冻结模型与权重，仅前视推理，报告MCC/F1/PR‑AUC。
+- **指标与统计**：主文口径（MCC为主）；事件‑配对非震窗对照；CI用bootstrap。
+- **预期产物**：**Fig. S1–S2**（事件时间序列与空间覆盖）；**Tab S2**（每事件性能）。
+- **解释模板**：
+  - 中：*“在样本外事件集上，MCC为…（较主文差异Δ=…），提示模型具有跨期稳健性/需环境微调。”*
+  - EN：*“On out‑of‑sample events, MCC=… (Δ vs. in‑sample …), indicating temporal robustness/need for minor zone‑specific tuning.”*
+- **时间与资源**：事件数有限；单事件推理<分钟级。
+
+### 补充实验 #3：海啸与极端风浪伪影的敏感性分析（Marine Zone Controls）
+
+- **目标与假设**：H0：海域检出主要来自海啸/风浪伪影；H1：在**海啸排除窗**与**风浪代理筛选**后，显著检出仍存在。
+- **数据**：AMSR‑2 89 GHz极化差（风浪代理）；海啸到达时间（将按公开数据库检索，投稿信中描述来源与窗口设定，本文不新增外部引用）。
+- **设置**：对海域事件：
+  1. 仅用**主震前**窗口；
+  2. 排除**海啸到达±48h**；
+  3. 剔除**极端风浪日**（按89 GHz极化差分位点阈值）。
+- **指标**：条件检出率、FPR变化、ΔMCC。
+- **预期产物**：**Fig. S3** 条件检出对比条形图。
+- **解释模板**：
+  - 中：*“在排除海啸与极端风浪后，海域检出率从…降至…但仍高于随机（p<0.05）。”*
+  - EN：*“After excluding tsunami windows and high sea‑state days, marine detections reduce from … to … yet remain above chance (p<0.05).”*
+- **资源**：阈值计算与子集筛选，CPU小时级。
+
+### 补充实验 #4：震源学分层与阈值稳健性（Magnitude/Depth Controls）
+
+- **目标与假设**：H0：性能对M/Depth分层不稳健；H1：在各分层内仍保持显著MCC，并与TEC文献阈值相符。
+- **数据与设置**：按**M（7.0–7.4/7.5–7.9/≥8.0）**与**深度（0–70/70–150/>150 km）**分层，重复§4.4评价。
+- **指标**：分层MCC、FPR；分层间差异的置信区间。
+- **预期产物**：**Tab S3**（分层性能），**Fig. S4**（森林图）。
+- **解释模板**：
+  - 中：*“性能随深度加深略降，与TEC阈值研究在不同纬带对深度敏感的结论相符。”*
+  - EN：*“Performance mildly decreases with greater depth, consistent with TEC‑based thresholds across latitudinal zones.”*
+- **参考对照**：Acta Astronautica 2020（refencesPaper.pdf，pp.6–8）

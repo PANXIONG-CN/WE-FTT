@@ -1,0 +1,253 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+\usepackage{xeCJK}
+
+\definecolor{commentcolor}{rgb}{0.0, 0.0, 0.5}
+\definecolor{responsecolor}{rgb}{0.0, 0.5, 0.0}
+\definecolor{changecolor}{rgb}{0.5, 0.0, 0.0}
+
+\newcommand{\revcomment}[1]{\begingroup\color{commentcolor}#1\endgroup}
+\newcommand{\revresponse}[1]{\begingroup\color{responsecolor}#1\endgroup}
+\newcommand{\revchange}[1]{\begingroup\color{changecolor}#1\endgroup}
+
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+% ===========================
+% Cover Letter
+% ===========================
+\begin{flushright}
+\today
+\end{flushright}
+
+\bigskip
+
+主编\\
+\textit{Remote Sensing of Environment}\\
+Elsevier
+
+\bigskip
+
+尊敬的 Jing M.~Chen 教授及副主编：
+
+\medskip
+
+我们很荣幸提交修改后的稿件，题为\textit{``Resolving signal ambiguity in earthquake precursor detection with an environment-specific deep learning framework for AMSR-2 data''}（稿件编号：RSE-D-25-02734R1）。我们衷心感谢您和审稿人~\#1 提出的建设性和富有洞察力的意见。
+
+\medskip
+
+\noindent\textbf{我们所做的修改（高影响项）：}
+\begin{itemize}[leftmargin=*, nosep]
+  \item 我们澄清了 AMSR-2 C 波段观测在陆地上的近地表感测限制（厘米级，在稀疏植被条件下通常为 $\sim$1--5~cm），并删除了可能被解读为深层地下感测或准层析成像能力的措辞。
+  \item 我们添加了一阶定量震级比较，对比土壤湿度驱动的介电变异性与可信的百分比级应力相关介电扰动，并在补充材料 Table~S5 中总结了估算结果。
+  \item 我们修订了物理机制讨论（如 P-hole），使其在物理上更加保守，并将其定位为可信的表面耦合途径，而非确定性证据。
+\end{itemize}
+
+\medskip
+
+按要求，我们将提交干净的修改稿和带有修订痕迹（高亮）的版本。
+
+\medskip
+
+谨致问候，\\[0.5em]
+\textbf{申旭辉 教授}\\
+中国科学院国家空间科学中心\\
+Email: \texttt{shenxuhui@nssc.ac.cn}
+
+\clearpage
+
+% ===========================
+% Response to Reviewers
+% ===========================
+\section*{对审稿人的回复（小修）}
+
+\textbf{稿件标题：} \textit{Resolving signal ambiguity in earthquake precursor detection with an environment-specific deep learning framework for AMSR-2 data}\\
+\textbf{稿件编号：} RSE-D-25-02734R1
+
+\medskip
+
+我们衷心感谢副主编和审稿人~\#1 的建设性意见。以下我们按照要求的三部分结构（意见、回复和稿件修改）逐条回复。页码引用自干净修改稿的编译 PDF。
+
+\medskip
+
+\noindent\textbf{主要修改摘要（便于快速查阅）：}
+\begin{itemize}[leftmargin=*, nosep]
+  \item 澄清 AMSR-2 C 波段在陆地上主要对厘米级近地表层敏感，并删除了准层析成像/深层地下的暗示。
+  \item 添加了定量的一阶 Fresnel 灵敏度估算，以比较土壤湿度与百分比级介电扰动（Section~4.2.2；补充材料 Table~S5）。
+  \item 将物理机制讨论（包括 P-hole）重新定位为可信的表面耦合途径，并相应加强了局限性说明。
+\end{itemize}
+
+\bigskip
+
+\subsection*{对副主编的回复}
+
+\revcomment{%
+\textbf{意见 AE-1。}
+副主编（Joseph Awange）：建议小修。
+}
+
+\revresponse{%
+\textbf{回复（AE-1）。}
+我们感谢副主编的建议。根据此指导，我们主要修改了稿件以：（i）澄清 C 波段在陆地上的近地表感测限制；（ii）添加定量灵敏度比较（土壤湿度与可信的应力相关介电扰动）；以及（iii）删除/弱化可能被解读为深层地下感测或准层析成像能力的措辞。
+}
+
+\revchange{%
+\textbf{修改（AE-1）于稿件中。}
+我们实施了下文 Comments R1-2--R1-4 中描述的关键修订，包括 Section~2.1（p.~5）、Section~4.2.1（pp.~31--32）、Section~4.2.2（p.~32）和局限性小节（p.~36）的修改。
+}
+
+\bigskip
+
+\subsection*{对审稿人 \#1 的回复}
+
+\revcomment{%
+\textbf{意见 R1-1。}
+审稿人 \#1：感谢修改和回复。这项工作具有潜在的重要性和价值。我建议再进行一轮修改，以确保方法和结果在物理上是合理的。
+}
+
+\revresponse{%
+\textbf{回复（R1-1）。}
+我们衷心感谢审稿人的正面评价以及对物理一致性重要性的强调。在本次修改中，我们重点：（i）明确澄清 AMSR-2 通道在陆地上的物理感测深度；（ii）添加审稿人要求的定量、基于物理的灵敏度比较；以及（iii）修订可能被理解为深层地下感测或过度强调机制归因的措辞。
+}
+
+\revchange{%
+\textbf{修改（R1-1）于稿件中。}
+我们修订了物理解释部分（Section~4.2.1--4.2.2；pp.~31--33），删除了深层地下/准层析成像的暗示，并在 Section~4.2.2（p.~32）中添加了专门的定量比较段落。具体编辑详见下文 Changes (R1-2) 和 (R1-3)。
+}
+
+\bigskip
+
+\revcomment{%
+\textbf{意见 R1-2。}
+我的主要关注仍然是这项工作的物理基础。让我们只关注陆地区域，其地表介电特性因土壤湿度、植被和积雪特性而高度可变。作者能否提供由以下因素引起的介电变化的定量比较：(a) 土壤湿度（例如，从 0.05 cm$^3$/cm$^3$ 到 0.40 cm$^3$/cm$^3$ 或相反）和 (b) 地震前兆信号或应力变化？请注意，C 波段仅对稀疏植被条件下地表 1 至 5 厘米土壤层的介电特性敏感，因此比较应针对地表土壤层进行。
+}
+
+\revresponse{%
+\textbf{回复（R1-2）。}
+我们感谢这一关键意见，并完全同意在陆地上，土壤湿度驱动的介电变异性是主要的混杂因素。为响应审稿人的请求而不引入新的实地实验，我们添加了基于 Fresnel 发射率物理和代表性近地表介电常数值的定量一阶灵敏度分析。
+
+\medskip
+
+\textbf{(a) 土壤湿度效应（地表 1--5~cm）：}对于近地表体积土壤湿度从 0.05~cm$^3$/cm$^3$（干）变化到 0.40~cm$^3$/cm$^3$（湿），土壤介电常数的实部通常在 C 波段从 $\varepsilon' \sim \mathcal{O}(4)$ 增加到 $\varepsilon' \sim \mathcal{O}(20$--$30)$。使用代表性 AMSR-2 入射角（$\theta \approx 55^\circ$）和 $T_s = 300$~K 的 Fresnel 发射率，这意味着 6.9~GHz 处非常大的 TB 下降，量级为几十到 $\sim$100~K（H 极化特别敏感）。
+
+\medskip
+
+\textbf{(b) 应力相关介电扰动（表面表现）：}微波频率下应力依赖介电特性的实验室测量通常报告，普通矿物/岩石在压缩载荷下 $\varepsilon'$ 的百分比级扰动（例如，Mao et al., 2020b）。使用相同的 Fresnel 灵敏度，$\varepsilon'$ 的保守 1--5\% 扰动仅产生 $\mathcal{O}(1$--几)~K 的 TB 变化。
+
+\medskip
+
+因此，预期陆地表面土壤湿度驱动的介电效应比 C 波段被动辐射计可检测的可信应力相关介电扰动大一到两个数量级。这支持了我们环境特异性分层和统计背景筛选的必要性，这些正是为抑制陆地上的背景变异性而设计的。最后，我们明确纳入了审稿人关于感测深度的观点：在陆地上，AMSR-2 中的 C 波段通道主要对非常浅的近地表层（厘米量级；稀疏植被下通常 $\sim$1--5~cm）敏感，因此我们的定量比较和修订的机制讨论严格限定在近地表/表皮层水平。
+}
+
+\revchange{%
+\textbf{修改（R1-2）于稿件中。}
+\textbf{(1) Section~2.1（p.~5）。}我们删除了准层析成像/更深穿透的措辞，并澄清了陆地上厘米级近地表感测范围。更新后的句子现为：
+\begin{quote}
+The multi-frequency nature of AMSR-2 provides complementary sensitivity to land-surface states. Over land, low-frequency channels (e.g., 6.9 GHz) are relatively more sensitive to cm-scale near-surface dielectric/soil-moisture variability (typically the top few centimeters, $\sim$1--5~cm under sparsely vegetated conditions), whereas higher frequencies (e.g., 89.0 GHz) are more influenced by surface skin temperature, vegetation, and atmospheric contributions. This spectral complementarity supports context-aware screening of candidate pre-seismic perturbations, but does not imply deep subsurface sensing.
+\end{quote}
+
+\medskip
+
+\textbf{(2) Section~4.2.2（p.~32）。}我们添加了新的定量段落（Fresnel 灵敏度估算），将土壤湿度驱动的介电变异性与近地表感测深度处百分比级应力相关介电扰动进行对比。插入的段落为：
+\begin{quote}
+\textbf{Quantitative magnitude comparison (soil moisture vs.\ stress-related dielectric perturbations).} Over land, the observed brightness temperature (TB) variability is strongly controlled by near-surface dielectric changes driven by soil moisture. To quantify the relative magnitude, we provide a first-order sensitivity estimate using Fresnel emissivity for a smooth dielectric half-space at a representative AMSR-2 incidence angle ($\theta \approx 55^{\circ}$), with $TB_p \approx e_p T_s$ and $e_p = 1 - R_p$, where $R_p$ is the Fresnel power reflectivity for polarization $p$. Using representative near-surface permittivity endpoints consistent with established microwave dielectric mixing models, a soil moisture change from $m_v = 0.05$ to $m_v = 0.40$ can increase the real permittivity from approximately $\varepsilon' \approx 4$ (dry) to $\varepsilon' \approx 25$ (wet). For $T_s = 300$~K, this implies a TB decrease of approximately 106~K (H-pol) and 68~K (V-pol) at 6.9~GHz. In contrast, laboratory studies report that stress-dependent dielectric perturbations of common minerals/rocks at microwave frequencies are typically at the percent level (e.g., Mao et al., 2020b). A conservative 1--5\% perturbation in $\varepsilon'$ around $\varepsilon' \approx 10$ yields only $\sim$0.6--2.8~K (H-pol) and $\sim$0.4--1.9~K (V-pol) TB changes in the same Fresnel sensitivity calculation. Although real TB is influenced by roughness, vegetation optical depth, and atmospheric emission, this order-of-magnitude contrast illustrates why soil moisture dominates land TB variability, and motivates the need for our environment-specific stratification and statistical background screening to suppress background confounders. A compact summary of this comparison is provided in Supplementary Table~S5.
+\end{quote}
+
+\medskip
+
+\textbf{(3) 补充材料 Table~S5（p.~72）。}我们添加了一个简洁的表格来总结上述两种定量情景（土壤湿度端点与百分比级 $\varepsilon'$ 扰动）。这是一阶计算的摘要，不引入新实验。
+
+\medskip
+
+{\footnotesize
+\textbf{Supplementary Table S5.} 土壤湿度与百分比级介电扰动驱动的近地表陆地 TB 变化的一阶 Fresnel 灵敏度比较。估算假设光滑介电半空间、代表性 AMSR-2 入射角（$\theta \approx 55^{\circ}$）、$T_s = 300~\mathrm{K}$，以及 $TB_p \approx e_p T_s$（其中 $e_p = 1 - R_p$）。
+
+\medskip
+
+\centering
+\begin{tabular}{@{}llcc@{}}
+\toprule
+Scenario & Near-surface dielectric change & $\Delta TB_{\mathrm{H}}$ (K) & $\Delta TB_{\mathrm{V}}$ (K) \\
+\midrule
+Soil moisture (land, $\sim$1--5~cm) & $\varepsilon': 4 \rightarrow 25$ ($m_v: 0.05 \rightarrow 0.40$) & $\approx 106$ & $\approx 68$ \\
+Percent-level perturbation & $\varepsilon' \approx 10$ with 1--5\% change & $\sim 0.6$--2.8 & $\sim 0.4$--1.9 \\
+\bottomrule
+\end{tabular}
+\par
+}
+}
+
+\bigskip
+
+\revcomment{%
+\textbf{意见 R1-3。}
+此外，作者提到"在湿地和干旱区（Zones D 和 E），低频通道（如 6.9 GHz H-pol）的显著检测能力强烈支持 P-hole 激活假说，即应力诱导的正电荷载流子从地壳迁移到地表，改变地下介电特性"。那么这里"地下"的深度是多少？由于 AMSR 仅对非常浅的地表敏感，下面的任何变化可能无法被捕获。
+}
+
+\revresponse{%
+\textbf{回复（R1-3）。}
+我们同意审稿人的观点，我们之前的措辞含糊不清，可能被解读为暗示 AMSR-2 感测更深的地下层。这不是我们的本意。我们已修订稿件，明确声明 AMSR-2 C 波段观测在陆地上主要对非常浅的近地表/表皮层（厘米量级）敏感，因此任何更深的岩石圈过程（包括 P-hole 假说）只能从其可被被动微波发射率变化检测到的表面表现来讨论。
+
+\medskip
+
+相应地，我们将"subsurface dielectric properties"替换为"near-surface (skin-layer) dielectric/emissivity properties"，并删除了准层析成像措辞。我们还弱化了机制声明的强度，将 P-hole 假说定位为可信的解释而非确定性证据。
+}
+
+\revchange{%
+\textbf{修改（R1-3）于稿件中。}
+在 Section~4.2.1（pp.~31--32）中，我们重写了机制段落，删除了地下深度的暗示，并将讨论重新定位为近地表耦合。修订后的段落现为：
+\begin{quote}
+The observed zone-dependent frequency--polarization responses (Table~1) likely reflect differences in microwave radiative transfer and in how potential seismo-lithospheric processes, if any, couple to the Earth's surface. Over land (Zones D and E), the usefulness of low-frequency channels (e.g., 6.9~GHz H-pol) is consistent with mechanisms that modulate near-surface (skin-layer) dielectric/emissivity properties, which are the portion of the land surface sensed by C-band passive microwave radiometry (order of centimeters under sparsely vegetated conditions). One plausible coupling pathway discussed in the literature is the activation and migration of positive charge carriers (P-holes) under stress (Freund, 2011), which could alter the electrical state and effective emissivity of the very shallow surface layer. However, we emphasize that AMSR-2 does not directly sense deeper subsurface changes; any deep process must manifest through near-surface dielectric/emissivity changes to be observable. In marine environments (Zone A), the dominant sensitivity of high-frequency channels (e.g., 89~GHz) to sea-surface roughness and skin temperature can produce distinct spectral--polarization signatures, potentially associated with sea-state/thermal perturbations (Liu et al., 2023b). The polarization dependence in Figure~5 provides additional discriminatory information, as different physical perturbations can imprint different H/V emissivity responses.
+\end{quote}
+}
+
+\bigskip
+
+\revcomment{%
+\textbf{意见 R1-4。}
+我的感觉是作者有有趣的发现，但解释是错误的。
+}
+
+\revresponse{%
+\textbf{回复（R1-4）。}
+我们感谢这一坦诚的评估，并同意解释必须在物理上保守，与被动微波辐射计的感测物理一致。在修订中，我们：
+(i) 弱化了确定性语言，将机制讨论重新定位为可信的解释；
+(ii) 删除了可能暗示深层地下感测或准层析成像监测的措辞；
+(iii) 添加了定量灵敏度比较，表明土壤湿度驱动的介电变异性可产生 $\mathcal{O}(10^2)$~K 的 TB 变化，而可信的应力相关介电扰动在近地表感测深度预期为 $\mathcal{O}(1$--几)~K；
+(iv) 扩展了局限性，明确声明我们的框架检测统计上稳健的模式，但不唯一识别单一物理机制；以及
+(v) 进一步弱化 Section~4.3 中可能过强的因果/机制措辞，以与近地表感测限制保持一致。
+}
+
+\revchange{%
+\textbf{修改（R1-4）于稿件中。}
+\textbf{(1) Section~4.2.1--4.2.2（pp.~31--33）。}我们修订了机制讨论并添加了定量比较段落（见 Changes (R1-2) 和 (R1-3)）。
+
+\medskip
+
+\textbf{(2) Section~3.2（p.~18）。}我们删除了暗示深层地下机制的措辞。更新后的句子现为：
+\begin{quote}
+Low-frequency channels exhibited broad anomaly detection ranges ($\Delta T \approx 154$K for 6.9GHz H) despite limited reliability ($\le$0.005), indicating complex near-surface coupled precursor processes.
+\end{quote}
+
+\medskip
+
+\textbf{(3) 局限性小节（p.~36）。}我们添加了一个明确的句子，将物理解释限定在近地表感测深度：
+\begin{quote}
+Because AMSR-2 primarily senses the near-surface (cm-scale) layer over land, the physical mechanisms discussed here should be interpreted as plausible surface-coupling pathways rather than definitive evidence of deep subsurface processes.
+\end{quote}
+
+\medskip
+
+\textbf{(4) Section~4.3（p.~35）。}我们进一步弱化了一个可能被解读为断言确定性因果层级的句子。修订后的句子现为：
+\begin{quote}
+This correspondence suggests that the learned hierarchy of model components may reflect a conceptual hierarchy of surface-coupled processes, from lithospheric stress accumulation to surface-observable perturbations in microwave emission.
+\end{quote}
+}
+
+\end{document}

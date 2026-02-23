@@ -1,0 +1,34 @@
+\documentclass[11pt, a4paper]{article}
+
+% --- 必要的通用设置 ---
+\usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{fontspec}
+
+\usepackage[english, bidi=basic, provide=*]{babel}
+\babelprovide[import, onchar=ids fonts]{english}
+
+% 为学术信件设置衬线字体 (Serif)
+\babelfont{rm}{Noto Serif}
+% --- 结束设置 ---
+
+% 确保 \approx 和 \ge 可以正确显示
+\usepackage{amsmath}
+
+% 投稿信通常不缩进
+\setlength{\parindent}{0pt}
+% 投稿信通常不显示页码
+\pagestyle{empty}
+
+\begin{document}
+
+\section*{Highlights}
+
+\begin{itemize}
+    \item Environment-aware analysis resolves MBT precursor ambiguity.
+    \item Five surface zones need distinct frequency--polarization pairs.
+    \item Knowledge-guided WE-FTT attains MCC $\approx$0.84 on M$\ge$7 events.
+    \item Rule mining quantifies channel importance per environment.
+    \item Global dataset (346.56M obs, 2013--2023) supports robustness.
+\end{itemize}
+
+\end{document}

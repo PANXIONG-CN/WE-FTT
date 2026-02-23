@@ -1,0 +1,253 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+
+\definecolor{commentcolor}{rgb}{0.0, 0.0, 0.5}
+\definecolor{responsecolor}{rgb}{0.0, 0.5, 0.0}
+\definecolor{changecolor}{rgb}{0.5, 0.0, 0.0}
+
+\newcommand{\revcomment}[1]{\begingroup\color{commentcolor}#1\endgroup}
+\newcommand{\revresponse}[1]{\begingroup\color{responsecolor}#1\endgroup}
+\newcommand{\revchange}[1]{\begingroup\color{changecolor}#1\endgroup}
+
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+% ===========================
+% Cover Letter
+% ===========================
+\begin{flushright}
+\today
+\end{flushright}
+
+\bigskip
+
+Editor-in-Chief\\
+\textit{Remote Sensing of Environment}\\
+Elsevier
+
+\bigskip
+
+Dear Prof.~Jing M.~Chen and Associate Editor,
+
+\medskip
+
+We are pleased to submit our revised manuscript entitled \textit{``Resolving signal ambiguity in earthquake precursor detection with an environment-specific deep learning framework for AMSR-2 data''} (Ms.\ Ref.\ No.: RSE-D-25-02734R1). We sincerely thank you and Reviewer~\#1 for the constructive and insightful comments.
+
+\medskip
+
+\noindent\textbf{What we changed (high-impact items):}
+\begin{itemize}[leftmargin=*, nosep]
+  \item We clarified the near-surface sensing limitation of AMSR-2 C-band observations over land (cm-scale, typically $\sim$1--5~cm under sparsely vegetated conditions) and removed wording that could be interpreted as deep subsurface sensing or quasi-tomographic capability.
+  \item We added a first-order quantitative magnitude comparison between soil-moisture-driven dielectric variability and plausible percent-level stress-related dielectric perturbations, and summarized the estimates in Supplementary Table~S5.
+  \item We revised the physical mechanism discussion (e.g., P-hole) to be physically conservative and framed as plausible surface-coupling pathways rather than deterministic evidence.
+\end{itemize}
+
+\medskip
+
+As required, we will submit both a clean revised manuscript and a tracked-changes (highlighted) version.
+
+\medskip
+
+Sincerely,\\[0.5em]
+\textbf{Prof. Xuhui Shen}\\
+National Space Science Center,\\
+Chinese Academy of Sciences\\
+Email: \texttt{shenxuhui@nssc.ac.cn}
+
+\clearpage
+
+% ===========================
+% Response to Reviewers
+% ===========================
+\section*{Response to Reviewers (Minor Revision)}
+
+\textbf{Manuscript title:} \textit{Resolving signal ambiguity in earthquake precursor detection with an environment-specific deep learning framework for AMSR-2 data}\\
+\textbf{Ms.\ Ref.\ No.:} RSE-D-25-02734R1
+
+\medskip
+
+We sincerely thank the Associate Editor and Reviewer~\#1 for their constructive comments. Below we provide a point-by-point response, following the required three-part structure (Comment, Response, and Change in the manuscript). Page numbers refer to the compiled PDF of the clean revised manuscript.
+
+\medskip
+
+\noindent\textbf{Summary of major changes (for quick checking):}
+\begin{itemize}[leftmargin=*, nosep]
+  \item Clarified that AMSR-2 C-band over land is sensitive primarily to the cm-scale near-surface layer, and removed quasi-tomographic/deep-subsurface implications.
+  \item Added a quantitative, first-order Fresnel sensitivity estimate to compare soil moisture versus percent-level dielectric perturbations (Section~4.2.2; Supplementary Table~S5).
+  \item Reframed the physical mechanism discussion (including P-hole) as plausible surface-coupling pathways and strengthened limitations accordingly.
+\end{itemize}
+
+\bigskip
+
+\subsection*{Response to Associate Editor}
+
+\revcomment{%
+\textbf{Comment AE-1.}
+Associate Editor (Joseph Awange): Minor revision is recommended.
+}
+
+\revresponse{%
+\textbf{Response (AE-1).}
+We thank the Associate Editor for the recommendation. Following this guidance, we revised the manuscript mainly to (i) clarify the C-band near-surface sensing limitation over land, (ii) add a quantitative sensitivity comparison (soil moisture vs.\ plausible stress-related dielectric perturbations), and (iii) remove/soften wording that could be interpreted as deep subsurface sensing or quasi-tomographic capability.
+}
+
+\revchange{%
+\textbf{Change (AE-1) in the manuscript.}
+We implemented the key revisions described below under Comments R1-2--R1-4, including changes in Section~2.1 (p.~5), Section~4.2.1 (pp.~31--32), Section~4.2.2 (p.~32), and the Limitations subsection (p.~36).
+}
+
+\bigskip
+
+\subsection*{Response to Reviewer \#1}
+
+\revcomment{%
+\textbf{Comment R1-1.}
+Reviewer \#1: Thanks for the revisions and responses. This work is potentially important and valuable. I would recommend another round of revision to ensure the methods and results are physically sounding.
+}
+
+\revresponse{%
+\textbf{Response (R1-1).}
+We sincerely thank the reviewer for the positive evaluation and for stressing the importance of physical consistency. In this revision we focused on (i) explicitly clarifying the physical sensing depth of AMSR-2 channels over land, (ii) adding a quantitative, physically grounded sensitivity comparison requested by the reviewer, and (iii) revising phrasing that could be read as deep subsurface sensing or overly strong mechanism attribution.
+}
+
+\revchange{%
+\textbf{Change (R1-1) in the manuscript.}
+We revised the physical interpretation sections (Section~4.2.1--4.2.2; pp.~31--33) to remove deep-subsurface/quasi-tomographic implications and added a dedicated quantitative comparison paragraph in Section~4.2.2 (p.~32). The specific edits are detailed under Changes (R1-2) and (R1-3) below.
+}
+
+\bigskip
+
+\revcomment{%
+\textbf{Comment R1-2.}
+My main concern is still the physical basis of this work. Let's just focus on land area, whose surface dielectric properties are highly variable due to soil moisture, vegetation, and snow properties. Could the authors provide quantitative comparisons of the dielectric changes caused by (a) soil moisture (e.g., from 0.05 cm3/cm3 to 0.40 cm3/cm3 or/and the opposite) and (b) earthquake precursor signals or stress changes? Please note that C-band is only sensitive to surface 1- to 5-cm soil layer dielectric properties under sparsely vegetated conditions, so the comparisons should be made for the surface soil layer.
+}
+
+\revresponse{%
+\textbf{Response (R1-2).}
+We appreciate this key comment and fully agree that, over land, soil-moisture-driven dielectric variability is the dominant confounder. To address the reviewer’s request without introducing new field experiments, we added a quantitative first-order sensitivity analysis based on Fresnel emissivity physics and representative near-surface permittivity values.
+
+\medskip
+
+\textbf{(a) Soil moisture effect (surface 1--5~cm):} For near-surface volumetric soil moisture changing from 0.05~cm$^3$/cm$^3$ (dry) to 0.40~cm$^3$/cm$^3$ (wet), the real part of soil permittivity typically increases from $\varepsilon' \sim \mathcal{O}(4)$ to $\varepsilon' \sim \mathcal{O}(20$--$30)$ in the C-band. Using Fresnel emissivity at a representative AMSR-2 incidence angle ($\theta \approx 55^\circ$) and $T_s = 300$~K, this implies a very large TB decrease at 6.9~GHz on the order of tens to $\sim$100~K (with H-pol being particularly sensitive).
+
+\medskip
+
+\textbf{(b) Stress-related dielectric perturbation (surface manifestation):} Laboratory measurements of stress-dependent dielectric properties at microwave frequencies typically report percent-level perturbations of $\varepsilon'$ under compressive loading for common minerals/rocks (e.g., Mao et al., 2020b). Using the same Fresnel sensitivity, a conservative 1--5\% perturbation of $\varepsilon'$ produces only $\mathcal{O}(1$--a few)~K changes in TB.
+
+\medskip
+
+Therefore, the land-surface soil-moisture-driven dielectric effect is expected to be one to two orders of magnitude larger than plausible stress-related dielectric perturbations detectable by C-band passive radiometry. This supports the need for our environment-specific stratification and statistical background screening, which are designed precisely to suppress background variability over land. Finally, we explicitly incorporated the reviewer’s point about sensing depth: over land, the C-band channels in AMSR-2 are sensitive mainly to the very shallow near-surface layer (order of centimeters; typically $\sim$1--5~cm under sparse vegetation), so our quantitative comparison and revised mechanism discussion are strictly framed at the near-surface/skin-layer level.
+}
+
+\revchange{%
+\textbf{Change (R1-2) in the manuscript.}
+\textbf{(1) Section~2.1 (p.~5).} We removed quasi-tomographic/deeper-penetration wording and clarified the cm-scale near-surface sensing scope over land. The updated sentence now reads:
+\begin{quote}
+The multi-frequency nature of AMSR-2 provides complementary sensitivity to land-surface states. Over land, low-frequency channels (e.g., 6.9 GHz) are relatively more sensitive to cm-scale near-surface dielectric/soil-moisture variability (typically the top few centimeters, $\sim$1--5~cm under sparsely vegetated conditions), whereas higher frequencies (e.g., 89.0 GHz) are more influenced by surface skin temperature, vegetation, and atmospheric contributions. This spectral complementarity supports context-aware screening of candidate pre-seismic perturbations, but does not imply deep subsurface sensing.
+\end{quote}
+
+\medskip
+
+\textbf{(2) Section~4.2.2 (p.~32).} We added a new quantitative paragraph (Fresnel sensitivity estimate) that contrasts soil-moisture-driven dielectric variability with percent-level stress-related dielectric perturbations at the near-surface sensing depth. The inserted paragraph reads:
+\begin{quote}
+\textbf{Quantitative magnitude comparison (soil moisture vs.\ stress-related dielectric perturbations).} Over land, the observed brightness temperature (TB) variability is strongly controlled by near-surface dielectric changes driven by soil moisture. To quantify the relative magnitude, we provide a first-order sensitivity estimate using Fresnel emissivity for a smooth dielectric half-space at a representative AMSR-2 incidence angle ($\theta \approx 55^{\circ}$), with $TB_p \approx e_p T_s$ and $e_p = 1 - R_p$, where $R_p$ is the Fresnel power reflectivity for polarization $p$. Using representative near-surface permittivity endpoints consistent with established microwave dielectric mixing models, a soil moisture change from $m_v = 0.05$ to $m_v = 0.40$ can increase the real permittivity from approximately $\varepsilon' \approx 4$ (dry) to $\varepsilon' \approx 25$ (wet). For $T_s = 300$~K, this implies a TB decrease of approximately 106~K (H-pol) and 68~K (V-pol) at 6.9~GHz. In contrast, laboratory studies report that stress-dependent dielectric perturbations of common minerals/rocks at microwave frequencies are typically at the percent level (e.g., Mao et al., 2020b). A conservative 1--5\% perturbation in $\varepsilon'$ around $\varepsilon' \approx 10$ yields only $\sim$0.6--2.8~K (H-pol) and $\sim$0.4--1.9~K (V-pol) TB changes in the same Fresnel sensitivity calculation. Although real TB is influenced by roughness, vegetation optical depth, and atmospheric emission, this order-of-magnitude contrast illustrates why soil moisture dominates land TB variability, and motivates the need for our environment-specific stratification and statistical background screening to suppress background confounders. A compact summary of this comparison is provided in Supplementary Table~S5.
+\end{quote}
+
+\medskip
+
+\textbf{(3) Supplementary Table~S5 (p.~72).} We added a compact table to summarize the two quantitative scenarios above (soil moisture endpoints vs.\ percent-level $\varepsilon'$ perturbations). This is a summary of the first-order calculation and does not introduce new experiments.
+
+\medskip
+
+{\footnotesize
+\textbf{Supplementary Table S5.} First-order Fresnel sensitivity comparison of near-surface land TB changes driven by soil moisture versus percent-level dielectric perturbations. The estimates assume a smooth dielectric half-space, a representative AMSR-2 incidence angle ($\theta \approx 55^{\circ}$), $T_s = 300~\mathrm{K}$, and $TB_p \approx e_p T_s$ with $e_p = 1 - R_p$.
+
+\medskip
+
+\centering
+\begin{tabular}{@{}llcc@{}}
+\toprule
+Scenario & Near-surface dielectric change & $\Delta TB_{\mathrm{H}}$ (K) & $\Delta TB_{\mathrm{V}}$ (K) \\
+\midrule
+Soil moisture (land, $\sim$1--5~cm) & $\varepsilon': 4 \rightarrow 25$ ($m_v: 0.05 \rightarrow 0.40$) & $\approx 106$ & $\approx 68$ \\
+Percent-level perturbation & $\varepsilon' \approx 10$ with 1--5\% change & $\sim 0.6$--2.8 & $\sim 0.4$--1.9 \\
+\bottomrule
+\end{tabular}
+\par
+}
+}
+
+\bigskip
+
+\revcomment{%
+\textbf{Comment R1-3.}
+In addition, the authors mentioned that "In wetland and arid zones (Zones D and E), the significant detection capabilities of low-frequency channels (e.g., 6.9 GHz H-pol) strongly support the P-hole activation hypothesis, where stress-induced positive charge carriers migrate from the crust to the surface, modifying subsurface dielectric properties". So here what is the depth of "subsurface"? Since AMSR is only sensitive to the very shallow surface and anything changed beneath may not be captured.
+}
+
+\revresponse{%
+\textbf{Response (R1-3).}
+We agree with the reviewer that our previous wording was ambiguous and could be interpreted as implying that AMSR-2 senses deeper subsurface layers. This was not our intention. We have revised the manuscript to explicitly state that AMSR-2 C-band observations are sensitive mainly to the very shallow near-surface/skin layer (order of centimeters) over land, and therefore any deeper lithospheric process (including the P-hole hypothesis) can only be discussed in terms of its surface manifestation detectable by passive microwave emissivity changes.
+
+\medskip
+
+Accordingly, we replaced ``subsurface dielectric properties'' with ``near-surface (skin-layer) dielectric/emissivity properties'' and removed quasi-tomographic wording. We also softened the strength of the mechanism claim by framing the P-hole hypothesis as a plausible interpretation rather than definitive evidence.
+}
+
+\revchange{%
+\textbf{Change (R1-3) in the manuscript.}
+In Section~4.2.1 (pp.~31--32), we rewrote the mechanism paragraph to remove subsurface depth implications and to reframe the discussion in terms of near-surface coupling. The revised paragraph now reads:
+\begin{quote}
+The observed zone-dependent frequency--polarization responses (Table~1) likely reflect differences in microwave radiative transfer and in how potential seismo-lithospheric processes, if any, couple to the Earth's surface. Over land (Zones D and E), the usefulness of low-frequency channels (e.g., 6.9~GHz H-pol) is consistent with mechanisms that modulate near-surface (skin-layer) dielectric/emissivity properties, which are the portion of the land surface sensed by C-band passive microwave radiometry (order of centimeters under sparsely vegetated conditions). One plausible coupling pathway discussed in the literature is the activation and migration of positive charge carriers (P-holes) under stress (Freund, 2011), which could alter the electrical state and effective emissivity of the very shallow surface layer. However, we emphasize that AMSR-2 does not directly sense deeper subsurface changes; any deep process must manifest through near-surface dielectric/emissivity changes to be observable. In marine environments (Zone A), the dominant sensitivity of high-frequency channels (e.g., 89~GHz) to sea-surface roughness and skin temperature can produce distinct spectral--polarization signatures, potentially associated with sea-state/thermal perturbations (Liu et al., 2023b). The polarization dependence in Figure~5 provides additional discriminatory information, as different physical perturbations can imprint different H/V emissivity responses.
+\end{quote}
+}
+
+\bigskip
+
+\revcomment{%
+\textbf{Comment R1-4.}
+My feeling is that the authors had interesting findings but with wrong explanations.
+}
+
+\revresponse{%
+\textbf{Response (R1-4).}
+We appreciate this candid assessment and agree that the explanation must be physically conservative and consistent with the sensing physics of passive microwave radiometry. In the revision, we have:
+(i) softened deterministic language and reframed the mechanism discussion as plausible interpretations;
+(ii) removed wording that could imply deep subsurface sensing or quasi-tomographic monitoring;
+(iii) added a quantitative sensitivity comparison showing that soil-moisture-driven dielectric variability can produce $\mathcal{O}(10^2)$~K TB changes, whereas plausible stress-related dielectric perturbations are expected to be $\mathcal{O}(1$--few)~K at the near-surface sensing depth; and
+(iv) expanded the limitations to state explicitly that our framework detects statistically robust patterns but does not uniquely identify a single physical mechanism; and
+(v) further softened potentially over-strong causal/mechanistic wording in Section~4.3 to align with the near-surface sensing limitations.
+}
+
+\revchange{%
+\textbf{Change (R1-4) in the manuscript.}
+\textbf{(1) Section~4.2.1--4.2.2 (pp.~31--33).} We revised the mechanism discussion and added the quantitative comparison paragraph (see Changes (R1-2) and (R1-3)).
+
+\medskip
+
+\textbf{(2) Section~3.2 (p.~18).} We removed wording that implied deep subsurface mechanisms. The updated sentence now reads:
+\begin{quote}
+Low-frequency channels exhibited broad anomaly detection ranges ($\Delta T \approx 154$K for 6.9GHz H) despite limited reliability ($\le$0.005), indicating complex near-surface coupled precursor processes.
+\end{quote}
+
+\medskip
+
+\textbf{(3) Limitations subsection (p.~36).} We added one explicit sentence to constrain the physical interpretation to the near-surface sensing depth:
+\begin{quote}
+Because AMSR-2 primarily senses the near-surface (cm-scale) layer over land, the physical mechanisms discussed here should be interpreted as plausible surface-coupling pathways rather than definitive evidence of deep subsurface processes.
+\end{quote}
+
+\medskip
+
+\textbf{(4) Section~4.3 (p.~35).} We further softened one sentence that could be interpreted as asserting a definitive causal hierarchy. The revised sentence now reads:
+\begin{quote}
+This correspondence suggests that the learned hierarchy of model components may reflect a conceptual hierarchy of surface-coupled processes, from lithospheric stress accumulation to surface-observable perturbations in microwave emission.
+\end{quote}
+}
+
+\end{document}

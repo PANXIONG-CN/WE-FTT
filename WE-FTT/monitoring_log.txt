@@ -1,0 +1,73 @@
+==========================================
+监控开始: 2025-11-04 17:26:42
+==========================================
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+检查时间: 2025-11-04 17:26:42
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✓ 训练进程运行中 (PID: 1085410)
+
+📊 资源使用:
+  CPU: 0.0%  |  内存: 0.0% (3 MB)
+  启动时间: Tue Nov  4 17:14:12 2025
+
+🎮 GPU状态:
+  GPU 0: 0 %利用率, 13 MiB/24576 MiB显存, 28°C
+
+📝 最新训练日志:
+  等待日志输出... (数据加载阶段)
+
+💾 输出文件:
+  结果目录尚未创建 (训练未开始)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+检查时间: 2025-11-04 17:36:42
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✓ 训练进程运行中 (PID: 1085410)
+
+📊 资源使用:
+  CPU: 0.0%  |  内存: 0.0% (1 MB)
+  启动时间: Tue Nov  4 17:14:12 2025
+
+🎮 GPU状态:
+  GPU 0: 0 %利用率, 13 MiB/24576 MiB显存, 28°C
+
+📝 最新训练日志:
+  等待日志输出... (数据加载阶段)
+
+💾 输出文件:
+  结果目录尚未创建 (训练未开始)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+检查时间: 2025-11-04 17:46:51
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚠️  训练进程未运行！
+
+❌ 训练进程异常退出！
+
+最后的日志输出：
+2025-11-04 17:14:15 - __main__ - INFO - Using GPU 0
+2025-11-04 17:14:15 - __main__ - INFO - Preparing data...
+2025-11-04 17:14:15 - src.data_processing - INFO - Starting data processing pipeline...
+2025-11-04 17:14:29 - src.data_processing - INFO - Loaded training data with shape (346560323, 21)
+2025-11-04 17:15:48 - src.data_processing - INFO - Data validation passed
+2025-11-04 17:28:56 - src.data_processing - INFO - Removed 17222808 duplicate rows
+2025-11-04 17:29:10 - src.data_processing - INFO - Found 63 outliers in BT_06_H
+2025-11-04 17:29:26 - src.data_processing - INFO - Found 63 outliers in BT_06_V
+2025-11-04 17:29:42 - src.data_processing - INFO - Found 53 outliers in BT_10_H
+2025-11-04 17:29:58 - src.data_processing - INFO - Found 74 outliers in BT_10_V
+2025-11-04 17:30:14 - src.data_processing - INFO - Found 135 outliers in BT_23_H
+2025-11-04 17:30:30 - src.data_processing - INFO - Found 166 outliers in BT_23_V
+2025-11-04 17:30:46 - src.data_processing - INFO - Found 143 outliers in BT_36_H
+2025-11-04 17:31:03 - src.data_processing - INFO - Found 4309 outliers in BT_36_V
+2025-11-04 17:31:19 - src.data_processing - INFO - Found 4991 outliers in BT_89_H
+2025-11-04 17:31:35 - src.data_processing - INFO - Found 12034938 outliers in BT_89_V
+2025-11-04 17:34:40 - src.data_processing - INFO - Features normalized
+/tmp/tmpvbr6jywq: line 3: 1085440 Killed                  python scripts/train_with_save.py --model_name we_ftt --data_path /mnt/hdd_4tb_data/ArchivedWorks/MBT/Final/WE-FTT/data/processed/training_data_labeled.parquet --epochs 50 --batch_size 10000 --learning_rate 0.001 --output_dir results --gpu 0
+
+ERROR conda.cli.main_run:execute(124): `conda run python scripts/train_with_save.py --model_name we_ftt --data_path /mnt/hdd_4tb_data/ArchivedWorks/MBT/Final/WE-FTT/data/processed/training_data_labeled.parquet --epochs 50 --batch_size 10000 --learning_rate 0.001 --output_dir results --gpu 0` failed. (See above for error)
+
+监控将在下次检查后自动停止。
+监控结束: 2025-11-04 17:46:51
+==========================================
+

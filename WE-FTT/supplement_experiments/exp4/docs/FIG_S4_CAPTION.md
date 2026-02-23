@@ -1,0 +1,3 @@
+Figure S4. Forest plots (2 panels) of MCC (left) and FPR (right) by Magnitude and Depth strata (2×2; M≥7.0). Points denote estimates; horizontal whiskers denote 95% CIs. Vertical dashed lines mark overall means (MCC=0.804; FPR=0.038). Strata sample sizes: shallow × M7.0–7.4: n=70; shallow × M≥7.5: n=38; deep × M7.0–7.4: n=28; deep × M≥7.5: n=18. Performance mildly decreases with greater depth, consistent with TEC-based thresholds across latitudinal zones.
+
+图 S4（双面板森林图）。展示 2×2 分层（M≥7.0）下的 MCC（左）与 FPR（右）：点为点估计，横线为 95% CI；竖虚线为总体均值（MCC=0.804；FPR=0.038）。分层样本量：浅层 × M7.0–7.4：n=70；浅层 × M≥7.5：n=38；深层 × M7.0–7.4：n=28；深层 × M≥7.5：n=18。结果表明性能随深度加深略降，与 TEC 阈值研究在不同纬带对深度敏感的结论一致。

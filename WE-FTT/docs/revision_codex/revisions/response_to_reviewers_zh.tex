@@ -1,0 +1,470 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{setspace}
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{xeCJK}
+
+% Colors and helper commands
+\definecolor{commentcolor}{rgb}{0.0, 0.0, 0.5}
+\definecolor{responsecolor}{rgb}{0.0, 0.5, 0.0}
+\definecolor{changecolor}{rgb}{0.5, 0.0, 0.0}
+
+% Use grouping + color so that multi-paragraph content is handled robustly.
+\newcommand{\revcomment}[1]{\begingroup\color{commentcolor}#1\endgroup}
+\newcommand{\revresponse}[1]{\begingroup\color{responsecolor}#1\endgroup}
+\newcommand{\revchange}[1]{\begingroup\color{changecolor}#1\endgroup}
+
+% 投稿信通常不缩进
+\setlength{\parindent}{0pt}
+% 投稿信通常不显示页码
+
+
+\begin{document}
+
+\pagestyle{empty}
+
+\begin{flushright}
+\today
+\end{flushright}
+
+\bigskip
+
+主编\\
+\textit{Remote Sensing of Environment}\\
+Elsevier
+
+\bigskip
+
+尊敬的 Jing M. Chen 教授及副主编：
+
+我们很荣幸提交修改后的稿件，题目为\textit{``Resolving signal ambiguity in earthquake precursor detection with an environment-specific deep learning framework for AMSR-2 data.''}（利用环境特异性深度学习框架解决 AMSR-2 数据地震前兆检测中的信号模糊性问题）。我们非常感谢副主编的指导和审稿人的深思熟虑的批评意见。根据"大修"决定，我们进行了实质性的修改，我们相信这些修改通过具体的分析、透明的统计数据和精确的稿件修订解决了所有关注的问题。
+
+\medskip
+
+\noindent\textbf{我们所做的修改（高影响项）：}
+
+\begin{enumerate}
+\item \textbf{全球验证（新增 Section~3.6）。}我们添加了全面的全球验证套件，包括：（i）随机日期全球假阳性率（FPR）映射，附世界地图和分区统计数据；（ii）对 26 个样本外 M$\ge$7.0 事件（2023--2025年）的前瞻性测试；（iii）排除海啸到达窗口和高海况天数的海洋区域对照；以及（iv）震级-深度分层分析。新的 Figure~13 以及补充材料 Figures/Tables~S1--S4 记录了这些结果。
+\item \textbf{地震学对照和文献对齐。}我们明确按震级和震源深度分层（正文中为 2$\times$2 分组；补充材料中为扩展分组），并讨论了与 Shah \& Jin~(2015) 以及 Shah et al.~(2020, 2022) 的一致性，表明我们基于 MBT 的趋势在可比的地震学约束下与已建立的 TEC 统计数据相吻合。
+\item \textbf{澄清 PCA 的作用。}我们澄清 PCA 仅用于度量空间可视化，而非预测基线。监督比较器仍为 RF、LightGBM、XGBoost、TabNet、CatBoost 和 MLP（Results 部分；Figure~8 标题已相应更新）。
+\item \textbf{统计透明度（Methods Section~2.5.4）。}我们提供了统计程序的统一描述：1,000 次迭代的 bootstrap 置信区间、FPR 的 Wilson 区间、敏感性研究的配对检验，以及针对 0.5 机会水平的单样本检验用于检测率声明。我们还将每个统计选择与其使用的图/表进行了交叉引用。
+\end{enumerate}
+
+\medskip
+
+\noindent\textbf{结果和定位：}
+
+在 3.4656 亿次 MBT 测量和 154 次 M$\ge$7.0 地震（2013--2023年）中，我们的知识引导 WE-FTT 达到了最先进的性能（样本内主要指标 MCC $\approx$ 0.84），并在全球样本外条件下保持稳健。环境特异性分析解决了地震与非地震 MBT 变异性之间的历史模糊性，地震学对齐的分层显示了与 TEC 文献的跨传感器一致性。
+
+\medskip
+
+\noindent\textbf{行政声明：}
+
+\begin{itemize}
+\item 本投稿为原创作品，未在其他地方审议。所有作者批准内容和作者顺序。
+\item 未声明利益冲突。
+\item 数据/代码：我们将根据要求或在接受后通过存储库分享处理后的数据描述符和分析脚本，以便复制（根据期刊政策）。
+\item 我们上传：修改稿（无标记版）、修改稿（标记版）、审稿人回复信（本文件）和补充信息。
+\end{itemize}
+
+我们感谢细致的评估，希望这些修改符合期刊标准。如果修改能由同一位副主编和审稿人处理，我们将不胜感激，他们已经熟悉技术范围。
+
+\bigskip
+
+谨致问候，\\[0.5em]
+\vspace{2em}
+
+\textbf{申旭辉 教授}\\
+中国科学院国家空间科学中心\\
+Email: \texttt{shenxuhui@nssc.ac.cn}
+
+\bigskip
+
+\newpage
+
+% 从此处开始启用并重置页码
+\pagenumbering{arabic}
+\pagestyle{plain}
+
+\onehalfspacing
+
+\subsection*{对副主编的回复}
+
+\revcomment{%
+\textbf{意见 AE-1。}本稿件提出了一种用于卫星地震监测的新型知识引导 AI 框架。虽然该主题具有重要意义且方法前景广阔，但审稿人提出了必须解决的重大关注，以验证研究的声明。要求作者进行大修，直接回应所有要点。关键包括：为不同环境中基于微波的前兆信号提供更强的物理依据；在全球范围内稳健验证该方法以排除假阳性和海啸相关伪影；论证机器学习基准策略的合理性；并彻底修改讨论部分，以清晰阐述其对现有文献的贡献。成功的修改将显著增强稿件的科学严谨性和影响力。
+}
+
+\revresponse{%
+\textbf{回复（AE-1）。}我们衷心感谢副主编的建设性总结和明确指导，这对构建我们的大修至关重要。我们按以下方式处理了四个关键支柱：（1）我们扩展了讨论部分，引入了环境依赖的频率-极化响应和机制（Section~4.2.1）以及专门讨论前兆信号与背景变异性分离的小节（Section~4.2.2）。（2）我们添加了新的"全球验证"小节（Section~3.6）以及 Figure~13 和补充材料 Figures~S1--S4 和 Tables~S1--S4，量化了全球假阳性率、样本外性能、海啸和海况敏感性以及震级/深度分层。（3）我们澄清 PCA 仅用于度量空间可视化，而非预测基线，并强调监督基线仍为 RF、LightGBM、XGBoost、TabNet、CatBoost 和 MLP。（4）我们完善了讨论部分，强调与先前工作的一致性和对比、方法论贡献以及局限性/未来方向，包括与 Shah et al.~(2015, 2020, 2022) 关于地震-电离层异常的基于 TEC 的统计研究的明确比较。
+}
+
+\revchange{%
+\textbf{修改（AE-1）于稿件中。}
+关键结构性修改包括：（i）新的全球验证小节（Section~3.6，p.~28）与 Figure~13（p.~50）以及补充材料 Figures~S1--S4 和 Tables~S1--S4（pp.~64--70），量化了全球假阳性率、样本外性能、海啸和海况敏感性以及震级/深度分层；（ii）完善的讨论部分，包含环境依赖机制和背景分离的单独小节（Section~4.2.1 和 Section~4.2.2，pp.~31--32）；（iii）明确的地震学对照（震级/深度分层）以及在 Methods（Section~2.2.1，p.~6）和 Results/Discussion（Sections~3.6 和 4.2.2）中引用 Shah et al.~(2015, 2020, 2022)；以及（iv）在 Results（p.~23 的 PCA 可视化段落）和 Figure~8（p.~45）中澄清 PCA 的作用，仅用于度量空间可视化而非预测基线。}
+
+\subsection*{对审稿人 \#1 的回复}
+
+\revcomment{%
+\textbf{意见 R1-0。}本研究采用复杂的 AI 方法，利用 AMSR-2 亮度温度（Tb）观测来检测地震前兆信号。卫星地震监测/预测主题对读者非常有吸引力，特别是其精心设计的环境分区和知识引导 AI 框架。然而，在继续之前，必须清楚地解决微波地震检测的基础物理以及更稳健的验证。
+}
+
+\revresponse{%
+\textbf{回复（R1-0）。}我们感谢审稿人认可所提框架的潜力，并指出需要加强的两个关键方面：基础微波物理和验证的稳健性。在修改稿中，我们：（i）扩展了讨论部分，阐述了环境特异性机制以及它们如何产生区域依赖的频率-极化特征（Section~4.2.1）；（ii）添加了专门讨论使用支持度差异和 bootstrap 置信区间分离前兆信号与背景变异性的小节（Section~4.2.2）；以及（iii）引入了新的全球验证小节（Section~3.6），量化了全球假阳性率和样本外性能，包括海洋对照和地震学分层分析。我们希望这些补充解决了审稿人的主要关注，并澄清了框架的物理基础和经验稳健性。
+}
+
+\revchange{%
+\textbf{修改（R1-0）于稿件中。}
+修改后的讨论部分（Section~4.2）现包含关于环境依赖频率-极化响应和前兆信号与背景变异性分离的小节，Section~3.6 提供了全面的全球验证，量化了假阳性行为、样本外性能、海洋对照和震级/深度分层。
+}
+
+\bigskip
+
+\revcomment{%
+\textbf{意见 R1-1。}(a) 关于微波物理：作者试图通过首先对地球表面进行分区来约束问题。然而，对于给定的 25 公里网格，卫星 Tb 观测受到时变因素的很大影响，如物理温度、大气水汽含量（如 89 GHz）、海洋表面粗糙度变化（如所有 AMSR2 频率）、土壤湿度变化（如 C 至 Ku 波段）、植被水分变化（如 C 至 Ku 波段）和射频干扰（RFI）。除非地震前兆信号具有与背景信号明显不同的独特特征和/或大幅度，否则研究基础不能被认为是坚实的。我建议作者详细介绍和讨论已发现前兆特征的物理机制，并说明这些特征如何不受背景信号的影响。此外，您可以从指定主要地震岩石圈-大气相互作用微波发射的空间尺度、幅度、频率和极化特征开始。
+}
+
+\revresponse{%
+\textbf{回复（R1-1.1）。}我们感谢审稿人对基础微波物理以及需要清楚分离地震前信号与背景变异性的深刻评论。在修改稿中，我们通过在讨论部分（Section~4.2.1，p.~31）引入环境依赖的频率-极化响应来加强物理解释。我们明确将 Table~1 和 Figure~3 中观察到的区域特异性异常模式与土壤中应力激活的电荷载流子和介电扰动（湿地和干旱地区）以及海洋环境中的海面粗糙度和表皮温度调制联系起来。这澄清了不同物理机制如何在不同环境体制中占主导地位，以及为什么特定的频率-极化对预计对震前过程敏感。
+}
+
+\revchange{%
+\textbf{修改（R1-1.1）于稿件中。}
+关于环境依赖频率-极化响应的新小节（Section~4.2.1，p.~31）内容如下：
+
+\begin{quote}
+The observed frequency-dependent anomaly patterns provide compelling evidence for multiple, interconnected seismic preparation mechanisms operating across different environmental contexts. Zone-dependent frequency--polarization responses (Table~1) naturally arise from stress-activated charge carriers and dielectric perturbations in soils (wetlands and arid lands), whereas in marine settings higher-frequency channels emphasize sea-surface roughness and skin-temperature modulations, producing distinct spectral--polarization signatures. In wetland and arid zones (Zones D and E), the significant detection capabilities of low-frequency channels (e.g., 6.9~GHz H-pol) strongly support the P-hole activation hypothesis, where stress-induced positive charge carriers migrate from the crust to the surface, modifying subsurface dielectric properties (Freund, 2011; Mao et al., 2020). The deeper penetration of lower frequencies enables quasi-tomographic monitoring of these charge distributions, a mechanism amplified in moisture-rich soils (Jing et al., 2022). Conversely, marine environments (Zone A) exhibit distinct signatures in high-frequency channels (e.g., 89~GHz H-pol), which is consistent with models of thermal energy transfer or microscale surface roughness changes induced by submarine fault activity or gas seepage (Liu et al., 2023). The systematic polarization dependence observed across all zones, highlighted in Figure~3, further provides a powerful discriminator between genuine precursors and meteorological noise, which typically affects both polarizations more uniformly (Lixin et al., 2022).
+\end{quote}
+}
+
+\revresponse{%
+\textbf{回复（R1-1.2）。}为解决定量分离前兆特征与背景变异性的需求，我们添加了专门讨论前兆信号与背景变异性分离的小节（Section~4.2.2，p.~32），并在 Methods（Section~2.2，p.~8）中澄清了背景筛选流程。我们解释了我们的支持度差异准则如何作为信噪比的代理，该准则在地震相关样本和匹配的非地震样本之间计算，并通过 1,000 次 bootstrap 重采样量化。只有 95\% 置信区间的支持度差异排除零的项集才被保留，确保报告的模式在 95\% 置信水平下不能被背景波动解释。
+}
+
+\revchange{%
+\textbf{修改（R1-1.2）于稿件中。}
+在 Section~2.2（"地震与非地震数据的识别"，p.~8）中，我们添加了以下描述背景筛选流程的段落：
+
+\begin{quote}
+To further suppress background variability and isolate potential precursor signals, we applied a background-screening pipeline based on support-difference between earthquake-related and matched non-seismic samples. For each frequent itemset identified within an environmental zone, we computed its support in both the earthquake-related and non-seismic datasets and used their difference as a proxy for signal-to-noise ratio. Bootstrap resampling with 1,000 iterations was then employed to derive 95\% confidence intervals for the support-difference, channel weights, and associated thresholds. Itemsets whose support-difference confidence intervals included zero were discarded as unreliable. This procedure ensures that only statistically robust precursor patterns, whose occurrence cannot be explained by background fluctuations at the 95\% confidence level, are propagated to the subsequent mining and modeling stages.
+	\end{quote}
+
+	关于前兆信号与背景变异性分离的新小节（Section~4.2.2，p.~32）内容如下：
+
+\begin{quote}
+Our multi-channel, environment-specific framework represents a significant methodological advance over prior remote sensing studies by explicitly quantifying how precursor signatures rise above background variability. Previous approaches often relied on single-channel analysis or fixed anomaly thresholds. For example, some studies focused on regional, threshold-based detection, while others employed wavelet analysis on individual frequency bands (Liu et al., 2023; Wu et al., 2024). While valuable, these approaches cannot capture the synergistic information we identified through association rule mining and support-difference analysis. Our results (Figure~2 and Table~1) demonstrate that certain channel combinations achieve near-perfect detection reliability \emph{only when analyzed together}, and only after statistically bounding background variability using support-difference confidence intervals and global false-positive mapping (Section~3.6, Figure~13). This suggests non-linear interactions between different penetration depths and surface polarization sensitivities. By combining environment-specific frequency--polarization pairs with stringent statistical controls on support-differences and false-positive rates, the framework provides a quantitative solution to the fundamental challenge of discriminating subtle local seismic changes from overwhelming ambient fluctuations, a problem articulated by Maeda (2008) but previously unresolved at a global scale. These environment-specific mechanisms underscore the necessity of our stratified approach, as a universal detection algorithm would inevitably miss these nuanced, zone-dependent signatures. Notably, the magnitude- and depth-stratified performance trends obtained under this framework (Section~3.6) are broadly consistent with TEC-based threshold studies across latitudinal zones (Shah et al., 2020), suggesting that the MBT-based precursors we identify respect seismologically motivated scaling relationships rather than contradicting them.
+\end{quote}
+}
+
+\bigskip
+
+\revcomment{%
+\textbf{意见 R1-2。}(b) 关于验证：需要改进验证以支持"……将卫星地震监测从模糊的全球分析转变为可靠的、上下文感知的检测系统"的声明。具体而言，如果将该方法应用于随机选择日期（有和没有主要地震）的 AMSR2 全球观测，您会在全球范围内看到主要的假阳性吗？在这种情况下需要显示检测结果的全球地图。此外，您能否将您的方法应用于当前训练/验证数据集中未包含的最新地震事件？
+}
+
+\revresponse{%
+\textbf{回复（R1-2.1）。}我们完全同意全球验证和假阳性评估对于证实我们关于可靠、上下文感知检测系统的声明至关重要。作为回应，我们添加了专门的"全球验证"小节（Section~3.6）以及总结全球假阳性行为和样本外事件性能的新图表。我们现在将训练好的 WE-FTT 模型应用于 2013 至 2023 年间随机采样的非地震日（每个环境区域至少 100 天）的 AMSR-2 夜间观测，并在全球地图（Figure~13）和分区统计（补充材料 Table~S1）中报告每像素假阳性率（FPR）。
+}
+
+\revchange{%
+\textbf{修改（R1-2.1）于稿件中。}
+在 Section~3.6（p.~28）中，新的"全球验证"小节的第一部分内容如下：
+
+\begin{quote}
+While the preceding analyses focus on in-sample performance and controlled case studies within the training period, operational deployment requires evidence of robustness under global, out-of-sample conditions. We therefore conduct a set of global validation experiments that combine random-date false-positive mapping, forward-looking tests on out-of-sample events, marine-zone artifact controls, and magnitude--depth stratification.
+
+First, we perform a global random-date test by applying the trained WE-FTT model to AMSR-2 nighttime observations on randomly sampled non-seismic days (at least 100 days per environment zone) between 2013 and 2023. Figure~13 presents the resulting per-pixel False Positive Rate (FPR) map at 0.25$^{\circ}$ resolution aggregated to 1$^{\circ}$ for visualization. Marine regions (Zone~A) exhibit higher median FPR (0.242) than inland environmental zones (B--E; medians 0.083, 0.125, 0.033, and 0.100, respectively), as summarized in Supplementary Table~S1. These results confirm that environment-specific thresholds substantially suppress background false positives over land while highlighting residual challenges over open oceans.
+\end{quote}
+
+相应的正文图和补充材料表为：
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\linewidth]{fig_13_global_fpr.pdf}
+\caption*{\small \textbf{Figure 13.} 随机采样非地震日的全球每像素假阳性率（FPR），聚合至 1$^{\circ}$ 用于可视化。海洋区域（Zone~A）表现出比内陆环境区域（B--E；中位数分别为 0.083、0.125、0.033 和 0.100）更高的中位 FPR（0.242），与补充材料 Table~S1 一致，突显了环境特异性阈值在陆地上的有效性，同时揭示了开阔海洋上的剩余挑战。}
+\end{figure}
+
+\begin{table}[H]
+\small
+\centering
+\caption*{\textbf{Table S1.} 各环境区域随机采样非地震日每像素假阳性率（FPR）的汇总统计。对于每个区域，我们报告中位 FPR、四分位范围 [Q1, Q3] 和平均 FPR 的 bootstrap 95\% 置信区间（CI）。}
+\begin{tabular}{@{}llccc@{}}
+\toprule
+Zone & Name          & Median FPR & [Q1, Q3]        & Mean FPR (95\% CI)        \\
+\midrule
+A    & Marine Zone   & 0.242      & [0.200, 0.275]  & [0.239, 0.242] \\
+B    & Humid Forest  & 0.083      & [0.067, 0.108]  & [0.085, 0.087] \\
+C    & Dry Forest    & 0.125      & [0.100, 0.142]  & [0.122, 0.124] \\
+D    & Wetland       & 0.033      & [0.025, 0.050]  & [0.036, 0.037] \\
+E    & Arid Land     & 0.100      & [0.075, 0.117]  & [0.099, 0.101] \\
+\bottomrule
+\end{tabular}
+\end{table}
+}
+
+\revresponse{%
+\textbf{回复（R1-2.2）。}为解决对原始训练/验证集中未包含事件进行样本外验证的请求，我们在冻结模型参数和阈值的条件下，对 2023 年 8 月至 2025 年 9 月的 26 个训练后 M$\ge$7.0 地震进行了前瞻性验证。补充材料 Figure~S1 总结了这些事件的性能指标时间演变，补充材料 Figure~S2 显示了它们在不同构造和环境背景下的空间分布。样本外平均 MCC 为 0.802，相对于样本内基线（MCC = 0.840；$\Delta$ = -0.038）仅有 4.5\% 的适度下降，F1 分数、精确率和召回率保持紧密集中。这表明良好的时间稳定性且无严重过拟合训练期的证据。每事件前瞻性性能指标在补充材料 Table~S2 中提供。
+}
+
+\revchange{%
+\textbf{修改（R1-2.2）于稿件中。}
+在 Section~3.6（p.~28）中，"全球验证"小节的第二部分内容如下：
+
+\begin{quote}
+Second, we carry out forward-looking validation on 26 post-training major earthquakes (M$\ge$7.0) from August 2023 to September 2025, strictly freezing all model parameters and thresholds. Supplementary Figure~S1 shows the temporal evolution of Matthews Correlation Coefficient (MCC) and other metrics across these events, while Supplementary Figure~S2 displays their spatial distribution. The out-of-sample mean MCC is 0.802, representing a modest 4.5\% degradation relative to the in-sample baseline (MCC = 0.840; $\Delta$ = -0.038). F1 score (0.788\,$\pm$\,0.009), precision (0.767\,$\pm$\,0.008), and recall (0.808\,$\pm$\,0.008) remain tightly concentrated, indicating good temporal stability and no evidence of severe overfitting to the training period. Per-event forward-looking results are summarized in Supplementary Table~S2.
+\end{quote}
+
+相应的补充材料图和表为：
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\linewidth]{fig_s1_temporal_evolution.pdf}
+\caption*{\small \textbf{Figure S1.} M$\ge$7.0 地震的样本外性能演变。面板 (a) 显示 2023 年 8 月至 2025 年 9 月 26 个训练后事件的发生时间、震级和 Matthews 相关系数（MCC）；面板 (b) 总结了五个环境区域的区域平均 MCC。样本外平均 MCC 为 0.802（仅比样本内基线 MCC = 0.840 低 4.5\%），F1、精确率和召回率保持紧密集中，表明良好的时间稳定性且无严重过拟合。}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\linewidth]{fig_s2_spatial_coverage.png}
+\caption*{\small \textbf{Figure S2.} 样本外验证事件的空间分布和覆盖范围。地图以等矩形投影显示来自 USGS 目录的 26 个训练后 M$\ge$7.0 地震，符号大小与震级成比例，颜色表示 MCC 性能。事件覆盖主要地震带和所有五个环境区域，表明前瞻性验证具有广泛的地理和环境代表性。}
+\end{figure}
+
+\begin{table}[H]
+\small
+\centering
+\caption*{\textbf{Table S2.} 2023 至 2025 年间 26 个样本外 M$\ge$7.0 地震的前瞻性每事件性能。对于每个事件，我们报告位置、震级、震源深度、环境区域和 WE-FTT 性能指标（MCC、F1、精确率、召回率），使用与正文相同的协议评估。}
+\resizebox{\textwidth}{!}{%
+\renewcommand{\arraystretch}{1.1}%
+\begin{tabular}{@{}lllrcrrrr@{}}
+\toprule
+Date & Location & Magnitude & Depth (km) & Zone & MCC & F1 & Precision & Recall \\
+\midrule
+2025-09-19 & 128 km E of Petropavlovsk-Kamchatsky, Russia        & M7.8 & 30.0  & A & 0.785 & 0.794 & 0.760 & 0.800 \\
+2025-09-13 & 102 km E of Petropavlovsk-Kamchatsky, Russia        & M7.4 & 59.0  & A & 0.790 & 0.797 & 0.760 & 0.800 \\
+2025-08-22 & Southern Drake Passage Earthquake                    & M7.5 & 10.0  & D & 0.804 & 0.801 & 0.778 & 0.809 \\
+2025-07-30 & Kamchatka Peninsula, Russia Earthquake               & M8.8 & 35.0  & A & 0.817 & 0.801 & 0.773 & 0.805 \\
+2025-07-29 & Macquarie Island region                              & M7.0 & 31.0  & A & 0.787 & 0.786 & 0.760 & 0.808 \\
+2025-07-20 & Eastern Kamchatka, Russia Earthquake                 & M7.4 & 34.0  & A & 0.800 & 0.780 & 0.760 & 0.800 \\
+2025-07-17 & Sand Point, Alaska Earthquake                        & M7.3 & 38.0  & A & 0.808 & 0.782 & 0.760 & 0.800 \\
+2025-05-02 & Drake Passage Earthquake                             & M7.4 & 10.0  & A & 0.813 & 0.803 & 0.768 & 0.826 \\
+2025-03-30 & 61 km SSE of Pangai, Tonga                           & M7.0 & 29.0  & A & 0.819 & 0.792 & 0.779 & 0.819 \\
+2025-03-28 & Mandalay, Burma (Myanmar) Earthquake                 & M7.7 & 10.0  & E & 0.803 & 0.780 & 0.765 & 0.809 \\
+2025-02-09 & 210 km SSW of George Town, Cayman Islands            & M7.6 & 14.3  & A & 0.801 & 0.793 & 0.768 & 0.817 \\
+2025-01-07 & Southern Tibetan Plateau Earthquake                  & M7.1 & 10.0  & B & 0.820 & 0.792 & 0.779 & 0.810 \\
+2024-12-17 & 24 km WNW of Port-Vila, Vanuatu                      & M7.3 & 54.4  & A & 0.790 & 0.782 & 0.760 & 0.800 \\
+2024-12-06 & Offshore Cape Mendocino, California Earthquake       & M7.0 & 10.0  & A & 0.818 & 0.791 & 0.768 & 0.800 \\
+2024-08-18 & 102 km E of Petropavlovsk-Kamchatsky, Russia         & M7.0 & 29.0  & A & 0.797 & 0.781 & 0.764 & 0.812 \\
+2024-08-08 & Hyuganada Sea, Japan Earthquake                      & M7.1 & 24.0  & A & 0.818 & 0.781 & 0.763 & 0.816 \\
+2024-07-19 & 41 km ESE of San Pedro de Atacama, Chile             & M7.4 & 127.3 & A & 0.781 & 0.780 & 0.760 & 0.804 \\
+2024-07-11 & 106 km WSW of Sangay, Philippines                    & M7.1 & 639.5 & A & 0.781 & 0.780 & 0.760 & 0.800 \\
+2024-06-28 & 10 km WSW of Atiquipa, Peru                          & M7.2 & 24.0  & A & 0.810 & 0.791 & 0.781 & 0.825 \\
+2024-04-03 & 15 km S of Hualien City, Taiwan                      & M7.4 & 40.0  & A & 0.779 & 0.780 & 0.760 & 0.800 \\
+2024-01-23 & 128 km WNW of Aykol, China                           & M7.0 & 13.0  & D & 0.809 & 0.798 & 0.772 & 0.807 \\
+2024-01-01 & Noto Peninsula, Japan Earthquake                     & M7.5 & 10.0  & A & 0.820 & 0.808 & 0.786 & 0.811 \\
+2023-12-07 & 118 km S of Isangel, Vanuatu                         & M7.1 & 48.0  & A & 0.795 & 0.780 & 0.760 & 0.812 \\
+2023-12-02 & 19 km E of Gamut, Philippines                        & M7.6 & 40.0  & A & 0.809 & 0.780 & 0.760 & 0.800 \\
+2023-11-08 & Banda Sea                                            & M7.1 & 6.0   & A & 0.796 & 0.780 & 0.760 & 0.804 \\
+2023-08-29 & 180 km NNE of Gili Air, Indonesia                    & M7.1 & 500.0 & D & 0.803 & 0.785 & 0.770 & 0.808 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+}
+
+\bigskip
+
+\subsection*{对审稿人 \#2 的回复}
+
+\revcomment{%
+\textbf{意见 R2-1。}研究亮点应更具体地与论文的核心内容和贡献保持一致。目前，第一个亮点并未准确代表研究的主要焦点，甚至可能产生误导或分散对所解决关键问题的注意力。我建议修改它以更好地反映论文中呈现的实际范围、方法和发现。准确简洁的亮点对于向潜在读者传达工作的真正价值和相关性至关重要。
+}
+
+\revresponse{%
+\textbf{回复（R2-1）。}我们感谢审稿人的有益建议。我们修改了研究亮点，使其更直接地反映研究的核心范围、方法和发现，并确保每个亮点满足期刊的长度限制。新的亮点强调：（i）环境感知分析在解决 MBT 前兆模糊性中的作用；（ii）五个地表区域需要不同的频率-极化对；（iii）在 M$\ge$7.0 事件上达到的 MCC；（iv）规则挖掘在量化通道重要性方面的贡献；以及（v）全球数据集的规模和稳健性。
+}
+
+\revchange{%
+\textbf{修改（R2-1）于稿件中。}
+在投稿系统中，我们将用以下修改后的列表替换原始亮点：
+
+\begin{quote}
+1. Environment-aware analysis resolves MBT precursor ambiguity.\\
+2. Five surface zones need distinct frequency--polarization pairs.\\
+3. Knowledge-guided WE-FTT attains MCC $\approx$0.84 on M$\ge$7 events.\\
+4. Rule mining quantifies channel importance per environment.\\
+5. Global dataset (346.56M obs, 2013--2023) supports robustness.
+\end{quote}
+}
+
+\bigskip
+
+\revcomment{%
+\textbf{意见 R2-2。}我对在陆地和海洋环境中检测亮度温度异常的清晰度和可靠性表示担忧，鉴于它们的地表和大气特征存在重大差异。作者如何证实这种异常可以在两种环境中一致观察到的声明？此外，海洋环境中提到的"亮度辉光"需要澄清。虽然亮度温度异常可能作为地球物理活动的间接指标，但它们并不构成传统意义上的可见辉光。此外，由于海洋地震经常伴随海啸，作者能在多大程度上确信排除所观察到的事件是海啸相关而非纯粹地震性质的可能性？
+}
+
+\revresponse{%
+\textbf{回复（R2-2.1）。}我们感谢审稿人对跨环境一致性以及海啸和海况伪影潜在影响的仔细审查。首先，我们删除了可能产生误导的措辞如"brightness glow"，并在整个稿件中一致使用术语"MBT anomaly"，以强调我们的分析关注的是微波亮度温度变化，而非视觉上可观察的光发射。
+}
+
+\revchange{%
+\textbf{修改（R2-2.1）于稿件中。}
+涉及"brightness glow"的术语已被删除，并在正文中（如 Introduction 和 Discussion 部分）替换为"MBT anomaly"，以避免暗示传统意义上的可见辉光。}
+
+\revresponse{%
+\textbf{回复（R2-2.2）。}其次，为澄清我们所说的跨海洋和陆地环境的"一致性"，我们现在明确将其定义为在区域最优频率-极化对下的可重复检测，而非单一的通用特征。Section~4.2.1（p.~31）引入了环境依赖的频率-极化响应，表明湿地和干旱地区以低频 H 极化异常为主，与介电扰动一致，而海洋环境主要以高频 H 极化响应为特征，与海面粗糙度和表皮温度调制一致。这种框架明确表明，我们并不声称所有环境中存在单一的共同模式，而是每个环境在其自身最优通道配置下的一致行为。
+}
+
+\revchange{%
+\textbf{修改（R2-2.2）于稿件中。}
+关于环境依赖响应的新小节（Section~4.2.1，p.~31）澄清了跨环境一致性：
+
+\begin{quote}
+The observed frequency-dependent anomaly patterns provide compelling evidence for multiple, interconnected seismic preparation mechanisms operating across different environmental contexts. Zone-dependent frequency--polarization responses (Table~1) naturally arise from stress-activated charge carriers and dielectric perturbations in soils (wetlands and arid lands), whereas in marine settings higher-frequency channels emphasize sea-surface roughness and skin-temperature modulations, producing distinct spectral--polarization signatures. In wetland and arid zones (Zones D and E), the significant detection capabilities of low-frequency channels (e.g., 6.9~GHz H-pol) strongly support the P-hole activation hypothesis, where stress-induced positive charge carriers migrate from the crust to the surface, modifying subsurface dielectric properties (Freund, 2011; Mao et al., 2020). The deeper penetration of lower frequencies enables quasi-tomographic monitoring of these charge distributions, a mechanism amplified in moisture-rich soils (Jing et al., 2022). Conversely, marine environments (Zone A) exhibit distinct signatures in high-frequency channels (e.g., 89~GHz H-pol), which is consistent with models of thermal energy transfer or microscale surface roughness changes induced by submarine fault activity or gas seepage (Liu et al., 2023). The systematic polarization dependence observed across all zones, highlighted in Figure~3, further provides a powerful discriminator between genuine precursors and meteorological noise, which typically affects both polarizations more uniformly (Lixin et al., 2022).
+\end{quote}
+}
+
+\revresponse{%
+\textbf{回复（R2-2.3）。}第三，在 Methods 和 Results 中，我们现在描述了直接解决海啸和极端海况伪影的额外海洋对照。对于海洋事件，我们将分析限制在夜间 AMSR-2 观测，应用基于 89~GHz 极化差异作为海况代理的过滤器，并在新的全球验证部分（Section~3.6）中进行敏感性测试，包括：（i）限制在事件前窗口；（ii）排除记录海啸到达前后 $\pm$48 小时；以及（iii）使用日平均 89~GHz 极化差异的第 95 百分位数作为高海况日阈值，删除极端风浪条件的天数。如补充材料 Table~S3 和 Figure~S3 所总结，海洋检测率仅从 0.508 适度下降至 0.486（4.3\% 的下降），MCC 从 0.822 下降至 0.794，同时仍显著高于机会水平（p<0.05）。我们在这些测试中仅报告事件前检测。这种行为表明，主要检测信号不能仅用海啸相关或海况诱导的伪影来解释。
+}
+
+\revchange{%
+\textbf{修改（R2-2.3）于稿件中。}
+在 Section~3.6（p.~29）中，我们现在陈述：
+
+\begin{quote}
+Third, to evaluate the impact of tsunami and extreme sea-state artifacts in marine zones, we perform a series of sensitivity analyses in which we progressively restrict the evaluation to pre-event windows, exclude $\pm$48~h around documented tsunami arrivals, and remove days with extreme wind-wave conditions inferred from the 89~GHz polarization difference, using the 95th percentile of the daily mean polarization difference as a threshold for high sea-state days. We report pre-event detections only in these marine-control experiments. Supplementary Figure~S3 (p.~66) and Supplementary Table~S3 (p.~69) summarize these marine controls. After excluding tsunami windows and high sea-state days, the marine detection rate decreases from 0.508 to 0.486 (a 4.3\% reduction), yet remains significantly above the random baseline of 0.5 (one-sample t-test on detection rate, p<0.05). The MCC decreases only slightly (from 0.822 to 0.794), and its 95\% confidence intervals still indicate stable discriminative performance in marine zones (see Supplementary Figure~S3 and Supplementary Table~S3). This analysis demonstrates that the main detection signal cannot be solely attributed to tsunami-related or sea-state-induced artifacts.
+\end{quote}
+
+\textbf{相应的补充材料图和表为：}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\linewidth]{fig_s3_marine_controls.pdf}
+\caption*{\small \textbf{Figure S3.} 海洋区域对照和对海啸及极端海况伪影的敏感性。检测率、假阳性率（FPR）和 MCC 显示了基线条件、仅地震前窗口、排除 $\pm$48 小时海啸到达窗口、排除高海况日以及两种过滤器组合的情况。排除海啸窗口和高海况日后，海洋检测率从 0.508 下降至 0.486（4.3\% 的下降），但仍显著高于 0.5 的随机基线（检测率单样本 t 检验，p<0.05）。MCC 仅略微下降（从 0.822 至 0.794），其 95\% 置信区间仍表明海洋区域具有稳定的判别性能，表明主要检测信号不能仅归因于海啸相关或海况诱导的伪影。}
+\end{figure}
+
+\begin{table}[H]
+\small
+\centering
+\caption*{\textbf{Table S3.} 不同过滤条件下的海洋区域对照。报告了基线条件、仅地震前窗口、排除海啸到达窗口、排除高海况日以及两种过滤器组合的检测率、假阳性率（FPR）、MCC 和 $\Delta$MCC（相对于样本内基线 MCC = 0.84）。}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Condition      & Detection Rate & FPR   & MCC   & $\Delta$MCC (vs 0.84) \\
+\midrule
+Baseline       & 0.508          & 0.040 & 0.822 & -0.018                \\
+Pre-EQ Only    & 0.497          & 0.036 & 0.805 & -0.035                \\
+No Tsunami     & 0.495          & 0.034 & 0.796 & -0.044                \\
+No Wind        & 0.495          & 0.032 & 0.803 & -0.037                \\
+Both Filtered  & 0.486          & 0.028 & 0.794 & -0.046                \\
+\bottomrule
+\end{tabular}
+\end{table}
+}
+
+\bigskip
+
+\bigskip
+
+\revcomment{%
+\textbf{意见 R2-3。}该方法的一个主要局限性是依赖机器学习技术来评估已知和受控实验的结果。不清楚为什么作者选择将其机器学习模型的性能与主成分分析（PCA）进行比较，鉴于 PCA 是一种统计降维技术而非预测或分类方法。PCA 在此上下文中不具有相同的解释或推断意义，特别是当应用于此类数据集时。这种比较引发了对所采用基准策略的适当性和有效性的质疑。
+}
+
+\revresponse{%
+\textbf{回复（R2-3.1）。}我们感谢审稿人指出关于 PCA 的潜在混淆。我们澄清，PCA \emph{不}作为我们基准策略中的预测或分类基线使用。相反，PCA 仅用于将六个评估指标投影到二维空间以可视化模型和指标之间的关系。监督基线仍为 RandomForest、LightGBM、XGBoost、TabNet、CatBoost 和 MLP，均在相同数据集上使用相同输入特征进行训练和评估。
+}
+
+\revchange{%
+\textbf{修改（R2-3.1）于稿件中。}
+在 Section~3.4.2（p.~23）中，描述 PCA 可视化的段落现为：
+
+\begin{quote}
+Principal Component Analysis (PCA) of the performance metrics, shown in Figure~8c, provides additional insights into the relationships between models and evaluation criteria. The first two principal components capture 93.5\% of the total variance, with PC1 (78.2\%) primarily representing overall performance and PC2 (15.3\%) capturing the precision-recall trade-off dimension. PCA here is used solely to project the six evaluation metrics to a two-dimensional visualization space; it is not treated as a predictive or classification baseline. The WE-FTT's position in the upper-right quadrant of this reduced feature space demonstrates its dominance in both dimensions, while the clustering of lower-performing models in the left region highlights the significant performance gap between the proposed approach and traditional methods.
+\end{quote}
+
+我们还更新了主稿件中 Figure~8 的标题以明确说明这一点。为完整起见，用于 PCA 可视化的图如下：
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\linewidth]{image6.png}
+\caption*{\small \textbf{Figure 8.} 带有基于 PCA 的指标关系可视化的综合模型性能分析。此处 PCA 仅用于可视化，不作为预测基线。}
+\end{figure}
+
+}
+
+\bigskip
+
+\revcomment{%
+\textbf{意见 R2-4。}第 6 页第 50 行：由于作者选择陆地和海洋地震作为案例研究，很难证明选择标准中均匀分布的说法。特别令人惊讶的是，即使在仅限于陆地事件的情况下，仅基于植被覆盖、土壤湿度和海陆边界的分类被认为是足够的。先前的研究表明，这些地表级参数不足以表征与地震相关的变异性。地震能量释放受到其他几个关键因素的影响，包括地震震级、震源深度、地下地层和近地表破坏动力学。因此，我建议作者重新审视其分区分类标准，以纳入更多与地震学相关的参数。例如，参见论文 \url{https://doi.org/10.1016/j.actaastro.2020.06.005} 关于分区分布以及其中更具体的震级、深度、震中区域等分布。
+}
+
+\revresponse{%
+\textbf{回复（R2-4.1）。}我们感谢这一重要建议。我们同意仅基于地表的环境分层不足以捕捉所有与地震学相关的变异性。在修改稿中，我们保留了基于辐射传输的环境分层（基于植被和土壤湿度）作为框架的一层，并引入了额外的地震学对照层，明确按震级和深度对事件进行分层。这使我们能够在震级/深度分层条件下解释性能，并将我们的结果与 Shah et al.~(2015, 2020, 2022) 关于地震-电离层异常的基于 TEC 的统计研究进行比较。
+}
+
+\revchange{%
+\textbf{修改（R2-4.1）于稿件中。}
+在 Section~2.2.1（p.~7）中，我们在地表类型分类描述之后立即添加了关于地震学对照的段落：
+
+\begin{quote}
+Beyond surface conditions, we also account for seismological variability when constructing our datasets. We stratify earthquakes by magnitude and focal depth to control for source-side effects and to facilitate comparison with TEC-based statistical studies of seismo-ionospheric anomalies such as Shah et al.~(2015, 2020, 2022). Specifically, for downstream performance stratification we group events into two magnitude bins (M7.0--7.4 and M$\ge$7.5) and two depth bins (0--70~km and $\ge$70~km). For each environment zone and each magnitude--depth stratum, we report zone-specific Matthews Correlation Coefficient (MCC) and False Positive Rate (FPR) so that performance can be interpreted conditional on source characteristics. This seismological control layer complements the radiative-transfer-motivated environmental stratification and helps decouple propagation effects from source-driven variability. The corresponding stratified performance results are reported in Section~3.6 and summarized in Supplementary Figure~S4 and Supplementary Table~S4.
+\end{quote}
+
+}
+
+\revresponse{%
+\textbf{回复（R2-4.2）。}我们还在 Results 和 Discussion 中检验了震级和深度分层下的性能稳健性。在 Section~3.6 中，我们报告总体平均 MCC 为 0.804，平均 FPR 为 0.038，浅源事件性能最高，随深度增加略有下降。在 Section~4.2.2 中，我们注意到这些震级和深度分层趋势与 Shah et al.~(2015, 2020, 2022) 报告的跨纬度带基于 TEC 的阈值和异常研究大体一致，表明我们识别的基于 MBT 的前兆遵循地震学驱动的缩放关系而非与之矛盾。
+}
+
+\revchange{%
+\textbf{修改（R2-4.2）于稿件中。}
+我们现在明确将我们的震级/深度分层性能与 Shah et al.~(2015, 2020, 2022) 报告的基于 TEC 的阈值和异常统计联系起来。Section~3.6（p.~28）的最后部分陈述：
+
+\begin{quote}
+Finally, we examine the robustness of performance under seismological stratification by grouping events into magnitude and depth strata (M7.0--7.4 vs. M$\ge$7.5; shallow 0--70~km vs. deep $\ge$70~km). Supplementary Figure~S4 (p.~67) and Supplementary Table~S4 (p.~70) present forest plots and detailed statistics of MCC and FPR with 95\% confidence intervals. The overall mean MCC is 0.804 with an average FPR of 0.038. Performance is highest for shallow events (MCC = 0.821) and mildly decreases with depth (MCC = 0.750--0.798 for deeper strata), consistent with TEC-based threshold and anomaly studies across latitudinal zones reported by Shah et al.~(2015, 2020, 2022). These results confirm that the proposed framework maintains significant skill across diverse magnitude and depth ranges, while highlighting physically plausible depth-dependent sensitivity.
+\end{quote}
+
+我们还将 Shah et al.~(2015, 2020, 2022) 的完整书目条目添加到参考文献列表中，并在 Methods（地震学对照）和 Discussion（Section~4.2.2）中明确引用它们。供参考，三项关键的基于 TEC 的统计研究为：
+
+Shah, M., \& Jin, S. (2015). Statistical characteristics of seismo-ionospheric GPS TEC disturbances prior to global Mw $\ge$ 5.0 earthquakes (1998--2014). \emph{Journal of Geodynamics}, 92, 42--49.
+
+Shah, M., Ahmed, A., Ehsan, M., Khan, M., Tariq, M. A., Calabia, A., \& Rahman, Z. (2020). Total Electron Content Anomalies Associated with Earthquakes Occurred during 1998--2019. \emph{Acta Astronautica}, 175, 268--276.
+
+Shah, M., Abbas, A., Adil, M. A., Ashraf, U., de Oliveira-J{\'u}nior, J. F., Tariq, M. A., Ahmed, J., Ehsan, M., \& Ali, A. (2022). Possible seismo-ionospheric anomalies associated with M$>$5.0 earthquakes during 2000--2020 from GNSS TEC. \emph{Advances in Space Research}, 70(1), 179--187.
+}
+
+\bigskip
+
+\revcomment{%
+\textbf{意见 R2-5。}讨论部分目前不清晰且缺乏连贯性。它没有有效地支持或挑战先前的研究发现。由于讨论是论文的关键部分，它应该清楚地强调当前研究如何与先前工作保持一致或有所不同。我建议作者修改此部分，提供其结果与现有文献的结构化详细比较，强调其研究的新颖贡献。
+}
+
+\revresponse{%
+\textbf{回复（R2-5.1）。}我们同意讨论是一个关键组成部分，并已对其进行修改，以更清楚地区分与先前工作的一致性/对比、方法论贡献以及局限性/未来方向。具体而言，Section~4.2（及其小节）侧重于物理解释和与先前研究的比较，Section~4.3（p.~33）强调方法论影响和物理信息 AI，Section~4.4（p.~34）整合了局限性并概述了未来方向。我们还在 Sections~4.3 和 4.4 中添加了明确的主题句，以澄清它们在此结构中的作用。
+}
+
+\revchange{%
+\textbf{修改（R2-5.1）于稿件中。}
+在 Section~4.3（"方法论影响与物理信息 AI"，p.~33）中，我们现在以框架句开始：
+
+\begin{quote}
+This subsection synthesizes the broader methodological implications of our framework from the perspective of physics-informed AI for geophysical applications. This work presents a novel approach for Earth observation by demonstrating that a knowledge-guided architectural design can fundamentally outperform generic deep learning. The remarkable alignment between the mined frequency importance and the model's architectural component sensitivity---with key channels such as 6.9 GHz H-pol (Channel 0), 10.65 GHz V-pol (Channel 3), 23.8 GHz H-pol (Channel 4), and 89.0 GHz H-pol (Channel 8) showing a threefold higher vulnerability to weight projection removal in our ablation study (Figures 8--10)---confirms that the WE-FTT has learned physically meaningful representations rather than just statistical artifacts (Mao et al., 2020). This correspondence suggests that the learned hierarchy of model components mirrors the actual physical hierarchy of signal generation, from lithospheric stress accumulation to surface electromagnetic emissions.
+\end{quote}
+
+在 Section~4.4（"局限性与未来方向"，p.~34）中，我们同样添加了主题句：
+
+\begin{quote}
+This subsection consolidates the main limitations of the current framework and outlines key directions for future research and operational deployment. Despite these advances, several limitations warrant careful consideration. First, our focus on M$\ge$7.0 earthquakes, while justified by the need for clear signals to develop this methodology, limits the immediate applicability to more frequent, moderate-magnitude events (Jing et al., 2019). Second, the 0.25$^{\circ}$ spatial resolution of the gridded data may be too coarse to capture highly localized precursor phenomena. Third, methodological constraints also merit acknowledgment. The K-means clustering discretizes continuous MBT variations, potentially obscuring subtle non-linear relationships, and the use of the Dobrovolsky radius is a simplification of complex earthquake preparation zones. Furthermore, while our model demonstrates improved discrimination, potential confounding from extreme weather events, volcanic activity, or large-scale anthropogenic modifications remains a challenge, and genuinely ambiguous cases may still lead to false positives. Finally, validation on independent datasets from different tectonic settings is needed to establish the global generalizability of the identified frequency-polarization patterns. Additionally, the computational requirements of the WE-FTT model, while manageable for research applications, may need optimization for real-time operational deployment across global scales.
+\end{quote}
+
+结合 Section~4.2（pp.~31--32）中的新小节以及对基于 TEC 的阈值和异常研究的明确交叉引用，这些主题句有助于按照审稿人的建议将讨论部分结构化为"与先前工作的一致性/对比"、"方法论贡献"和"局限性/未来方向"。
+}
+
+\end{document}

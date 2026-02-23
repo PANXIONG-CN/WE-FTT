@@ -1,0 +1,274 @@
+=== Starting input_projection ablation: no_feature_proj ===
+Epoch  1/20 | Loss: 2.3399 | Accuracy: 0.4000 | F1: 0.3797 | MCC: 0.3999
+Epoch  2/20 | Loss: 2.1593 | Accuracy: 0.4058 | F1: 0.3979 | MCC: 0.3798
+Epoch  3/20 | Loss: 2.0240 | Accuracy: 0.4096 | F1: 0.4148 | MCC: 0.3829
+Epoch  4/20 | Loss: 1.8478 | Accuracy: 0.4132 | F1: 0.3993 | MCC: 0.4173
+Epoch  5/20 | Loss: 1.6064 | Accuracy: 0.4183 | F1: 0.4093 | MCC: 0.3948
+Epoch  6/20 | Loss: 1.5280 | Accuracy: 0.4208 | F1: 0.4035 | MCC: 0.4204
+Epoch  7/20 | Loss: 1.3762 | Accuracy: 0.4240 | F1: 0.4088 | MCC: 0.4131
+Epoch  8/20 | Loss: 1.3330 | Accuracy: 0.4289 | F1: 0.4191 | MCC: 0.4150
+Epoch  9/20 | Loss: 1.1649 | Accuracy: 0.4342 | F1: 0.4150 | MCC: 0.4257
+Epoch 10/20 | Loss: 1.1365 | Accuracy: 0.4364 | F1: 0.4320 | MCC: 0.4178
+Epoch 11/20 | Loss: 0.9529 | Accuracy: 0.4430 | F1: 0.4313 | MCC: 0.4237
+Epoch 12/20 | Loss: 0.9665 | Accuracy: 0.4456 | F1: 0.4538 | MCC: 0.4476
+Epoch 13/20 | Loss: 0.8463 | Accuracy: 0.4506 | F1: 0.4533 | MCC: 0.4347
+Epoch 14/20 | Loss: 0.8324 | Accuracy: 0.4541 | F1: 0.4385 | MCC: 0.4349
+Epoch 15/20 | Loss: 0.7981 | Accuracy: 0.4601 | F1: 0.4583 | MCC: 0.4661
+Epoch 16/20 | Loss: 0.7233 | Accuracy: 0.4651 | F1: 0.4443 | MCC: 0.4538
+Epoch 17/20 | Loss: 0.6000 | Accuracy: 0.4681 | F1: 0.4645 | MCC: 0.4847
+Epoch 18/20 | Loss: 0.6242 | Accuracy: 0.4719 | F1: 0.4464 | MCC: 0.4560
+Epoch 19/20 | Loss: 0.6000 | Accuracy: 0.4766 | F1: 0.4570 | MCC: 0.4835
+Epoch 20/20 | Loss: 0.6000 | Accuracy: 0.4800 | F1: 0.4588 | MCC: 0.4615
+
+=== Starting input_projection ablation: no_weight_proj ===
+Epoch  1/20 | Loss: 2.3839 | Accuracy: 0.3500 | F1: 0.3636 | MCC: 0.3177
+Epoch  2/20 | Loss: 2.1237 | Accuracy: 0.3545 | F1: 0.3600 | MCC: 0.3311
+Epoch  3/20 | Loss: 2.0031 | Accuracy: 0.3573 | F1: 0.3571 | MCC: 0.3533
+Epoch  4/20 | Loss: 1.8080 | Accuracy: 0.3598 | F1: 0.3399 | MCC: 0.3575
+Epoch  5/20 | Loss: 1.6339 | Accuracy: 0.3631 | F1: 0.3664 | MCC: 0.3675
+Epoch  6/20 | Loss: 1.5583 | Accuracy: 0.3678 | F1: 0.3641 | MCC: 0.3594
+Epoch  7/20 | Loss: 1.4673 | Accuracy: 0.3723 | F1: 0.3585 | MCC: 0.3580
+Epoch  8/20 | Loss: 1.2579 | Accuracy: 0.3776 | F1: 0.3648 | MCC: 0.3559
+Epoch  9/20 | Loss: 1.2516 | Accuracy: 0.3789 | F1: 0.3763 | MCC: 0.3493
+Epoch 10/20 | Loss: 1.1343 | Accuracy: 0.3840 | F1: 0.3776 | MCC: 0.3604
+Epoch 11/20 | Loss: 1.0756 | Accuracy: 0.3852 | F1: 0.3769 | MCC: 0.3715
+Epoch 12/20 | Loss: 0.8917 | Accuracy: 0.3893 | F1: 0.3778 | MCC: 0.3809
+Epoch 13/20 | Loss: 0.8131 | Accuracy: 0.3957 | F1: 0.3913 | MCC: 0.3975
+Epoch 14/20 | Loss: 0.8541 | Accuracy: 0.3992 | F1: 0.3802 | MCC: 0.3924
+Epoch 15/20 | Loss: 0.8113 | Accuracy: 0.4014 | F1: 0.4048 | MCC: 0.3814
+Epoch 16/20 | Loss: 0.6533 | Accuracy: 0.4054 | F1: 0.4045 | MCC: 0.3852
+Epoch 17/20 | Loss: 0.6182 | Accuracy: 0.4090 | F1: 0.3897 | MCC: 0.4070
+Epoch 18/20 | Loss: 0.6332 | Accuracy: 0.4110 | F1: 0.3960 | MCC: 0.3867
+Epoch 19/20 | Loss: 0.6000 | Accuracy: 0.4163 | F1: 0.4108 | MCC: 0.4215
+Epoch 20/20 | Loss: 0.6000 | Accuracy: 0.4200 | F1: 0.4296 | MCC: 0.4211
+
+=== Starting input_projection ablation: additive_fusion ===
+Epoch  1/20 | Loss: 2.1377 | Accuracy: 0.5214 | F1: 0.5018 | MCC: 0.5395
+Epoch  2/20 | Loss: 2.0338 | Accuracy: 0.5225 | F1: 0.5034 | MCC: 0.5271
+Epoch  3/20 | Loss: 1.8803 | Accuracy: 0.5246 | F1: 0.5095 | MCC: 0.5342
+Epoch  4/20 | Loss: 1.7150 | Accuracy: 0.5233 | F1: 0.5043 | MCC: 0.5262
+Epoch  5/20 | Loss: 1.6130 | Accuracy: 0.5262 | F1: 0.5106 | MCC: 0.5171
+Epoch  6/20 | Loss: 1.4528 | Accuracy: 0.5265 | F1: 0.5200 | MCC: 0.5356
+Epoch  7/20 | Loss: 1.2725 | Accuracy: 0.5312 | F1: 0.5272 | MCC: 0.5490
+Epoch  8/20 | Loss: 1.2502 | Accuracy: 0.5315 | F1: 0.5059 | MCC: 0.5362
+Epoch  9/20 | Loss: 1.0419 | Accuracy: 0.5317 | F1: 0.5213 | MCC: 0.5167
+Epoch 10/20 | Loss: 1.0786 | Accuracy: 0.5329 | F1: 0.5030 | MCC: 0.5331
+Epoch 11/20 | Loss: 0.9382 | Accuracy: 0.5375 | F1: 0.5469 | MCC: 0.5287
+Epoch 12/20 | Loss: 0.8370 | Accuracy: 0.5379 | F1: 0.5128 | MCC: 0.5228
+Epoch 13/20 | Loss: 0.8602 | Accuracy: 0.5383 | F1: 0.5237 | MCC: 0.5463
+Epoch 14/20 | Loss: 0.7002 | Accuracy: 0.5421 | F1: 0.5103 | MCC: 0.5606
+Epoch 15/20 | Loss: 0.7393 | Accuracy: 0.5426 | F1: 0.5519 | MCC: 0.5538
+Epoch 16/20 | Loss: 0.6656 | Accuracy: 0.5450 | F1: 0.5344 | MCC: 0.5677
+Epoch 17/20 | Loss: 0.5098 | Accuracy: 0.5459 | F1: 0.5310 | MCC: 0.5483
+Epoch 18/20 | Loss: 0.6035 | Accuracy: 0.5479 | F1: 0.5300 | MCC: 0.5674
+Epoch 19/20 | Loss: 0.5000 | Accuracy: 0.5475 | F1: 0.5203 | MCC: 0.5508
+Early stopping at epoch 19
+
+=== Starting attention_mech ablation: no_residual ===
+Epoch  1/20 | Loss: 2.1791 | Accuracy: 0.6102 | F1: 0.5980 | MCC: 0.6260
+Epoch  2/20 | Loss: 1.9305 | Accuracy: 0.6145 | F1: 0.6121 | MCC: 0.6447
+Epoch  3/20 | Loss: 1.8463 | Accuracy: 0.6165 | F1: 0.5978 | MCC: 0.6180
+Epoch  4/20 | Loss: 1.6354 | Accuracy: 0.6237 | F1: 0.5928 | MCC: 0.6500
+Epoch  5/20 | Loss: 1.6045 | Accuracy: 0.6270 | F1: 0.6084 | MCC: 0.6500
+Epoch  6/20 | Loss: 1.3594 | Accuracy: 0.6324 | F1: 0.6016 | MCC: 0.6265
+Epoch  7/20 | Loss: 1.3050 | Accuracy: 0.6344 | F1: 0.6095 | MCC: 0.6500
+Epoch  8/20 | Loss: 1.1912 | Accuracy: 0.6399 | F1: 0.6259 | MCC: 0.6500
+Epoch  9/20 | Loss: 1.0666 | Accuracy: 0.6437 | F1: 0.6374 | MCC: 0.6500
+Epoch 10/20 | Loss: 0.9699 | Accuracy: 0.6478 | F1: 0.6148 | MCC: 0.6483
+Epoch 11/20 | Loss: 0.9718 | Accuracy: 0.6516 | F1: 0.6331 | MCC: 0.6500
+Early stopping at epoch 11
+
+=== Starting attention_mech ablation: single_head_attn ===
+Epoch  1/20 | Loss: 2.1265 | Accuracy: 0.5100 | F1: 0.4818 | MCC: 0.5015
+Epoch  2/20 | Loss: 2.0100 | Accuracy: 0.5116 | F1: 0.4860 | MCC: 0.4941
+Epoch  3/20 | Loss: 1.8109 | Accuracy: 0.5168 | F1: 0.5237 | MCC: 0.5257
+Epoch  4/20 | Loss: 1.7474 | Accuracy: 0.5184 | F1: 0.4995 | MCC: 0.5286
+Epoch  5/20 | Loss: 1.5255 | Accuracy: 0.5245 | F1: 0.5399 | MCC: 0.5440
+Epoch  6/20 | Loss: 1.4021 | Accuracy: 0.5247 | F1: 0.5044 | MCC: 0.5433
+Epoch  7/20 | Loss: 1.3470 | Accuracy: 0.5298 | F1: 0.5322 | MCC: 0.5164
+Epoch  8/20 | Loss: 1.2445 | Accuracy: 0.5321 | F1: 0.5231 | MCC: 0.5475
+Epoch  9/20 | Loss: 1.1645 | Accuracy: 0.5359 | F1: 0.5202 | MCC: 0.5414
+Epoch 10/20 | Loss: 1.0948 | Accuracy: 0.5386 | F1: 0.5233 | MCC: 0.5600
+Epoch 11/20 | Loss: 0.9800 | Accuracy: 0.5415 | F1: 0.5237 | MCC: 0.5469
+Epoch 12/20 | Loss: 0.8805 | Accuracy: 0.5457 | F1: 0.5358 | MCC: 0.5619
+Epoch 13/20 | Loss: 0.7499 | Accuracy: 0.5484 | F1: 0.5513 | MCC: 0.5598
+Epoch 14/20 | Loss: 0.8110 | Accuracy: 0.5509 | F1: 0.5374 | MCC: 0.5606
+Epoch 15/20 | Loss: 0.6897 | Accuracy: 0.5525 | F1: 0.5337 | MCC: 0.5775
+Epoch 16/20 | Loss: 0.5864 | Accuracy: 0.5573 | F1: 0.5637 | MCC: 0.5624
+Epoch 17/20 | Loss: 0.5713 | Accuracy: 0.5605 | F1: 0.5378 | MCC: 0.5764
+Epoch 18/20 | Loss: 0.5200 | Accuracy: 0.5636 | F1: 0.5372 | MCC: 0.5605
+Epoch 19/20 | Loss: 0.5200 | Accuracy: 0.5666 | F1: 0.5521 | MCC: 0.5695
+Epoch 20/20 | Loss: 0.5271 | Accuracy: 0.5700 | F1: 0.5619 | MCC: 0.5961
+
+=== Starting feature_fusion ablation: no_feature_fusion ===
+Epoch  1/20 | Loss: 2.1760 | Accuracy: 0.5411 | F1: 0.5299 | MCC: 0.5325
+Epoch  2/20 | Loss: 2.0184 | Accuracy: 0.5414 | F1: 0.5193 | MCC: 0.5483
+Epoch  3/20 | Loss: 1.7450 | Accuracy: 0.5468 | F1: 0.5461 | MCC: 0.5426
+Epoch  4/20 | Loss: 1.7215 | Accuracy: 0.5477 | F1: 0.5319 | MCC: 0.5506
+Epoch  5/20 | Loss: 1.5858 | Accuracy: 0.5530 | F1: 0.5337 | MCC: 0.5435
+Epoch  6/20 | Loss: 1.3997 | Accuracy: 0.5566 | F1: 0.5482 | MCC: 0.5772
+Epoch  7/20 | Loss: 1.2409 | Accuracy: 0.5571 | F1: 0.5356 | MCC: 0.5552
+Epoch  8/20 | Loss: 1.1792 | Accuracy: 0.5621 | F1: 0.5339 | MCC: 0.5575
+Epoch  9/20 | Loss: 1.0620 | Accuracy: 0.5669 | F1: 0.5582 | MCC: 0.5909
+Epoch 10/20 | Loss: 1.0342 | Accuracy: 0.5666 | F1: 0.5437 | MCC: 0.5614
+Epoch 11/20 | Loss: 0.9813 | Accuracy: 0.5736 | F1: 0.5497 | MCC: 0.5617
+Epoch 12/20 | Loss: 0.7960 | Accuracy: 0.5731 | F1: 0.5420 | MCC: 0.5869
+Epoch 13/20 | Loss: 0.8334 | Accuracy: 0.5783 | F1: 0.5667 | MCC: 0.5825
+Epoch 14/20 | Loss: 0.7954 | Accuracy: 0.5792 | F1: 0.5483 | MCC: 0.5873
+Epoch 15/20 | Loss: 0.6498 | Accuracy: 0.5840 | F1: 0.5628 | MCC: 0.6116
+Epoch 16/20 | Loss: 0.6618 | Accuracy: 0.5858 | F1: 0.5631 | MCC: 0.5893
+Epoch 17/20 | Loss: 0.5983 | Accuracy: 0.5887 | F1: 0.5557 | MCC: 0.5939
+Epoch 18/20 | Loss: 0.5927 | Accuracy: 0.5944 | F1: 0.5777 | MCC: 0.5901
+Epoch 19/20 | Loss: 0.5184 | Accuracy: 0.5987 | F1: 0.5785 | MCC: 0.6091
+Epoch 20/20 | Loss: 0.5135 | Accuracy: 0.6000 | F1: 0.5958 | MCC: 0.6256
+
+=== Starting feature_fusion ablation: alternative_fusion ===
+Epoch  1/20 | Loss: 2.1925 | Accuracy: 0.7800 | F1: 0.7455 | MCC: 0.7828
+Epoch  2/20 | Loss: 1.9754 | Accuracy: 0.7815 | F1: 0.7662 | MCC: 0.7706
+Epoch  3/20 | Loss: 1.7551 | Accuracy: 0.7836 | F1: 0.7498 | MCC: 0.7636
+Epoch  4/20 | Loss: 1.7456 | Accuracy: 0.7875 | F1: 0.7505 | MCC: 0.7867
+Epoch  5/20 | Loss: 1.6083 | Accuracy: 0.7892 | F1: 0.7676 | MCC: 0.7807
+Epoch  6/20 | Loss: 1.3518 | Accuracy: 0.7926 | F1: 0.7554 | MCC: 0.8163
+Epoch  7/20 | Loss: 1.3120 | Accuracy: 0.7973 | F1: 0.7795 | MCC: 0.7803
+Epoch  8/20 | Loss: 1.1380 | Accuracy: 0.7975 | F1: 0.7808 | MCC: 0.8089
+Epoch  9/20 | Loss: 1.0436 | Accuracy: 0.8010 | F1: 0.7846 | MCC: 0.7956
+Epoch 10/20 | Loss: 1.0971 | Accuracy: 0.8052 | F1: 0.7743 | MCC: 0.7724
+Epoch 11/20 | Loss: 1.0072 | Accuracy: 0.8066 | F1: 0.7796 | MCC: 0.8020
+Epoch 12/20 | Loss: 0.9008 | Accuracy: 0.8085 | F1: 0.7786 | MCC: 0.7772
+Epoch 13/20 | Loss: 0.7400 | Accuracy: 0.8129 | F1: 0.7895 | MCC: 0.7624
+Epoch 14/20 | Loss: 0.6892 | Accuracy: 0.8155 | F1: 0.7840 | MCC: 0.8135
+Epoch 15/20 | Loss: 0.7204 | Accuracy: 0.8153 | F1: 0.7874 | MCC: 0.8001
+Epoch 16/20 | Loss: 0.6291 | Accuracy: 0.8212 | F1: 0.7978 | MCC: 0.7635
+Epoch 17/20 | Loss: 0.5820 | Accuracy: 0.8211 | F1: 0.7879 | MCC: 0.7672
+Epoch 18/20 | Loss: 0.6044 | Accuracy: 0.8228 | F1: 0.7874 | MCC: 0.8079
+Epoch 19/20 | Loss: 0.4239 | Accuracy: 0.8261 | F1: 0.7847 | MCC: 0.7679
+Epoch 20/20 | Loss: 0.4445 | Accuracy: 0.8300 | F1: 0.8184 | MCC: 0.8110
+
+=== Starting loss_function ablation: cross_entropy ===
+Epoch  1/20 | Loss: 2.1883 | Accuracy: 0.5000 | F1: 0.4930 | MCC: 0.5077
+Epoch  2/20 | Loss: 1.9592 | Accuracy: 0.5078 | F1: 0.4960 | MCC: 0.4970
+Epoch  3/20 | Loss: 1.7461 | Accuracy: 0.5170 | F1: 0.4926 | MCC: 0.5163
+Epoch  4/20 | Loss: 1.7119 | Accuracy: 0.5282 | F1: 0.5605 | MCC: 0.5213
+Epoch  5/20 | Loss: 1.4924 | Accuracy: 0.5377 | F1: 0.5270 | MCC: 0.5469
+Epoch  6/20 | Loss: 1.4675 | Accuracy: 0.5447 | F1: 0.5340 | MCC: 0.5431
+Epoch  7/20 | Loss: 1.3200 | Accuracy: 0.5539 | F1: 0.5614 | MCC: 0.5443
+Epoch  8/20 | Loss: 1.1408 | Accuracy: 0.5644 | F1: 0.5638 | MCC: 0.5882
+Epoch  9/20 | Loss: 1.1261 | Accuracy: 0.5723 | F1: 0.5475 | MCC: 0.5863
+Epoch 10/20 | Loss: 0.9770 | Accuracy: 0.5819 | F1: 0.5761 | MCC: 0.6045
+Epoch 11/20 | Loss: 0.8814 | Accuracy: 0.5910 | F1: 0.5790 | MCC: 0.5955
+Epoch 12/20 | Loss: 0.8880 | Accuracy: 0.5999 | F1: 0.6000 | MCC: 0.6220
+Epoch 13/20 | Loss: 0.8439 | Accuracy: 0.6069 | F1: 0.5886 | MCC: 0.6017
+Epoch 14/20 | Loss: 0.7824 | Accuracy: 0.6174 | F1: 0.6124 | MCC: 0.6348
+Epoch 15/20 | Loss: 0.6088 | Accuracy: 0.6272 | F1: 0.6157 | MCC: 0.6500
+Epoch 16/20 | Loss: 0.5787 | Accuracy: 0.6328 | F1: 0.6156 | MCC: 0.6364
+Early stopping at epoch 16
+
+=== Starting loss_function ablation: dynamic_focal ===
+Epoch  1/20 | Loss: 2.0783 | Accuracy: 0.4718 | F1: 0.4839 | MCC: 0.4754
+Epoch  2/20 | Loss: 2.0039 | Accuracy: 0.4764 | F1: 0.4685 | MCC: 0.4864
+Epoch  3/20 | Loss: 1.8687 | Accuracy: 0.4838 | F1: 0.4815 | MCC: 0.4738
+Epoch  4/20 | Loss: 1.6544 | Accuracy: 0.4918 | F1: 0.4825 | MCC: 0.5025
+Epoch  5/20 | Loss: 1.5061 | Accuracy: 0.4957 | F1: 0.4899 | MCC: 0.4785
+Epoch  6/20 | Loss: 1.4354 | Accuracy: 0.5033 | F1: 0.4916 | MCC: 0.5012
+Epoch  7/20 | Loss: 1.2921 | Accuracy: 0.5102 | F1: 0.4995 | MCC: 0.5259
+Epoch  8/20 | Loss: 1.2603 | Accuracy: 0.5179 | F1: 0.4972 | MCC: 0.5266
+Epoch  9/20 | Loss: 1.0419 | Accuracy: 0.5239 | F1: 0.5075 | MCC: 0.5262
+Epoch 10/20 | Loss: 0.9765 | Accuracy: 0.5323 | F1: 0.5350 | MCC: 0.5480
+Epoch 11/20 | Loss: 0.8924 | Accuracy: 0.5393 | F1: 0.5221 | MCC: 0.5629
+Epoch 12/20 | Loss: 0.8168 | Accuracy: 0.5435 | F1: 0.5215 | MCC: 0.5400
+Epoch 13/20 | Loss: 0.7873 | Accuracy: 0.5541 | F1: 0.5337 | MCC: 0.5517
+Epoch 14/20 | Loss: 0.6842 | Accuracy: 0.5591 | F1: 0.5280 | MCC: 0.5820
+Epoch 15/20 | Loss: 0.7538 | Accuracy: 0.5677 | F1: 0.5433 | MCC: 0.5778
+Epoch 16/20 | Loss: 0.5765 | Accuracy: 0.5707 | F1: 0.5450 | MCC: 0.5922
+Epoch 17/20 | Loss: 0.5700 | Accuracy: 0.5812 | F1: 0.5689 | MCC: 0.5795
+Epoch 18/20 | Loss: 0.6026 | Accuracy: 0.5882 | F1: 0.5649 | MCC: 0.6086
+Epoch 19/20 | Loss: 0.5700 | Accuracy: 0.5928 | F1: 0.5973 | MCC: 0.6188
+Epoch 20/20 | Loss: 0.5700 | Accuracy: 0.5983 | F1: 0.5773 | MCC: 0.6030
+
+=== Starting position_encoding ablation: no_pos_enc ===
+Epoch  1/20 | Loss: 2.0743 | Accuracy: 0.7519 | F1: 0.7217 | MCC: 0.6967
+Epoch  2/20 | Loss: 1.9526 | Accuracy: 0.7512 | F1: 0.7315 | MCC: 0.6883
+Epoch  3/20 | Loss: 1.8610 | Accuracy: 0.7537 | F1: 0.7410 | MCC: 0.7149
+Epoch  4/20 | Loss: 1.7377 | Accuracy: 0.7571 | F1: 0.7241 | MCC: 0.7198
+Epoch  5/20 | Loss: 1.4720 | Accuracy: 0.7613 | F1: 0.7362 | MCC: 0.6750
+Epoch  6/20 | Loss: 1.4698 | Accuracy: 0.7614 | F1: 0.7303 | MCC: 0.6861
+Epoch  7/20 | Loss: 1.2530 | Accuracy: 0.7650 | F1: 0.7324 | MCC: 0.7779
+Epoch  8/20 | Loss: 1.1401 | Accuracy: 0.7699 | F1: 0.7421 | MCC: 0.7634
+Epoch  9/20 | Loss: 1.1411 | Accuracy: 0.7707 | F1: 0.7378 | MCC: 0.6360
+Epoch 10/20 | Loss: 0.9622 | Accuracy: 0.7739 | F1: 0.7562 | MCC: 0.7327
+Epoch 11/20 | Loss: 0.9601 | Accuracy: 0.7759 | F1: 0.7464 | MCC: 0.7904
+Epoch 12/20 | Loss: 0.8232 | Accuracy: 0.7790 | F1: 0.7589 | MCC: 0.6827
+Epoch 13/20 | Loss: 0.7567 | Accuracy: 0.7823 | F1: 0.7404 | MCC: 0.6723
+Epoch 14/20 | Loss: 0.7897 | Accuracy: 0.7854 | F1: 0.7905 | MCC: 0.7398
+Epoch 15/20 | Loss: 0.6171 | Accuracy: 0.7859 | F1: 0.7530 | MCC: 0.6173
+Epoch 16/20 | Loss: 0.6858 | Accuracy: 0.7900 | F1: 0.7638 | MCC: 0.6584
+Epoch 17/20 | Loss: 0.6463 | Accuracy: 0.7916 | F1: 0.7867 | MCC: 0.7888
+Epoch 18/20 | Loss: 0.5074 | Accuracy: 0.7932 | F1: 0.7642 | MCC: 0.6473
+Epoch 19/20 | Loss: 0.4302 | Accuracy: 0.7990 | F1: 0.7589 | MCC: 0.7775
+Epoch 20/20 | Loss: 0.4570 | Accuracy: 0.8000 | F1: 0.7758 | MCC: 0.6488
+
+=== Starting position_encoding ablation: learnable_pos_enc ===
+Epoch  1/20 | Loss: 2.0798 | Accuracy: 0.7500 | F1: 0.7136 | MCC: 0.8103
+Epoch  2/20 | Loss: 1.9674 | Accuracy: 0.7558 | F1: 0.7292 | MCC: 0.8169
+Epoch  3/20 | Loss: 1.8909 | Accuracy: 0.7582 | F1: 0.7444 | MCC: 0.7848
+Epoch  4/20 | Loss: 1.6681 | Accuracy: 0.7631 | F1: 0.7446 | MCC: 0.7951
+Epoch  5/20 | Loss: 1.5261 | Accuracy: 0.7696 | F1: 0.7432 | MCC: 0.7662
+Epoch  6/20 | Loss: 1.4513 | Accuracy: 0.7755 | F1: 0.7466 | MCC: 0.7395
+Epoch  7/20 | Loss: 1.3064 | Accuracy: 0.7770 | F1: 0.7426 | MCC: 0.7364
+Epoch  8/20 | Loss: 1.2327 | Accuracy: 0.7838 | F1: 0.7462 | MCC: 0.7844
+Epoch  9/20 | Loss: 1.1527 | Accuracy: 0.7893 | F1: 0.7703 | MCC: 0.7742
+Epoch 10/20 | Loss: 1.0917 | Accuracy: 0.7942 | F1: 0.7605 | MCC: 0.7404
+Epoch 11/20 | Loss: 0.9477 | Accuracy: 0.7955 | F1: 0.7586 | MCC: 0.7564
+Epoch 12/20 | Loss: 0.8011 | Accuracy: 0.8030 | F1: 0.7859 | MCC: 0.7363
+Epoch 13/20 | Loss: 0.7796 | Accuracy: 0.8070 | F1: 0.7700 | MCC: 0.8256
+Epoch 14/20 | Loss: 0.7484 | Accuracy: 0.8119 | F1: 0.7865 | MCC: 0.7409
+Epoch 15/20 | Loss: 0.6666 | Accuracy: 0.8144 | F1: 0.7884 | MCC: 0.7353
+Epoch 16/20 | Loss: 0.6826 | Accuracy: 0.8205 | F1: 0.8076 | MCC: 0.7535
+Epoch 17/20 | Loss: 0.5755 | Accuracy: 0.8247 | F1: 0.8059 | MCC: 0.8250
+Epoch 18/20 | Loss: 0.4949 | Accuracy: 0.8321 | F1: 0.8119 | MCC: 0.7663
+Epoch 19/20 | Loss: 0.4541 | Accuracy: 0.8353 | F1: 0.8063 | MCC: 0.7631
+Epoch 20/20 | Loss: 0.4032 | Accuracy: 0.8400 | F1: 0.7974 | MCC: 0.7821
+
+=== Starting training_strategy ablation: warmup_ablation ===
+Epoch  1/20 | Loss: 2.0827 | Accuracy: 0.6000 | F1: 0.5681 | MCC: 0.7479
+Epoch  2/20 | Loss: 1.8978 | Accuracy: 0.6080 | F1: 0.5746 | MCC: 0.7177
+Epoch  3/20 | Loss: 1.7523 | Accuracy: 0.6119 | F1: 0.5975 | MCC: 0.7188
+Epoch  4/20 | Loss: 1.7036 | Accuracy: 0.6182 | F1: 0.5995 | MCC: 0.6411
+Epoch  5/20 | Loss: 1.6053 | Accuracy: 0.6234 | F1: 0.6111 | MCC: 0.6501
+Epoch  6/20 | Loss: 1.4418 | Accuracy: 0.6330 | F1: 0.6156 | MCC: 0.7645
+Epoch  7/20 | Loss: 1.3023 | Accuracy: 0.6363 | F1: 0.6053 | MCC: 0.7506
+Epoch  8/20 | Loss: 1.1655 | Accuracy: 0.6458 | F1: 0.6345 | MCC: 0.6427
+Epoch  9/20 | Loss: 1.1047 | Accuracy: 0.6524 | F1: 0.6321 | MCC: 0.7666
+Epoch 10/20 | Loss: 0.9781 | Accuracy: 0.6584 | F1: 0.6384 | MCC: 0.6605
+Epoch 11/20 | Loss: 0.9806 | Accuracy: 0.6646 | F1: 0.6302 | MCC: 0.6654
+Epoch 12/20 | Loss: 0.9398 | Accuracy: 0.6702 | F1: 0.6518 | MCC: 0.6644
+Epoch 13/20 | Loss: 0.7707 | Accuracy: 0.6758 | F1: 0.6453 | MCC: 0.6443
+Epoch 14/20 | Loss: 0.6736 | Accuracy: 0.6811 | F1: 0.6712 | MCC: 0.7673
+Epoch 15/20 | Loss: 0.6641 | Accuracy: 0.6884 | F1: 0.6590 | MCC: 0.7690
+Epoch 16/20 | Loss: 0.6327 | Accuracy: 0.6928 | F1: 0.6822 | MCC: 0.7299
+Epoch 17/20 | Loss: 0.5379 | Accuracy: 0.7022 | F1: 0.6755 | MCC: 0.7167
+Epoch 18/20 | Loss: 0.5029 | Accuracy: 0.7067 | F1: 0.6809 | MCC: 0.6942
+Epoch 19/20 | Loss: 0.5040 | Accuracy: 0.7125 | F1: 0.7019 | MCC: 0.7371
+Epoch 20/20 | Loss: 0.4392 | Accuracy: 0.7181 | F1: 0.6846 | MCC: 0.7417
+
+=== Starting training_strategy ablation: decay_ablation ===
+Epoch  1/20 | Loss: 2.0721 | Accuracy: 0.6000 | F1: 0.5729 | MCC: 0.7235
+Epoch  2/20 | Loss: 1.9701 | Accuracy: 0.6044 | F1: 0.5804 | MCC: 0.6558
+Epoch  3/20 | Loss: 1.7780 | Accuracy: 0.6146 | F1: 0.5913 | MCC: 0.7668
+Epoch  4/20 | Loss: 1.6035 | Accuracy: 0.6207 | F1: 0.6078 | MCC: 0.6976
+Epoch  5/20 | Loss: 1.5192 | Accuracy: 0.6253 | F1: 0.6085 | MCC: 0.7053
+Epoch  6/20 | Loss: 1.4216 | Accuracy: 0.6309 | F1: 0.6048 | MCC: 0.7424
+Epoch  7/20 | Loss: 1.3009 | Accuracy: 0.6381 | F1: 0.6181 | MCC: 0.6628
+Epoch  8/20 | Loss: 1.1826 | Accuracy: 0.6458 | F1: 0.6252 | MCC: 0.6530
+Epoch  9/20 | Loss: 1.0930 | Accuracy: 0.6509 | F1: 0.6502 | MCC: 0.7029
+Epoch 10/20 | Loss: 1.0668 | Accuracy: 0.6555 | F1: 0.6389 | MCC: 0.6713
+Epoch 11/20 | Loss: 0.9887 | Accuracy: 0.6640 | F1: 0.6298 | MCC: 0.7156
+Epoch 12/20 | Loss: 0.8722 | Accuracy: 0.6701 | F1: 0.6504 | MCC: 0.6441
+Epoch 13/20 | Loss: 0.7567 | Accuracy: 0.6765 | F1: 0.6712 | MCC: 0.7332
+Epoch 14/20 | Loss: 0.7741 | Accuracy: 0.6833 | F1: 0.6548 | MCC: 0.7235
+Epoch 15/20 | Loss: 0.6964 | Accuracy: 0.6902 | F1: 0.6611 | MCC: 0.6761
+Epoch 16/20 | Loss: 0.5945 | Accuracy: 0.6942 | F1: 0.6688 | MCC: 0.7240
+Epoch 17/20 | Loss: 0.5866 | Accuracy: 0.7020 | F1: 0.6857 | MCC: 0.7038
+Epoch 18/20 | Loss: 0.5456 | Accuracy: 0.7080 | F1: 0.6719 | MCC: 0.6943
+Epoch 19/20 | Loss: 0.5075 | Accuracy: 0.7150 | F1: 0.6815 | MCC: 0.6664
+Epoch 20/20 | Loss: 0.4780 | Accuracy: 0.7187 | F1: 0.6878 | MCC: 0.6656

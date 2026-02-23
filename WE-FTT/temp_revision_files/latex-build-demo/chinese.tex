@@ -1,0 +1,16 @@
+\documentclass[12pt]{article}
+\usepackage[UTF8]{ctex}
+\usepackage[margin=1in]{geometry}
+
+\begin{document}
+
+\section*{中文 LaTeX 编译示例}
+
+这是一个最小的中文 LaTeX 文档，用于测试 `/latex-build` 命令：
+
+- 该文件应被识别为中文文档；
+- 编译时应优先使用 `latexmk -xelatex`；
+- 中间文件写入 `builds/chinese/`；
+- 最终生成的 `chinese.pdf` 被移动回当前目录。
+
+\end{document}

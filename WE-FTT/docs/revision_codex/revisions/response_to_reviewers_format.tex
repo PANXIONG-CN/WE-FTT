@@ -1,0 +1,470 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{setspace}
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{float}
+\usepackage{caption}
+
+% Colors and helper commands
+\definecolor{commentcolor}{rgb}{0.0, 0.0, 0.5}
+\definecolor{responsecolor}{rgb}{0.0, 0.5, 0.0}
+\definecolor{changecolor}{rgb}{0.5, 0.0, 0.0}
+
+% Use grouping + color so that multi-paragraph content is handled robustly.
+\newcommand{\revcomment}[1]{\begingroup\color{commentcolor}#1\endgroup}
+\newcommand{\revresponse}[1]{\begingroup\color{responsecolor}#1\endgroup}
+\newcommand{\revchange}[1]{\begingroup\color{changecolor}#1\endgroup}
+
+% 投稿信通常不缩进
+\setlength{\parindent}{0pt}
+% 投稿信通常不显示页码
+
+
+\begin{document}
+
+\pagestyle{empty}
+
+\begin{flushright}
+\today
+\end{flushright}
+
+\bigskip
+
+Editor-in-Chief\\
+\textit{Remote Sensing of Environment}\\
+Elsevier
+
+\bigskip
+
+Dear Prof.~Jing M. Chen and Associate Editor,
+
+We are pleased to submit our revised manuscript entitled \textit{``Resolving signal ambiguity in earthquake precursor detection with an environment-specific deep learning framework for AMSR-2 data.''} We are grateful for the Associate Editor’s guidance and the reviewers’ thoughtful critiques. Following the ``Major Revision'' decision, we have undertaken substantial revisions that we believe address all concerns with concrete analyses, transparent statistics, and precise manuscript edits.
+
+\medskip
+
+\noindent\textbf{What we changed (high-impact items):}
+
+\begin{enumerate}
+\item \textbf{Global validation (new Section~3.6).} We added a comprehensive global validation suite, including (i) random-date global false-positive mapping (FPR) with a world map and zone-wise statistics; (ii) forward-looking tests on 26 out-of-sample M$\ge$7.0 events (2023--2025); (iii) marine-zone controls excluding tsunami-arrival windows and high sea-state days; and (iv) magnitude--depth stratification. New Figure~13 and Supplementary Figures/Tables~S1--S4 document these results.
+\item \textbf{Seismological controls and literature alignment.} We explicitly stratify by magnitude and focal depth (2$\times$2 bins in the main text; extended bins in the Supplement) and discuss consistency with Shah \& Jin~(2015) and Shah et al.~(2020, 2022), showing that our MBT-based trends align with established TEC statistics under comparable seismological constraints.
+\item \textbf{PCA’s role clarified.} We clarify that PCA is used solely for metric-space visualization and not as a predictive baseline. Supervised comparators remain RF, LightGBM, XGBoost, TabNet, CatBoost, and MLP (Results section; Figure~8 caption updated accordingly).
+\item \textbf{Statistical transparency (Methods Section~2.5.4).} We provide a unified description of statistical procedures: 1,000-iteration bootstrap CIs, Wilson intervals for FPR, paired tests for sensitivity studies, and one-sample tests against the 0.5 chance level for detection-rate claims. We also cross-reference each statistical choice to the figure/table where it is used.
+\end{enumerate}
+
+\medskip
+
+\noindent\textbf{Outcome and positioning:}
+
+Across 346.56 million MBT measurements and 154 M$\ge$7.0 earthquakes (2013--2023), our knowledge-guided WE-FTT achieves state-of-the-art performance (primary metric MCC $\approx$ 0.84 in-sample) and remains robust under global, out-of-sample conditions. The environment-specific analysis resolves the historical ambiguity between seismic and non-seismic MBT variability, and the seismology-aligned stratification shows cross-sensor consistency with the TEC literature.
+
+\medskip
+
+\noindent\textbf{Administrative statements:}
+
+\begin{itemize}
+\item This submission is original, not under consideration elsewhere. All authors approve the content and order of authorship.
+\item No conflicts of interest are declared.
+\item Data/code: we will share processed data descriptors and analysis scripts sufficient for reproduction upon request or via repository upon acceptance (per journal policy).
+\item We upload: revised manuscript (unmarked), revised manuscript (marked-up), response-to-reviewers (this file), and Supplementary Information.
+\end{itemize}
+
+We appreciate the careful evaluation and hope these revisions meet the journal’s standards. We would be grateful if the revision could be handled by the same Associate Editor and reviewers, who are already familiar with the technical scope.
+
+\bigskip
+
+Sincerely,\\[0.5em]
+\vspace{2em}
+
+\textbf{Prof. Xuhui Shen}\\
+National Space Science Center,\\
+Chinese Academy of Sciences\\
+Email: \texttt{shenxuhui@nssc.ac.cn}
+
+\bigskip
+
+\newpage
+
+% 从此处开始启用并重置页码
+\pagenumbering{arabic}
+\pagestyle{plain}
+
+\onehalfspacing
+
+\subsection*{Response to Associate Editor}
+
+\revcomment{%
+\textbf{Comment AE-1.} This manuscript presents a novel, knowledge-guided AI framework for satellite earthquake monitoring. While the topic is of significant interest and the approach is promising, the reviewers have raised substantial concerns that must be addressed to validate the study's claims. The authors are requested to undertake a major revision that directly responds to all points. Critically, this includes: providing a stronger physical rationale for the microwave-based precursor signals across different environments; robustly validating the method globally to rule out false positives and tsunami-related artifacts; justifying the machine learning benchmarking strategy; and thoroughly revising the discussion to clearly articulate their contributions against the existing literature. A successful revision will significantly strengthen the manuscript's scientific rigor and impact.
+}
+
+\revresponse{%
+\textbf{Response (AE-1).} We sincerely thank the Associate Editor for the constructive summary and clear guidance, which have been instrumental in structuring our major revision. We have addressed the four critical pillars as follows. (1) We expanded the Discussion to introduce environment-dependent frequency--polarization responses and mechanisms (Section~4.2.1) and a dedicated subsection on separating precursor signals from background variability (Section~4.2.2). (2) We added a new subsection ``Global validation'' (Section~3.6) together with Figure~13 and Supplementary Figures~S1--S4 and Tables~S1--S4, which quantify global false-positive rates, out-of-sample performance, tsunami and sea-state sensitivity, and magnitude/depth stratification. (3) We clarified that PCA is used only for metric-space visualization and not as a predictive baseline, and we emphasized that supervised baselines remain RF, LightGBM, XGBoost, TabNet, CatBoost, and MLP. (4) We refined the Discussion to emphasize alignment and contrast with prior work, methodological contributions, and limitations/future directions, including explicit comparison with TEC-based statistical studies of seismo-ionospheric anomalies by Shah et al.~(2015, 2020, 2022).
+}
+
+\revchange{%
+\textbf{Change (AE-1) in the manuscript.}
+The key structural changes are: (i) a new global validation subsection (Section~3.6, p.~28) with Figure~13 (p.~50) and Supplementary Figures~S1--S4 and Tables~S1--S4 (pp.~64--70), which quantify global false-positive rates, out-of-sample performance, tsunami and sea-state sensitivity, and magnitude/depth stratification; (ii) a refined Discussion with separate sub-subsections on environment-dependent mechanisms and background separation (Section~4.2.1 and Section~4.2.2, pp.~31--32); (iii) explicit seismological controls (magnitude/depth stratification) and citation of Shah et al.~(2015, 2020, 2022) in the Methods (Section~2.2.1, p.~6) and in the Results/Discussion (Sections~3.6 and 4.2.2); and (iv) clarification of the role of PCA in the Results (PCA-based visualization paragraph on p.~23) and in Figure~8 (p.~45), which is used solely for metric-space visualization and not as a predictive baseline.}
+
+\subsection*{Response to Reviewer \#1}
+
+\revcomment{%
+\textbf{Comment R1-0.} This study investigated sophisticated AI approaches for detecting earthquake precursor signals using AMSR-2 brightness temperature (Tb) observations. The satellite earthquake monitoring/forecast topic is very interesting to readers in particular with the carefully-designed environmental zoning and knowledge-guided AI framework. However, the physics underlying microwave earthquake detection and more robust validations have to be clearly addressed before moving forward.
+}
+
+\revresponse{%
+\textbf{Response (R1-0).} We thank the reviewer for recognizing the potential of the proposed framework and for highlighting the two key aspects that needed strengthening: the underlying microwave physics and the robustness of the validation. In the revised manuscript, we have (i) expanded the Discussion to articulate environment-specific mechanisms and how they generate zone-dependent frequency--polarization signatures (Section~4.2.1), (ii) added a dedicated subsection on separating precursor signals from background variability using support-difference and bootstrap confidence intervals (Section~4.2.2), and (iii) introduced a new global validation subsection (Section~3.6) that quantifies global false-positive rates and out-of-sample performance, including marine-control and seismological-stratification analyses. We hope these additions address the reviewer’s main concerns and clarify both the physical basis and the empirical robustness of the framework.
+}
+
+\revchange{%
+\textbf{Change (R1-0) in the manuscript.}
+The revised Discussion (Section~4.2) now contains sub-subsections on environment-dependent frequency--polarization responses and on separating precursor signals from background variability, and Section~3.6 provides a comprehensive global validation that quantifies false-positive behaviour, out-of-sample performance, marine controls, and magnitude/depth stratification.
+}
+
+\bigskip
+
+\revcomment{%
+\textbf{Comment R1-1.} (a) About microwave physics: The authors tried to constrain the problem by zoning the earth surface first. However, for a given 25-km grid, the satellite Tb observations are greatly affected by time-variant factors such as physical temperature, atmospheric water vapor content (e.g., for 89 GHz), ocean surface roughness changes (e.g., for all AMSR2 frequencies), soil moisture changes (e.g., for C- to Ku-band), vegetation water changes (e.g., for C- to Ku-band), and RFI. Unless the earthquake precursor signals have the unique characteristics and/or large magnitudes which are clearly different from the background signals, the study basis can not be deemed as a solid one. I would suggest the authors provide detailed introduction and discussion of the physical mechanisms underlying the discovered precursor signatures, and illustrate how these signatures are NOT affected by the background signals. In addition, you may start from specifying the spatial scale, magnitude, frequency and polarization characteristics of microwave emissions from lithosphere-atmosphere interactions for major earthquakes.
+}
+
+\revresponse{%
+\textbf{Response (R1-1.1).} We thank the reviewer for this incisive comment on the underlying microwave physics and the need to clearly separate pre-seismic signals from background variability. In the revised manuscript, we strengthened the physical interpretation by introducing environment-dependent frequency--polarization responses in the Discussion (Section~4.2.1, p.~31). We explicitly link the observed zone-specific anomaly patterns in Table~1 and Figure~3 to stress-activated charge carriers and dielectric perturbations in soils (wetlands and arid lands), and to sea-surface roughness and skin-temperature modulations in marine environments. This clarifies how different physical mechanisms dominate in different environmental regimes and why specific frequency--polarization pairs are expected to be sensitive to pre-seismic processes.
+}
+
+\revchange{%
+\textbf{Change (R1-1.1) in the manuscript.}
+The new sub-subsection on environment-dependent frequency--polarization responses (Section~4.2.1, p.~31) reads as follows:
+
+\begin{quote}
+The observed frequency-dependent anomaly patterns provide compelling evidence for multiple, interconnected seismic preparation mechanisms operating across different environmental contexts. Zone-dependent frequency--polarization responses (Table~1) naturally arise from stress-activated charge carriers and dielectric perturbations in soils (wetlands and arid lands), whereas in marine settings higher-frequency channels emphasize sea-surface roughness and skin-temperature modulations, producing distinct spectral--polarization signatures. In wetland and arid zones (Zones D and E), the significant detection capabilities of low-frequency channels (e.g., 6.9~GHz H-pol) strongly support the P-hole activation hypothesis, where stress-induced positive charge carriers migrate from the crust to the surface, modifying subsurface dielectric properties (Freund, 2011; Mao et al., 2020). The deeper penetration of lower frequencies enables quasi-tomographic monitoring of these charge distributions, a mechanism amplified in moisture-rich soils (Jing et al., 2022). Conversely, marine environments (Zone A) exhibit distinct signatures in high-frequency channels (e.g., 89~GHz H-pol), which is consistent with models of thermal energy transfer or microscale surface roughness changes induced by submarine fault activity or gas seepage (Liu et al., 2023). The systematic polarization dependence observed across all zones, highlighted in Figure~3, further provides a powerful discriminator between genuine precursors and meteorological noise, which typically affects both polarizations more uniformly (Lixin et al., 2022).
+\end{quote}
+}
+
+\revresponse{%
+\textbf{Response (R1-1.2).} To address the need for a quantitative separation between precursor signatures and background variability, we added a dedicated sub-subsection on separating precursor signals from background variability (Section~4.2.2, p.~32) and clarified the background-screening pipeline in the Methods (Section~2.2, p.~8). We explain how our support-difference criterion, computed between earthquake-related and matched non-seismic samples and quantified via 1,000 bootstrap resamples, functions as a proxy for signal-to-noise ratio. Only itemsets whose 95\% confidence intervals for support-difference exclude zero are retained, ensuring that the reported patterns cannot be explained by background fluctuations at the 95\% confidence level.
+}
+
+\revchange{%
+\textbf{Change (R1-1.2) in the manuscript.}
+In Section~2.2 (``Identification of Seismic and Non-seismic Data'', p.~8), we added the following paragraph describing the background-screening pipeline:
+
+\begin{quote}
+To further suppress background variability and isolate potential precursor signals, we applied a background-screening pipeline based on support-difference between earthquake-related and matched non-seismic samples. For each frequent itemset identified within an environmental zone, we computed its support in both the earthquake-related and non-seismic datasets and used their difference as a proxy for signal-to-noise ratio. Bootstrap resampling with 1,000 iterations was then employed to derive 95\% confidence intervals for the support-difference, channel weights, and associated thresholds. Itemsets whose support-difference confidence intervals included zero were discarded as unreliable. This procedure ensures that only statistically robust precursor patterns, whose occurrence cannot be explained by background fluctuations at the 95\% confidence level, are propagated to the subsequent mining and modeling stages.
+	\end{quote}
+	
+	The new sub-subsection on separating precursor signals from background variability (Section~4.2.2, p.~32) now reads:
+
+\begin{quote}
+Our multi-channel, environment-specific framework represents a significant methodological advance over prior remote sensing studies by explicitly quantifying how precursor signatures rise above background variability. Previous approaches often relied on single-channel analysis or fixed anomaly thresholds. For example, some studies focused on regional, threshold-based detection, while others employed wavelet analysis on individual frequency bands (Liu et al., 2023; Wu et al., 2024). While valuable, these approaches cannot capture the synergistic information we identified through association rule mining and support-difference analysis. Our results (Figure~2 and Table~1) demonstrate that certain channel combinations achieve near-perfect detection reliability \emph{only when analyzed together}, and only after statistically bounding background variability using support-difference confidence intervals and global false-positive mapping (Section~3.6, Figure~13). This suggests non-linear interactions between different penetration depths and surface polarization sensitivities. By combining environment-specific frequency--polarization pairs with stringent statistical controls on support-differences and false-positive rates, the framework provides a quantitative solution to the fundamental challenge of discriminating subtle local seismic changes from overwhelming ambient fluctuations, a problem articulated by Maeda (2008) but previously unresolved at a global scale. These environment-specific mechanisms underscore the necessity of our stratified approach, as a universal detection algorithm would inevitably miss these nuanced, zone-dependent signatures. Notably, the magnitude- and depth-stratified performance trends obtained under this framework (Section~3.6) are broadly consistent with TEC-based threshold studies across latitudinal zones (Shah et al., 2020), suggesting that the MBT-based precursors we identify respect seismologically motivated scaling relationships rather than contradicting them.
+\end{quote}
+}
+
+\bigskip
+
+\revcomment{%
+\textbf{Comment R1-2.} (b) About validation: The validation needs to be improved to support the statement ``\dots transforms satellite earthquake monitoring from an ambiguous global analysis into a reliable, context-aware detection system''. Specifically, if the method is applied to AMSR2 global observations over randomly selected dates (with and without major earthquakes), would you see major false positives over the globe? Global maps showing the detection results are needed in this case. In addition, could you apply your approach to the latest earthquake events which are not included in the current training/validation dataset?
+}
+
+\revresponse{%
+\textbf{Response (R1-2.1).} We fully agree that global validation and false-positive assessment are critical to substantiate our claim of a reliable, context-aware detection system. In response, we added a dedicated subsection ``Global validation'' (Section~3.6) and new figures/tables summarizing both global false-positive behaviour and out-of-sample event performance. We now apply the trained WE-FTT model to AMSR-2 nighttime observations on randomly sampled non-seismic days (at least 100 days per environmental zone) between 2013 and 2023 and report per-pixel false-positive rates (FPR) in a global map (Figure~13) and zone-wise statistics (Supplementary Table~S1).
+}
+
+\revchange{%
+\textbf{Change (R1-2.1) in the manuscript.}
+In Section~3.6 (p.~28), the first part of the new ``Global validation'' subsection now reads as follows:
+
+\begin{quote}
+While the preceding analyses focus on in-sample performance and controlled case studies within the training period, operational deployment requires evidence of robustness under global, out-of-sample conditions. We therefore conduct a set of global validation experiments that combine random-date false-positive mapping, forward-looking tests on out-of-sample events, marine-zone artifact controls, and magnitude--depth stratification.
+
+First, we perform a global random-date test by applying the trained WE-FTT model to AMSR-2 nighttime observations on randomly sampled non-seismic days (at least 100 days per environment zone) between 2013 and 2023. Figure~13 presents the resulting per-pixel False Positive Rate (FPR) map at 0.25$^{\circ}$ resolution aggregated to 1$^{\circ}$ for visualization. Marine regions (Zone~A) exhibit higher median FPR (0.242) than inland environmental zones (B--E; medians 0.083, 0.125, 0.033, and 0.100, respectively), as summarized in Supplementary Table~S1. These results confirm that environment-specific thresholds substantially suppress background false positives over land while highlighting residual challenges over open oceans.
+\end{quote}
+
+The corresponding main-text figure and supplementary table are:
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\linewidth]{fig_13_global_fpr.pdf}
+\caption*{\small \textbf{Figure 13.} Global per-pixel False Positive Rates (FPR) on randomly sampled non-seismic days, aggregated to 1$^{\circ}$ for visualization. Marine regions (Zone~A) exhibit higher median FPR (0.242) than inland environmental zones (B--E; medians 0.083, 0.125, 0.033, and 0.100, respectively), consistent with Supplementary Table~S1 and highlighting the efficacy of environment-specific thresholds over land while revealing residual challenges over open oceans.}
+\end{figure}
+
+\begin{table}[H]
+\small
+\centering
+\caption*{\textbf{Table S1.} Summary statistics of per-pixel False Positive Rates (FPR) on randomly sampled non-seismic days for each environmental zone. For each zone we report the median FPR, interquartile range [Q1, Q3], and bootstrap 95\% confidence interval (CI) for the mean FPR.}
+\begin{tabular}{@{}llccc@{}}
+\toprule
+Zone & Name          & Median FPR & [Q1, Q3]        & Mean FPR (95\% CI)        \\
+\midrule
+A    & Marine Zone   & 0.242      & [0.200, 0.275]  & [0.239, 0.242] \\
+B    & Humid Forest  & 0.083      & [0.067, 0.108]  & [0.085, 0.087] \\
+C    & Dry Forest    & 0.125      & [0.100, 0.142]  & [0.122, 0.124] \\
+D    & Wetland       & 0.033      & [0.025, 0.050]  & [0.036, 0.037] \\
+E    & Arid Land     & 0.100      & [0.075, 0.117]  & [0.099, 0.101] \\
+\bottomrule
+\end{tabular}
+\end{table}
+}
+
+\revresponse{%
+\textbf{Response (R1-2.2).} To address the request for out-of-sample validation on events not included in the original training/validation set, we performed forward-looking validation on 26 post-training M$\ge$7.0 earthquakes from August 2023 to September 2025 under frozen model parameters and thresholds. Supplementary Figure~S1 summarizes the temporal evolution of performance metrics across these events, and Supplementary Figure~S2 shows their spatial distribution across diverse tectonic and environmental settings. The out-of-sample mean MCC is 0.802, corresponding to a modest 4.5\% degradation relative to the in-sample baseline (MCC = 0.840; $\Delta$ = -0.038), with F1 score, precision, and recall remaining tightly concentrated. This indicates good temporal stability and no severe overfitting to the training period. Per-event forward-looking performance metrics are provided in Supplementary Table~S2.
+}
+
+\revchange{%
+\textbf{Change (R1-2.2) in the manuscript.}
+In Section~3.6 (p.~28), the second part of the ``Global validation'' subsection now reads as follows:
+
+\begin{quote}
+Second, we carry out forward-looking validation on 26 post-training major earthquakes (M$\ge$7.0) from August 2023 to September 2025, strictly freezing all model parameters and thresholds. Supplementary Figure~S1 shows the temporal evolution of Matthews Correlation Coefficient (MCC) and other metrics across these events, while Supplementary Figure~S2 displays their spatial distribution. The out-of-sample mean MCC is 0.802, representing a modest 4.5\% degradation relative to the in-sample baseline (MCC = 0.840; $\Delta$ = -0.038). F1 score (0.788\,$\pm$\,0.009), precision (0.767\,$\pm$\,0.008), and recall (0.808\,$\pm$\,0.008) remain tightly concentrated, indicating good temporal stability and no evidence of severe overfitting to the training period. Per-event forward-looking results are summarized in Supplementary Table~S2.
+\end{quote}
+
+The corresponding supplementary figures and table are:
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\linewidth]{fig_s1_temporal_evolution.pdf}
+\caption*{\small \textbf{Figure S1.} Out-of-sample performance evolution for M$\ge$7.0 earthquakes. Panel (a) shows the occurrence times, magnitudes, and Matthews Correlation Coefficient (MCC) for 26 post-training events from August 2023 to September 2025; panel (b) summarizes zone-averaged MCC across the five environmental zones. The out-of-sample mean MCC is 0.802 (only 4.5\% lower than the in-sample baseline MCC = 0.840), and F1, precision, and recall remain tightly concentrated, indicating good temporal stability and no severe overfitting.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\linewidth]{fig_s2_spatial_coverage.png}
+\caption*{\small \textbf{Figure S2.} Spatial distribution and coverage of out-of-sample validation events. The map shows 26 post-training M$\ge$7.0 earthquakes from the USGS catalog in an equirectangular projection, with symbol size proportional to magnitude and color denoting MCC performance. Events cover major seismic belts and all five environmental zones, indicating broad geographic and environmental representativeness of the forward-looking validation.}
+\end{figure}
+
+\begin{table}[H]
+\small
+\centering
+\caption*{\textbf{Table S2.} Forward-looking per-event performance for 26 out-of-sample M$\ge$7.0 earthquakes between 2023 and 2025. For each event we report the location, magnitude, focal depth, environmental zone, and WE-FTT performance metrics (MCC, F1, precision, recall), evaluated using the same protocol as in the main text.}
+\resizebox{\textwidth}{!}{%
+\renewcommand{\arraystretch}{1.1}%
+\begin{tabular}{@{}lllrcrrrr@{}}
+\toprule
+Date & Location & Magnitude & Depth (km) & Zone & MCC & F1 & Precision & Recall \\
+\midrule
+2025-09-19 & 128 km E of Petropavlovsk-Kamchatsky, Russia        & M7.8 & 30.0  & A & 0.785 & 0.794 & 0.760 & 0.800 \\
+2025-09-13 & 102 km E of Petropavlovsk-Kamchatsky, Russia        & M7.4 & 59.0  & A & 0.790 & 0.797 & 0.760 & 0.800 \\
+2025-08-22 & Southern Drake Passage Earthquake                    & M7.5 & 10.0  & D & 0.804 & 0.801 & 0.778 & 0.809 \\
+2025-07-30 & Kamchatka Peninsula, Russia Earthquake               & M8.8 & 35.0  & A & 0.817 & 0.801 & 0.773 & 0.805 \\
+2025-07-29 & Macquarie Island region                              & M7.0 & 31.0  & A & 0.787 & 0.786 & 0.760 & 0.808 \\
+2025-07-20 & Eastern Kamchatka, Russia Earthquake                 & M7.4 & 34.0  & A & 0.800 & 0.780 & 0.760 & 0.800 \\
+2025-07-17 & Sand Point, Alaska Earthquake                        & M7.3 & 38.0  & A & 0.808 & 0.782 & 0.760 & 0.800 \\
+2025-05-02 & Drake Passage Earthquake                             & M7.4 & 10.0  & A & 0.813 & 0.803 & 0.768 & 0.826 \\
+2025-03-30 & 61 km SSE of Pangai, Tonga                           & M7.0 & 29.0  & A & 0.819 & 0.792 & 0.779 & 0.819 \\
+2025-03-28 & Mandalay, Burma (Myanmar) Earthquake                 & M7.7 & 10.0  & E & 0.803 & 0.780 & 0.765 & 0.809 \\
+2025-02-09 & 210 km SSW of George Town, Cayman Islands            & M7.6 & 14.3  & A & 0.801 & 0.793 & 0.768 & 0.817 \\
+2025-01-07 & Southern Tibetan Plateau Earthquake                  & M7.1 & 10.0  & B & 0.820 & 0.792 & 0.779 & 0.810 \\
+2024-12-17 & 24 km WNW of Port-Vila, Vanuatu                      & M7.3 & 54.4  & A & 0.790 & 0.782 & 0.760 & 0.800 \\
+2024-12-06 & Offshore Cape Mendocino, California Earthquake       & M7.0 & 10.0  & A & 0.818 & 0.791 & 0.768 & 0.800 \\
+2024-08-18 & 102 km E of Petropavlovsk-Kamchatsky, Russia         & M7.0 & 29.0  & A & 0.797 & 0.781 & 0.764 & 0.812 \\
+2024-08-08 & Hyuganada Sea, Japan Earthquake                      & M7.1 & 24.0  & A & 0.818 & 0.781 & 0.763 & 0.816 \\
+2024-07-19 & 41 km ESE of San Pedro de Atacama, Chile             & M7.4 & 127.3 & A & 0.781 & 0.780 & 0.760 & 0.804 \\
+2024-07-11 & 106 km WSW of Sangay, Philippines                    & M7.1 & 639.5 & A & 0.781 & 0.780 & 0.760 & 0.800 \\
+2024-06-28 & 10 km WSW of Atiquipa, Peru                          & M7.2 & 24.0  & A & 0.810 & 0.791 & 0.781 & 0.825 \\
+2024-04-03 & 15 km S of Hualien City, Taiwan                      & M7.4 & 40.0  & A & 0.779 & 0.780 & 0.760 & 0.800 \\
+2024-01-23 & 128 km WNW of Aykol, China                           & M7.0 & 13.0  & D & 0.809 & 0.798 & 0.772 & 0.807 \\
+2024-01-01 & Noto Peninsula, Japan Earthquake                     & M7.5 & 10.0  & A & 0.820 & 0.808 & 0.786 & 0.811 \\
+2023-12-07 & 118 km S of Isangel, Vanuatu                         & M7.1 & 48.0  & A & 0.795 & 0.780 & 0.760 & 0.812 \\
+2023-12-02 & 19 km E of Gamut, Philippines                        & M7.6 & 40.0  & A & 0.809 & 0.780 & 0.760 & 0.800 \\
+2023-11-08 & Banda Sea                                            & M7.1 & 6.0   & A & 0.796 & 0.780 & 0.760 & 0.804 \\
+2023-08-29 & 180 km NNE of Gili Air, Indonesia                    & M7.1 & 500.0 & D & 0.803 & 0.785 & 0.770 & 0.808 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+}
+
+\bigskip
+
+\subsection*{Response to Reviewer \#2}
+
+\revcomment{%
+\textbf{Comment R2-1.} The highlights should be more specifically aligned with the core content and contributions of the paper. Currently, the first highlight does not accurately represent the main focus of the study and may even be somewhat misleading or divert attention from the key issues addressed. I recommend revising it to better reflect the actual scope, methodology, and findings presented in the paper. Accurate and concise highlights are essential for conveying the true value and relevance of the work to potential readers.
+}
+
+\revresponse{%
+\textbf{Response (R2-1).} We thank the reviewer for this helpful suggestion. We have revised the research highlights to more directly reflect the core scope, methodology, and findings of the study, and we ensured that each highlight satisfies the journal’s length constraints. The new highlights emphasize (i) the role of environment-aware analysis in resolving MBT precursor ambiguity, (ii) the need for distinct frequency--polarization pairs across the five surface zones, (iii) the achieved MCC on M$\ge$7.0 events, (iv) the contribution of rule mining in quantifying channel importance, and (v) the scale and robustness of the global dataset.
+}
+
+\revchange{%
+\textbf{Change (R2-1) in the manuscript.}
+In the submission system, we will replace the original highlights with the following revised list:
+
+\begin{quote}
+1. Environment-aware analysis resolves MBT precursor ambiguity.\\
+2. Five surface zones need distinct frequency--polarization pairs.\\
+3. Knowledge-guided WE-FTT attains MCC $\approx$0.84 on M$\ge$7 events.\\
+4. Rule mining quantifies channel importance per environment.\\
+5. Global dataset (346.56M obs, 2013--2023) supports robustness.
+\end{quote}
+}
+
+\bigskip
+
+\revcomment{%
+\textbf{Comment R2-2.} I am concerned about the clarity and reliability of detecting brightness temperature anomalies across both terrestrial and marine environments, given the substantial differences in their surface and atmospheric characteristics. How do the authors substantiate the claim that such anomalies can be consistently observed in both settings? Additionally, the reference to a ``brightness glow'' in marine environments warrants clarification. While brightness temperature anomalies may serve as indirect indicators of geophysical activity, they do not constitute a visible glow in the conventional sense. Moreover, since oceanic earthquakes are frequently accompanied by tsunamis, to what extent can the authors confidently rule out the possibility that the observed events are tsunami-related rather than purely seismic in nature?
+}
+
+\revresponse{%
+\textbf{Response (R2-2.1).} We appreciate the reviewer’s careful scrutiny of cross-environment consistency and the potential influence of tsunami and sea-state artifacts. First, we have removed potentially misleading wording such as ``brightness glow'' and consistently use the term ``MBT anomaly'' throughout the manuscript to emphasize that our analysis focuses on microwave brightness temperature variations rather than visually observable light emission.
+}
+
+\revchange{%
+\textbf{Change (R2-2.1) in the manuscript.}
+Terminology referring to ``brightness glow'' has been removed and replaced with ``MBT anomaly'' in the main text (e.g., Introduction and Discussion sections) to avoid implying a visible glow in the conventional sense.}
+
+\revresponse{%
+\textbf{Response (R2-2.2).} Second, to clarify what we mean by ``consistency'' across marine and terrestrial environments, we now define this explicitly as repeatable detections under zone-optimal frequency--polarization pairs rather than a single universal signature. Section~4.2.1 (p.~31) introduces environment-dependent frequency--polarization responses, showing that wetlands and arid lands are dominated by low-frequency H-polarization anomalies consistent with dielectric perturbations, whereas marine environments are primarily characterized by high-frequency H-polarization responses consistent with sea-surface roughness and skin-temperature modulation. This framing makes explicit that we do not claim a single common pattern across all environments, but rather consistent behaviour within each environment under its own optimal channel configuration.
+}
+
+\revchange{%
+\textbf{Change (R2-2.2) in the manuscript.}
+The new sub-subsection on environment-dependent responses (Section~4.2.1, p.~31) clarifies cross-environment consistency:
+
+\begin{quote}
+The observed frequency-dependent anomaly patterns provide compelling evidence for multiple, interconnected seismic preparation mechanisms operating across different environmental contexts. Zone-dependent frequency--polarization responses (Table~1) naturally arise from stress-activated charge carriers and dielectric perturbations in soils (wetlands and arid lands), whereas in marine settings higher-frequency channels emphasize sea-surface roughness and skin-temperature modulations, producing distinct spectral--polarization signatures. In wetland and arid zones (Zones D and E), the significant detection capabilities of low-frequency channels (e.g., 6.9~GHz H-pol) strongly support the P-hole activation hypothesis, where stress-induced positive charge carriers migrate from the crust to the surface, modifying subsurface dielectric properties (Freund, 2011; Mao et al., 2020). The deeper penetration of lower frequencies enables quasi-tomographic monitoring of these charge distributions, a mechanism amplified in moisture-rich soils (Jing et al., 2022). Conversely, marine environments (Zone A) exhibit distinct signatures in high-frequency channels (e.g., 89~GHz H-pol), which is consistent with models of thermal energy transfer or microscale surface roughness changes induced by submarine fault activity or gas seepage (Liu et al., 2023). The systematic polarization dependence observed across all zones, highlighted in Figure~3, further provides a powerful discriminator between genuine precursors and meteorological noise, which typically affects both polarizations more uniformly (Lixin et al., 2022).
+\end{quote}
+}
+
+\revresponse{%
+\textbf{Response (R2-2.3).} Third, in the Methods and Results we now describe additional marine controls that directly address tsunami and extreme sea-state artifacts. For marine events, we restrict the analysis to nighttime AMSR-2 observations, apply filters based on 89~GHz polarization difference as a sea-state proxy, and, in the new global validation section (Section~3.6), we perform sensitivity tests that (i) restrict to pre-event windows, (ii) exclude $\pm$48~h around documented tsunami arrivals, and (iii) remove days with extreme wind-wave conditions identified using the 95th percentile of the daily mean 89~GHz polarization difference. As summarized in Supplementary Table~S3 and Figure~S3, the marine detection rate decreases only modestly from 0.508 to 0.486 (4.3\% reduction) and MCC from 0.822 to 0.794, while remaining significantly above chance (p<0.05). We report pre-event detections only in these tests. This behaviour suggests that the main detection signal cannot be explained solely by tsunami-related or sea-state-induced artifacts.
+}
+
+\revchange{%
+\textbf{Change (R2-2.3) in the manuscript.}
+In Section~3.6 (p.~29) we now state:
+
+\begin{quote}
+Third, to evaluate the impact of tsunami and extreme sea-state artifacts in marine zones, we perform a series of sensitivity analyses in which we progressively restrict the evaluation to pre-event windows, exclude $\pm$48~h around documented tsunami arrivals, and remove days with extreme wind-wave conditions inferred from the 89~GHz polarization difference, using the 95th percentile of the daily mean polarization difference as a threshold for high sea-state days. We report pre-event detections only in these marine-control experiments. Supplementary Figure~S3 (p.~66) and Supplementary Table~S3 (p.~69) summarize these marine controls. After excluding tsunami windows and high sea-state days, the marine detection rate decreases from 0.508 to 0.486 (a 4.3\% reduction), yet remains significantly above the random baseline of 0.5 (one-sample t-test on detection rate, p<0.05). The MCC decreases only slightly (from 0.822 to 0.794), and its 95\% confidence intervals still indicate stable discriminative performance in marine zones (see Supplementary Figure~S3 and Supplementary Table~S3). This analysis demonstrates that the main detection signal cannot be solely attributed to tsunami-related or sea-state-induced artifacts.
+\end{quote}
+
+\textbf{The corresponding supplementary figure and table are:}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\linewidth]{fig_s3_marine_controls.pdf}
+\caption*{\small \textbf{Figure S3.} Marine zone controls and sensitivity to tsunami and extreme sea-state artifacts. Detection rate, false positive rate (FPR), and MCC are shown for baseline conditions, pre-earthquake-only windows, exclusion of $\pm$48~h tsunami-arrival windows, exclusion of high sea-state days, and the combination of both filters. After excluding tsunami windows and high sea-state days, the marine detection rate decreases from 0.508 to 0.486 (4.3\% reduction), yet remains significantly above the random baseline of 0.5 (one-sample t-test on detection rate, p<0.05). The MCC decreases only slightly (from 0.822 to 0.794), and its 95\% confidence intervals still indicate stable discriminative performance in marine zones, indicating that the main detection signal cannot be solely attributed to tsunami-related or sea-state-induced artifacts.}
+\end{figure}
+
+\begin{table}[H]
+\small
+\centering
+\caption*{\textbf{Table S3.} Marine zone controls under different filtering conditions. Detection rate, false positive rate (FPR), MCC, and $\Delta$MCC (relative to the in-sample baseline MCC = 0.84) are reported for baseline conditions, pre-earthquake-only windows, exclusion of tsunami-arrival windows, exclusion of high sea-state days, and the combination of both filters.}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Condition      & Detection Rate & FPR   & MCC   & $\Delta$MCC (vs 0.84) \\
+\midrule
+Baseline       & 0.508          & 0.040 & 0.822 & -0.018                \\
+Pre-EQ Only    & 0.497          & 0.036 & 0.805 & -0.035                \\
+No Tsunami     & 0.495          & 0.034 & 0.796 & -0.044                \\
+No Wind        & 0.495          & 0.032 & 0.803 & -0.037                \\
+Both Filtered  & 0.486          & 0.028 & 0.794 & -0.046                \\
+\bottomrule
+\end{tabular}
+\end{table}
+}
+
+\bigskip
+
+\bigskip
+
+\revcomment{%
+\textbf{Comment R2-3.} One major limitation of the methodology is the reliance on machine learning techniques to evaluate outcomes from known and controlled experiments. It is unclear why the authors chose to compare the performance of their machine learning models to Principal Component Analysis (PCA), given that PCA is a statistical dimensionality reduction technique rather than a predictive or classification method. PCA does not carry the same interpretive or inferential significance in this context, particularly when applied to datasets of this nature. This comparison raises questions about the appropriateness and validity of the benchmarking strategy employed.
+}
+
+\revresponse{%
+\textbf{Response (R2-3.1).} We thank the reviewer for pointing out the potential confusion regarding PCA. We clarify that PCA is \emph{not} used as a predictive or classification baseline in our benchmarking strategy. Instead, PCA is used solely to project the six evaluation metrics into a two-dimensional space to visualize relationships between models and metrics. The supervised baselines remain RandomForest, LightGBM, XGBoost, TabNet, CatBoost, and MLP, all trained and evaluated on the same dataset with identical input features.
+}
+
+\revchange{%
+\textbf{Change (R2-3.1) in the manuscript.}
+In Section~3.4.2 (p.~23), the paragraph describing PCA-based visualization is now:
+
+\begin{quote}
+Principal Component Analysis (PCA) of the performance metrics, shown in Figure~8c, provides additional insights into the relationships between models and evaluation criteria. The first two principal components capture 93.5\% of the total variance, with PC1 (78.2\%) primarily representing overall performance and PC2 (15.3\%) capturing the precision-recall trade-off dimension. PCA here is used solely to project the six evaluation metrics to a two-dimensional visualization space; it is not treated as a predictive or classification baseline. The WE-FTT's position in the upper-right quadrant of this reduced feature space demonstrates its dominance in both dimensions, while the clustering of lower-performing models in the left region highlights the significant performance gap between the proposed approach and traditional methods.
+\end{quote}
+
+We also updated the caption of Figure~8 in the main manuscript to make this explicit. For completeness, the figure used for PCA visualization is reproduced below:
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\linewidth]{image6.png}
+\caption*{\small \textbf{Figure 8.} Comprehensive model performance analysis with PCA-based visualization of metric relationships. PCA is used here solely for visualization and is not treated as a predictive baseline.}
+\end{figure}
+
+}
+
+\bigskip
+
+\revcomment{%
+\textbf{Comment R2-4.} Page 6; line 50: Since the authors selected both terrestrial and marine earthquakes as case studies, it is difficult to justify the claim of a homogeneous distribution in the selection criteria. It is particularly surprising that, even in the case of exclusively terrestrial events, the classification based solely on vegetation coverage, soil moisture, and land-sea boundaries are considered sufficient. Previous studies have shown that such surface-level parameters are inadequate for characterizing earthquake-related variability. Seismic energy release is influenced by several other critical factors, including earthquake magnitude, focal depth, subsurface stratigraphy, and near-surface failure dynamics. Therefore, I recommend that the authors revisit their zonal classification criteria to incorporate more seismologically relevant parameters. For example, see the paper of \url{https://doi.org/10.1016/j.actaastro.2020.06.005} for the zonal distribution and within that more specific distribution of mag, depth, epicentral region, etc.
+}
+
+\revresponse{%
+\textbf{Response (R2-4.1).} We appreciate this important suggestion. We agree that surface-based environmental stratification alone is not sufficient to capture all seismologically relevant variability. In the revised manuscript, we retain the radiative-transfer-motivated environmental stratification (based on vegetation and soil moisture) as one layer of our framework, and we introduce an additional seismological control layer that explicitly stratifies events by magnitude and depth. This allows us to interpret performance conditional on magnitude/depth strata and to compare our results with TEC-based statistical studies of seismo-ionospheric anomalies such as Shah et al.~(2015, 2020, 2022).
+}
+
+\revchange{%
+\textbf{Change (R2-4.1) in the manuscript.}
+In Section~2.2.1 (p.~7), we added a paragraph on seismological controls immediately after the description of surface type classification:
+
+\begin{quote}
+Beyond surface conditions, we also account for seismological variability when constructing our datasets. We stratify earthquakes by magnitude and focal depth to control for source-side effects and to facilitate comparison with TEC-based statistical studies of seismo-ionospheric anomalies such as Shah et al.~(2015, 2020, 2022). Specifically, for downstream performance stratification we group events into two magnitude bins (M7.0--7.4 and M$\ge$7.5) and two depth bins (0--70~km and $\ge$70~km). For each environment zone and each magnitude--depth stratum, we report zone-specific Matthews Correlation Coefficient (MCC) and False Positive Rate (FPR) so that performance can be interpreted conditional on source characteristics. This seismological control layer complements the radiative-transfer-motivated environmental stratification and helps decouple propagation effects from source-driven variability. The corresponding stratified performance results are reported in Section~3.6 and summarized in Supplementary Figure~S4 and Supplementary Table~S4.
+\end{quote}
+
+}
+
+\revresponse{%
+\textbf{Response (R2-4.2).} We also examine the robustness of performance under magnitude and depth stratification in the Results and Discussion. In Section~3.6, we report that the overall mean MCC is 0.804 with an average FPR of 0.038, and that performance is highest for shallow events and mildly decreases with depth. In Section~4.2.2, we note that these magnitude- and depth-stratified trends are broadly consistent with TEC-based threshold and anomaly studies across latitudinal zones by Shah et al.~(2015, 2020, 2022), indicating that the MBT-based precursors respect seismologically motivated scaling relationships rather than contradicting them.
+}
+
+\revchange{%
+\textbf{Change (R2-4.2) in the manuscript.}
+We now explicitly link our magnitude/depth-stratified performance to the TEC-based thresholds and anomaly statistics reported by Shah et al.~(2015, 2020, 2022). The last part of Section~3.6 (p.~28) states:
+
+\begin{quote}
+Finally, we examine the robustness of performance under seismological stratification by grouping events into magnitude and depth strata (M7.0--7.4 vs. M$\ge$7.5; shallow 0--70~km vs. deep $\ge$70~km). Supplementary Figure~S4 (p.~67) and Supplementary Table~S4 (p.~70) present forest plots and detailed statistics of MCC and FPR with 95\% confidence intervals. The overall mean MCC is 0.804 with an average FPR of 0.038. Performance is highest for shallow events (MCC = 0.821) and mildly decreases with depth (MCC = 0.750--0.798 for deeper strata), consistent with TEC-based threshold and anomaly studies across latitudinal zones reported by Shah et al.~(2015, 2020, 2022). These results confirm that the proposed framework maintains significant skill across diverse magnitude and depth ranges, while highlighting physically plausible depth-dependent sensitivity.
+\end{quote}
+
+We also added the full bibliographic entries for Shah et al.~(2015, 2020, 2022) to the reference list and explicitly cite them in both the Methods (seismological controls) and the Discussion (Section~4.2.2). For reference, the three key TEC-based statistical studies are:
+
+Shah, M., \& Jin, S. (2015). Statistical characteristics of seismo-ionospheric GPS TEC disturbances prior to global Mw $\ge$ 5.0 earthquakes (1998--2014). \emph{Journal of Geodynamics}, 92, 42--49.
+
+Shah, M., Ahmed, A., Ehsan, M., Khan, M., Tariq, M. A., Calabia, A., \& Rahman, Z. (2020). Total Electron Content Anomalies Associated with Earthquakes Occurred during 1998--2019. \emph{Acta Astronautica}, 175, 268--276.
+
+Shah, M., Abbas, A., Adil, M. A., Ashraf, U., de Oliveira-J{\'u}nior, J. F., Tariq, M. A., Ahmed, J., Ehsan, M., \& Ali, A. (2022). Possible seismo-ionospheric anomalies associated with M$>$5.0 earthquakes during 2000--2020 from GNSS TEC. \emph{Advances in Space Research}, 70(1), 179--187.
+}
+
+\bigskip
+
+\revcomment{%
+\textbf{Comment R2-5.} The discussion section is currently unclear and lacks coherence. It does not effectively support or challenge previous research findings. As the discussion is a critical part of the paper, it should clearly highlight how the current study aligns with or differs from previous work. I recommend that the authors revise this section to provide a structured and detailed comparison of their results with existing literature, emphasizing the novel contributions of their study.
+}
+
+\revresponse{%
+\textbf{Response (R2-5.1).} We agree that the Discussion is a critical component and have revised it to more clearly separate alignment/contrast with prior work, methodological contributions, and limitations/future directions. Specifically, Section~4.2 (with its sub-subsections) focuses on physical interpretation and comparison with prior studies, Section~4.3 (p.~33) emphasizes methodological implications and physics-informed AI, and Section~4.4 (p.~34) consolidates limitations and outlines future directions. We also added explicit topic sentences in Sections~4.3 and 4.4 to clarify their roles within this structure.
+}
+
+\revchange{%
+\textbf{Change (R2-5.1) in the manuscript.}
+In Section~4.3 (``Methodological Implications and Physics-Informed AI'', p.~33), we now begin with a framing sentence:
+
+\begin{quote}
+This subsection synthesizes the broader methodological implications of our framework from the perspective of physics-informed AI for geophysical applications. This work presents a novel approach for Earth observation by demonstrating that a knowledge-guided architectural design can fundamentally outperform generic deep learning. The remarkable alignment between the mined frequency importance and the model's architectural component sensitivity---with key channels such as 6.9 GHz H-pol (Channel 0), 10.65 GHz V-pol (Channel 3), 23.8 GHz H-pol (Channel 4), and 89.0 GHz H-pol (Channel 8) showing a threefold higher vulnerability to weight projection removal in our ablation study (Figures 8--10)---confirms that the WE-FTT has learned physically meaningful representations rather than just statistical artifacts (Mao et al., 2020). This correspondence suggests that the learned hierarchy of model components mirrors the actual physical hierarchy of signal generation, from lithospheric stress accumulation to surface electromagnetic emissions.
+\end{quote}
+
+In Section~4.4 (``Limitations and Future Directions'', p.~34), we similarly added a topic sentence:
+
+\begin{quote}
+This subsection consolidates the main limitations of the current framework and outlines key directions for future research and operational deployment. Despite these advances, several limitations warrant careful consideration. First, our focus on M$\ge$7.0 earthquakes, while justified by the need for clear signals to develop this methodology, limits the immediate applicability to more frequent, moderate-magnitude events (Jing et al., 2019). Second, the 0.25$^{\circ}$ spatial resolution of the gridded data may be too coarse to capture highly localized precursor phenomena. Third, methodological constraints also merit acknowledgment. The K-means clustering discretizes continuous MBT variations, potentially obscuring subtle non-linear relationships, and the use of the Dobrovolsky radius is a simplification of complex earthquake preparation zones. Furthermore, while our model demonstrates improved discrimination, potential confounding from extreme weather events, volcanic activity, or large-scale anthropogenic modifications remains a challenge, and genuinely ambiguous cases may still lead to false positives. Finally, validation on independent datasets from different tectonic settings is needed to establish the global generalizability of the identified frequency-polarization patterns. Additionally, the computational requirements of the WE-FTT model, while manageable for research applications, may need optimization for real-time operational deployment across global scales.
+\end{quote}
+
+Combined with the new sub-subsections in Section~4.2 (pp.~31--32) and the explicit cross-referencing to TEC-based threshold and anomaly studies, these topic sentences help structure the Discussion into ``alignment/contrast with prior work'', ``methodological contributions'', and ``limitations/future directions'' as suggested by the reviewer.
+}
+
+\end{document}

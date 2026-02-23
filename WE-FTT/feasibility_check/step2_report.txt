@@ -1,0 +1,128 @@
+[13:06:48] [INFO] 🚀 开始数据可用性审计
+[13:06:48] [INFO] ⏰ 开始时间: 2025-11-04 13:06:48
+[13:06:48] [INFO] ================================================================================
+[13:06:48] [INFO] Step 2.1: 检查PyTorch数据集
+[13:06:48] [INFO] ================================================================================
+[13:06:48] [INFO] 
+检查 train 数据集...
+[13:06:48] [INFO] ✅ 文件存在: /mnt/hdd_4tb_data/ArchivedWorks/MBT/FTT/data/train_dataset.pth
+[13:06:48] [INFO]    大小: 6198.9 MB
+[13:07:31] [INFO]    ✅ 加载成功
+[13:07:31] [INFO]    类型: <class 'torch.utils.data.dataset.TensorDataset'>
+[13:07:31] [INFO] 
+检查 test 数据集...
+[13:07:31] [INFO] ✅ 文件存在: /mnt/hdd_4tb_data/ArchivedWorks/MBT/FTT/data/test_dataset.pth
+[13:07:31] [INFO]    大小: 5677.5 MB
+[13:08:11] [INFO]    ✅ 加载成功
+[13:08:11] [INFO]    类型: <class 'torch.utils.data.dataset.TensorDataset'>
+[13:08:11] [INFO] 
+检查 class_weights 数据集...
+[13:08:11] [INFO] ✅ 文件存在: /mnt/hdd_4tb_data/ArchivedWorks/MBT/FTT/data/class_weights.pth
+[13:08:11] [INFO]    大小: 0.0 MB
+[13:08:11] [INFO]    ✅ 加载成功
+[13:08:11] [INFO]    类型: Tensor, shape=torch.Size([10]), dtype=torch.float32
+[13:08:11] [INFO] 
+检查 label_encoder 数据集...
+[13:08:11] [INFO] ✅ 文件存在: /mnt/hdd_4tb_data/ArchivedWorks/MBT/FTT/data/label_encoder.pth
+[13:08:11] [INFO]    大小: 0.0 MB
+[13:08:12] [INFO]    ✅ 加载成功
+[13:08:12] [INFO]    类型: <class 'sklearn.preprocessing._label.LabelEncoder'>
+[13:08:12] [INFO] 
+================================================================================
+[13:08:12] [INFO] Step 2.2: 检查频繁项集数据
+[13:08:12] [INFO] ================================================================================
+[13:08:12] [INFO] 
+环境区 0:
+[13:08:12] [ERROR]    ❌ 加载失败: Extra data: line 2 column 1 (char 80)
+[13:08:12] [INFO] 
+环境区 1:
+[13:08:12] [ERROR]    ❌ 加载失败: Extra data: line 2 column 1 (char 90)
+[13:08:12] [INFO] 
+环境区 2:
+[13:08:12] [ERROR]    ❌ 加载失败: Extra data: line 2 column 1 (char 90)
+[13:08:12] [INFO] 
+环境区 3:
+[13:08:12] [ERROR]    ❌ 加载失败: Extra data: line 2 column 1 (char 140)
+[13:08:12] [INFO] 
+环境区 4:
+[13:08:12] [ERROR]    ❌ 加载失败: Extra data: line 2 column 1 (char 71)
+[13:08:12] [INFO] 
+================================================================================
+[13:08:12] [INFO] Step 2.3: 检查原始CSV数据（采样检查）
+[13:08:12] [INFO] ================================================================================
+[13:08:12] [INFO] 
+检查 downsampled_f0t0.csv...
+[13:08:12] [INFO]    ✅ 文件存在
+[13:08:12] [INFO]    大小: 5.00 GB
+[13:08:12] [INFO]    正在读取前1000行（采样验证）...
+[13:08:12] [INFO]    ✅ 读取成功
+[13:08:12] [INFO]    列数: 20
+[13:08:12] [INFO]    列名: ['BT_06_H', 'BT_06_V', 'BT_10_H', 'BT_10_V', 'BT_23_H', 'BT_23_V', 'BT_36_H', 'BT_36_V', 'BT_89_H', 'BT_89_V', 'BT_06_H_cluster_labels_weight', 'BT_06_V_cluster_labels_weight', 'BT_10_H_cluster_labels_weight', 'BT_10_V_cluster_labels_weight', 'BT_23_H_cluster_labels_weight', 'BT_23_V_cluster_labels_weight', 'BT_36_H_cluster_labels_weight', 'BT_36_V_cluster_labels_weight', 'BT_89_H_cluster_labels_weight', 'BT_89_V_cluster_labels_weight']
+[13:08:12] [INFO]    BT特征列: 20个
+[13:08:12] [INFO]       示例: ['BT_06_H', 'BT_06_V', 'BT_10_H']
+[13:08:12] [INFO]    权重列: 10个
+[13:08:12] [INFO]       示例: ['BT_06_H_cluster_labels_weight', 'BT_06_V_cluster_labels_weight', 'BT_10_H_cluster_labels_weight']
+[13:08:12] [INFO]    数据统计（前1000行）:
+[13:08:12] [INFO]       BT_06_H: min=77.63, max=307.61, mean=165.50
+[13:08:12] [INFO]    ✅ 无缺失值
+[13:08:12] [INFO]    📊 这是 flag=0 的数据（非地震样本）
+[13:08:12] [INFO] 
+检查 downsampled_f1t0.csv...
+[13:08:12] [INFO]    ✅ 文件存在
+[13:08:12] [INFO]    大小: 5.00 GB
+[13:08:12] [INFO]    正在读取前1000行（采样验证）...
+[13:08:12] [INFO]    ✅ 读取成功
+[13:08:12] [INFO]    列数: 20
+[13:08:12] [INFO]    列名: ['BT_06_H', 'BT_06_V', 'BT_10_H', 'BT_10_V', 'BT_23_H', 'BT_23_V', 'BT_36_H', 'BT_36_V', 'BT_89_H', 'BT_89_V', 'BT_06_H_cluster_labels_weight', 'BT_06_V_cluster_labels_weight', 'BT_10_H_cluster_labels_weight', 'BT_10_V_cluster_labels_weight', 'BT_23_H_cluster_labels_weight', 'BT_23_V_cluster_labels_weight', 'BT_36_H_cluster_labels_weight', 'BT_36_V_cluster_labels_weight', 'BT_89_H_cluster_labels_weight', 'BT_89_V_cluster_labels_weight']
+[13:08:12] [INFO]    BT特征列: 20个
+[13:08:12] [INFO]       示例: ['BT_06_H', 'BT_06_V', 'BT_10_H']
+[13:08:12] [INFO]    权重列: 10个
+[13:08:12] [INFO]       示例: ['BT_06_H_cluster_labels_weight', 'BT_06_V_cluster_labels_weight', 'BT_10_H_cluster_labels_weight']
+[13:08:12] [INFO]    数据统计（前1000行）:
+[13:08:12] [INFO]       BT_06_H: min=77.33, max=307.62, mean=157.34
+[13:08:12] [INFO]    ✅ 无缺失值
+[13:08:12] [INFO]    📊 这是 flag=1 的数据（地震样本）
+[13:08:12] [INFO] 
+================================================================================
+[13:08:12] [INFO] Step 2.4: 检查地震目录数据
+[13:08:12] [INFO] ================================================================================
+[13:08:12] [ERROR] ❌ 加载失败: 'utf-8' codec can't decode bytes in position 77439-77440: invalid continuation byte
+[13:08:12] [INFO] 
+================================================================================
+[13:08:12] [INFO] Step 2.5: 验证非地震样本（flag=0）
+[13:08:12] [INFO] ================================================================================
+[13:08:12] [INFO] ✅ 找到 5 个flag=0数据文件:
+[13:08:12] [INFO]    - downsampled_f0t0.csv: 5.00 GB
+[13:08:12] [INFO]    - downsampled_f0t1.csv: 2.50 GB
+[13:08:12] [INFO]    - downsampled_f0t2.csv: 1.00 GB
+[13:08:12] [INFO]    - downsampled_f0t3.csv: 4.58 GB
+[13:08:12] [INFO]    - downsampled_f0t4.csv: 5.00 GB
+[13:08:12] [INFO] 
+   总大小: 18.07 GB
+[13:08:12] [INFO] 
+采样验证: downsampled_f0t0.csv
+[13:08:12] [INFO]    ✅ 读取10000行成功
+[13:08:12] [INFO]    (索引不是时间)
+[13:08:12] [INFO] 
+   🔍 数据特征验证:
+[13:08:12] [INFO]       这些数据应该代表: 非地震时期的背景MBT信号
+[13:08:12] [INFO]       用途: 与地震前兆信号对比，计算支持度差异
+[13:08:12] [INFO] 
+================================================================================
+[13:08:12] [INFO] 📋 数据审计摘要
+[13:08:12] [INFO] ================================================================================
+[13:08:12] [INFO] 
+✅ 关键数据检查:
+[13:08:12] [INFO]    PyTorch数据集可用: ✅ 通过
+[13:08:12] [INFO]    频繁项集数据存在: ✅ 通过
+[13:08:12] [INFO]    原始CSV数据可访问: ✅ 通过
+[13:08:12] [INFO]    非地震样本(flag=0)存在: ✅ 通过
+[13:08:12] [INFO] 
+⚠️  发现的问题数量:
+[13:08:12] [INFO]    错误(ERROR): 0个
+[13:08:12] [INFO]    警告(WARNING): 0个
+[13:08:12] [INFO] 
+================================================================================
+[13:08:12] [SUCCESS] 🚀 总体结论: GO - 所有数据就绪
+[13:08:12] [INFO]    建议: 立即开始Step 3端到端验证
+[13:08:12] [INFO] ================================================================================

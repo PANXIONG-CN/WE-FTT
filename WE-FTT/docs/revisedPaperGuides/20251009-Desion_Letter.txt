@@ -1,0 +1,173 @@
+Date:
+
+08 Oct 2025
+
+To:
+
+"Pan Xiong" xiong.pan@gmail.com
+
+From:
+
+"Remote Sensing of Environment" support@elsevier.com
+
+Subject:
+
+RSE-D-25-02734
+
+Ms. Ref. No.: RSE-D-25-02734
+
+Title: Resolving signal ambiguity in earthquake precursor detection with an environment-specific deep learning
+framework for AMSR-2 data
+Remote Sensing of Environment
+Dear Dr. Xiong,
+Review of your manuscript has been completed. Although the paper has potential for publication, major revision
+is needed before further consideration for publication. Please note that the due date to submit the revised
+manuscript is 60 days. The reviews explaining this decision are below.
+Please carefully consider the all the comments and recommendations, and make appropriate changes to the
+paper. Publication depends on revision and/or rebuttal of the criticisms made. Further review and revision may
+be necessary before a final decision can be made.
+If you disagree with some of the comments or suggestions, please explain why with your argument and/or
+evidence. Also, if a reviewer asks you to clarify something, please do not clarify in only your reply - you also
+need to clarify it in the revised paper. If a reviewer is confused or misunderstands something in your paper, a
+typical reader may also.
+When you submit your revised paper, please provide the following:
+1. A summary of the major changes in a cover letter to me and in the beginning of your reply-to-comments
+document.
+2. An itemized reply to all comments and suggestions from editors and reviewers, with original comments and
+suggestions quoted from this decision letter (do not alter them even for typos).
+3. A "track changes" (highlighted) version of your revision. This will greatly facilitate the re-review process.
+4. A "clean" revision (i.e., all changes in track changes have been accepted).
+5. Make sure "Research Highlights" are the correct length. Each bullet point can be NO MORE than 85
+CHARACTERS (count spaces between words as characters).
+6. In addition to the figures with the captions below each figure (Word or PDF format), upload your high
+resolution figure files in one of the recommended formats (eps, tiff, jpeg, or high quality pdf). Remove the
+figure # and caption from the high resolution figures. Label each figure in the DESCRIPTION box on the upload
+screen as "Figure 1, Figure 2, etc." Include a "List of Figure Captions" after the References in your Manuscript
+file.
+To submit a revision, go to https://www.editorialmanager.com/rse/ and log in as an Author. You will see a menu
+item called "Submission Needing Revision." You will find your submission record there. Please remove any items
+that have changed or are no longer needed before uploading your revised manuscript. If authorship has been
+changed, please also change it in the system to avoid delay in processing or publishing your paper. And, please
+explain the reason for this change in your cover letter.
+I hope that you will undertake the necessary revisions and will look forward to receiving your revised paper.
+PLEASE NOTE: The journal would like to enrich online articles by visualizing and providing geographical details
+described in Remote Sensing of Environment articles. For this purpose, corresponding KML (GoogleMaps) files
+can be uploaded in our online submission system. Submitted KML files will be published with your online article
+on ScienceDirect. Elsevier will generate maps from the KML files and include them in the online article.
+Research Elements (optional)
+This journal encourages you to share research objects - including your raw data, methods, protocols, software,
+hardware and more – which support your original research article in a Research Elements journal. Research
+2 with
+Elements are open access, multidisciplinary, peer-reviewed journals which make the objects associated
+your research more discoverable, trustworthy and promote replicability and reproducibility. As open access
+journals, there may be an Article Publishing Charge if your paper is accepted for publication. Find out more
+about the Research Elements journals at https://www.elsevier.com/authors/tools-and-resources/researchelements-journals?dgcid=ec_em_research_elements_email.
+
+Sincerely,
+Jing M. Chen, Ph.D.
+Editor-in-Chief
+Remote Sensing of Environment
+==============================
+Additional comments from the Editors and Reviewers (if any):
+
+Associate Editor (Joseph Awange): This manuscript presents a novel, knowledge-guided AI framework for
+satellite earthquake monitoring. While the topic is of significant interest and the approach is promising, the
+reviewers have raised substantial concerns that must be addressed to validate the study's claims.
+The authors are requested to undertake a major revision that directly responds to all points. Critically, this
+includes: providing a stronger physical rationale for the microwave-based precursor signals across different
+environments; robustly validating the method globally to rule out false positives and tsunami-related artifacts;
+justifying the machine learning benchmarking strategy; and thoroughly revising the discussion to clearly
+articulate their contributions against the existing literature. A successful revision will significantly strengthen the
+manuscript's scientific rigor and impact.
+Reviewer #1: This study investigated sophisticated AI approaches for detecting earthquake precursor signals
+using AMSR-2 brightness temperature (Tb) observations. The satellite earthquake monitoring/forecast topic is
+very interesting to readers in particular with the carefully-designed environmental zoning and knowledgeguided AI Framework. However, the physics underlying microwave earthquake detection and more robust
+validations have to be clearly addressed before moving forward.
+(a) About microwave physics: The authors tried to constrain the problem by zoning the earth surface first.
+However, for a given 25-km grid, the satellite Tb observations are greatly affected by time-variant factors such
+as physical temperature, atmospheric water vapor content (e.g., for 89 GHz), ocean surface roughness changes
+(e.g., for all AMSR2 frequencies), soil moisture changes (e.g., for C- to Ku-band), vegetation water changes
+(e.g., for C- to Ku-band), and RFI. Unless the earthquake precursor signals have the unique characteristics
+and/or large magnitudes which are clearly different from the background signals, the study basis can not be
+deemed as a solid one. I would suggest the authors provide detailed introduction and discussion of the physical
+mechanisms underlying the discovered precursor signatures, and illustrate how these signatures are NOT
+affected by the background signals. In addition, you may start from specifying the spatial scale, magnitude,
+frequency and polarization characteristics of microwave emissions from lithosphere-atmosphere interactions for
+major earthquakes.
+(b) About validation: The validation needs to be improved to support the statement "…transforms satellite
+earthquake monitoring from an ambiguous global analysis into a reliable, context-aware detection system".
+Specifically, if the method is applied to AMSR2 global observations over randomly selected dates (with and
+without major earthquakes), would you see major false positives over the globe? Global maps showing the
+detection results are needed in this case. In addition, could you apply your approach to the latest earthquake
+events which are not included in the current training/validation dataset?
+
+Reviewer #2: 1. The highlights should be more specifically aligned with the core content and contributions of
+the paper. Currently, the first highlight does not accurately represent the main focus of the study and may even
+be somewhat misleading or divert attention from the key issues addressed. I recommend revising it to better
+reflect the actual scope, methodology, and findings presented in the paper. Accurate and concise highlights are
+essential for conveying the true value and relevance of the work to potential readers.
+2. I am concerned about the clarity and reliability of detecting brightness temperature anomalies across both
+terrestrial and marine environments, given the substantial differences in their surface and atmospheric
+characteristics. How do the authors substantiate the claim that such anomalies can be consistently observed in
+both settings? Additionally, the reference to a "brightness glow" in marine environments warrants clarification.
+While brightness temperature anomalies may serve as indirect indicators of geophysical activity, they do not
+constitute a visible glow in the conventional sense. Moreover, since oceanic earthquakes are frequently
+2
+accompanied by tsunamis, to what extent can the authors confidently rule out the possibility that the observed
+events are tsunami-related rather than purely seismic in nature?
+3. One major limitation of the methodology is the reliance on machine learning techniques to evaluate
+outcomes from known and controlled experiments. It is unclear why the authors chose to compare the
+performance of their machine learning models to Principal Component Analysis (PCA), given that PCA is a
+
+statistical dimensionality reduction technique rather than a predictive or classification method. PCA does not
+carry the same interpretive or inferential significance in this context, particularly when applied to datasets of
+this nature. This comparison raises questions about the appropriateness and validity of the benchmarking
+strategy employed.
+4. Page6; line 50: Since the authors selected both terrestrial and marine earthquakes as case studies, it is
+difficult to justify the claim of a homogeneous distribution in the selection criteria. It is particularly surprising
+that, even in the case of exclusively terrestrial events, the classification based solely on vegetation coverage,
+soil moisture, and land-sea boundaries are considered sufficient. Previous studies have shown that such
+surface-level parameters are inadequate for characterizing earthquake-related variability. Seismic energy
+release is influenced by several other critical factors, including earthquake magnitude, focal depth, subsurface
+stratigraphy, and near-surface failure dynamics. Therefore, I recommend that the authors revisit their zonal
+classification criteria to incorporate more seismologically relevant parameters. For example, see the paper of
+https://doi.org/10.1016/j.actaastro.2020.06.005 for the zonal distribution and within that more specific
+distribution of mag, depth, epicentral region, etc.
+5. The discussion section is currently unclear and lacks coherence. It does not effectively support or challenge
+previous research findings. As the discussion is a critical part of the paper, it should clearly highlight how the
+current study aligns with or differs from previous work. I recommend that the authors revise this section to
+provide a structured and detailed comparison of their results with existing literature, emphasizing the novel
+contributions of their study.
+==============================
+Follow RSE on Mendeley group "Remote Sensing of Environment".
+
+With increasing standards of excellence in both research and publishing, it is in an author's best interest to
+make sure their paper is in its best possible form when submitted for publication - that includes the quality of
+the written English, accurate illustrations, adherence to the Guide for Authors, and the presentation of factual,
+accurate data.
+If you have difficulty with the English language or your illustrations, you may consult a professional editing
+service. There are numerous services available throughout the world.
+To find out about Elsevier Language Editing Services please visit: http://webshop.elsevier.com/languageediting/
+For Elsevier Illustration Services please visit: http://webshop.elsevier.com/illustrationservices/
+Use of these or any other Language Editing or Illustration Services is not mandatory, and will not guarantee
+selection for peer review or acceptance for publication in an Elsevier journal or any other publication. For more
+information please refer to our Terms & Conditions at the link below:
+http://elsevier.com/wps/find/termsconditions.cws_home/termsconditions
+At Elsevier, we want to help all our authors to stay safe when publishing. Please be aware of fraudulent
+messages requesting money in return for the publication of your paper. If you are publishing open access with
+Elsevier, bear in mind that we will never request payment before the paper has been accepted. We have
+prepared some guidelines (https://www.elsevier.com/connect/authors-update/seven-top-tips-on-stopping-apcscams ) that you may find helpful, including a short video on Identifying fake acceptance letters
+(https://www.youtube.com/watch?v=o5l8thD9XtE ). Please remember that you can contact Elsevier s
+Researcher Support team (https://service.elsevier.com/app/home/supporthub/publishing/) at any time if you
+have questions about your manuscript, and you can log into Editorial Manager to check the status of your
+manuscript
+(https://service.elsevier.com/app/answers/detail/a_id/29155/c/10530/supporthub/publishing/kw/status/).
+#AU_RSE#
+To ensure this email reaches the intended recipient, please do not delete the above code
+
+In compliance with data protection regulations, you may request that we remove your personal registration
+details at any time. (Remove my information/details). Please contact the publication office if you have any
+questions.
+2
+
+
