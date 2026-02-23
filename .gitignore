@@ -16,3 +16,6 @@ node_modules/
 *.synctex.gz
 *.xdv
 *.spl
+
+FT_Transformer_results_before.txt
+we_ftt_train_gpu.log
