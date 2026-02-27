@@ -246,12 +246,46 @@ config/private.yaml
 .env.local
 .env.production
 
-# Large result files
-*.png
-*.jpg
-*.jpeg
-*.pdf
-*.svg
+# Large binary artifacts (experiment intermediates)
+results/smoke_train_safe*/
+evaluation_protocol/**/figures/
+evaluation_protocol/era5/cache/
+evaluation_protocol/datasets/*.parquet
+evaluation_protocol/leakage_audit/traces/**/*.parquet
+evaluation_protocol/**/results/*_poc*
+evaluation_protocol/**/results/poc_*
+evaluation_protocol/**/results/_smoke*
+evaluation_protocol/**/tables/_smoke*
+evaluation_protocol/**/tables/*_poc*
+evaluation_protocol/datasets/*smoke*.meta.json
+evaluation_protocol/datasets/poc_*.meta.json
+evaluation_protocol/leakage_audit/traces/foldwise_weights_poc*/
+evaluation_protocol/placebo/plans/*_poc*.jsonl
+evaluation_protocol/placebo/plans/*_poc*.meta.json
+
+# Keep manuscript assets trackable in revisions workspace
+!docs/revision_codex/revisions-3nd/*.png
+!docs/revision_codex/revisions-3nd/*.jpg
+!docs/revision_codex/revisions-3nd/*.jpeg
+!docs/revision_codex/revisions-3nd/*.pdf
+!docs/revision_codex/revisions-3nd/*.svg
+
+# Ignore legacy/bulk binary docs outside current revisions workspace
+docs/**/*.png
+docs/**/*.jpg
+docs/**/*.jpeg
+docs/**/*.pdf
+docs/**/*.svg
+!docs/revision_codex/revisions-3nd/*.png
+!docs/revision_codex/revisions-3nd/*.jpg
+!docs/revision_codex/revisions-3nd/*.jpeg
+!docs/revision_codex/revisions-3nd/*.pdf
+!docs/revision_codex/revisions-3nd/*.svg
+docs/revision_codex/revisions-3nd/main_clean.pdf
+
+# Legacy experiment plot dumps
+supplement_experiments/**/figures/
+temp_revision_files/
 # Specific to this project
 WE-FTT-backup-*.tar.gz
 *_nohup.out
