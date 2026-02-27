@@ -1,0 +1,2 @@
+subset,model,use_weights,baseline_fpr_target_val,thr_pred_selected_on_val,conditioned_fpr_target_val,wind_thresh_mps,precip_thresh_mm_day,n_total,n_unmasked,n_masked,fpr_before,fpr_before_ci_low,fpr_before_ci_high,mcc_before,fpr_after,fpr_after_ci_low,fpr_after_ci_high,mcc_after
+zone_a_test,hist_gradient_boosting,True,0.242,0.41499999165534973,0.1,5.0,5.0,93035,31773,61262,0.1636628796744747,0.16060930412609098,0.16676297710189047,0.12080394706925854,0.05662483570695522,0.054733172729854986,0.05857782597894073,0.07072433652366401

@@ -1,0 +1,2 @@
+placebo_type,n_repeats,real_mcc,placebo_mean_mcc,placebo_std_mcc,z_score,p_value_ge,zone_filter,aggregation,thr_select_mode,thr_selected_on_val
+nonseismic_extreme,400,0.38586041963298984,0.002536379092686774,0.0546087965384963,7.019455927087874,0.0024937655860349127,land,day_mean,fixed,0.5

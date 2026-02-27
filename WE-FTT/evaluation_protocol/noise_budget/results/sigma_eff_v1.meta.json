@@ -1,0 +1,11 @@
+{
+  "version": "sigma_eff_v1",
+  "generated_at_utc": "2026-02-23T11:40:24.160855Z",
+  "eval_parquet": "/mnt/hdd_4tb_data/ArchivedWorks/MBT/Final/WE-FTT/evaluation_protocol/datasets/mbt_eval_samples_v1.parquet",
+  "out_csv": "/mnt/hdd_4tb_data/ArchivedWorks/MBT/Final/WE-FTT/evaluation_protocol/noise_budget/tables/tab_s8_sigma_eff_v1.csv",
+  "notes": {
+    "nedt_k_approx": "来自任务计划文档中的近似值（用于理论量级对照）",
+    "sigma_control_sample_k": "对照窗样本级标准差（经验）",
+    "sigma_control_window_mean_k": "对照窗窗口均值的标准差（经验 σ_eff）"
+  }
+}

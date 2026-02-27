@@ -1,0 +1,2 @@
+subset,wind_thresh_mps,precip_thresh_mm_day,use_weights,n_before,n_after,thr_default,fpr_before,fpr_before_ci_low,fpr_before_ci_high,mcc_before,fpr_after,fpr_after_ci_low,fpr_after_ci_high,mcc_after,thr_val_selected_fpr_max,thr_val_selected,fpr_before_thr_selected,mcc_before_thr_selected,fpr_after_thr_selected,mcc_after_thr_selected
+zone_a_test,10.0,5.0,True,93035,68936,0.5,0.0,6.775794934379843e-21,6.915959645941324e-05,0.0,0.0,0.0,9.081496970700996e-05,0.0,0.1,0.4607999920845032,0.0,0.0,0.0,0.0

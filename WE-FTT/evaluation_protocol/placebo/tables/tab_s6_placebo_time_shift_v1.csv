@@ -1,0 +1,2 @@
+placebo_type,n_repeats,real_mcc,placebo_mean_mcc,placebo_std_mcc,z_score,p_value_ge
+time_shift,100,-0.045004999532166856,-0.0075754071362293405,0.01994180465598824,-1.8769410812988283,0.9702970297029703

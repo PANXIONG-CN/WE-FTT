@@ -1,0 +1,51 @@
+{
+  "version": "spatial_cv_v1",
+  "timestamp_utc": "2026-02-27T00:07:26Z",
+  "config": {
+    "eval_parquet": "/mnt/hdd_4tb_data/ArchivedWorks/MBT/Final/WE-FTT/evaluation_protocol/datasets/mbt_eval_samples_v1.parquet",
+    "splits_json": "/mnt/hdd_4tb_data/ArchivedWorks/MBT/Final/WE-FTT/evaluation_protocol/data_splits/event_grouped_splits_v1.json",
+    "block_size_deg": 10.0,
+    "min_events_per_block": 2,
+    "val_ratio": 0.1,
+    "max_folds": 12,
+    "failure_mcc": 0.6,
+    "max_train_rows": 400000,
+    "use_weights": true,
+    "n_clusters": 5,
+    "thr_grid_n": 301,
+    "seed": 42
+  },
+  "n_blocks_evaluated": 12,
+  "weighted_mean_mcc": -0.0038591361135627143,
+  "weighted_mean_fpr": 0.5306944615338817,
+  "median_mcc": -0.005563696118375314,
+  "n_failed_blocks_mcc_lt_threshold": 12,
+  "failed_block_keys": [
+    "+30_+140",
+    "-10_+150",
+    "-10_-080",
+    "-40_-180",
+    "-20_+160",
+    "-20_-080",
+    "-10_+140",
+    "+10_-100",
+    "+50_-160",
+    "-30_-180",
+    "+00_+120",
+    "-30_+170"
+  ],
+  "reference_event_split": {
+    "mcc": -0.03087324374394756,
+    "fpr": 0.14926037767356423,
+    "fpr_ci_low": 0.14667374235007632,
+    "fpr_ci_high": 0.15188450982550405,
+    "tp": 7596,
+    "fp": 10726,
+    "tn": 61135,
+    "fn": 51855,
+    "n": 131312,
+    "threshold": 0.504921879478679,
+    "n_events_test": 13
+  },
+  "relative_drop_pct_vs_reference_mcc": -87.5000626899813
+}

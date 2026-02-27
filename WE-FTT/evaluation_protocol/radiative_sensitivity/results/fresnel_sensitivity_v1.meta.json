@@ -1,0 +1,31 @@
+{
+  "version": "fresnel_sensitivity_v1",
+  "generated_at_utc": "2026-02-26T07:45:48.939768Z",
+  "out_csv": "/mnt/hdd_4tb_data/ArchivedWorks/MBT/Final/WE-FTT/evaluation_protocol/radiative_sensitivity/tables/tab_s10_fresnel_sensitivity_v1.csv",
+  "params": {
+    "theta_deg": 55.0,
+    "surface_temp_k": 300.0,
+    "atm_temp_k": 260.0,
+    "eps_refs": [
+      4.0,
+      10.0,
+      25.0
+    ],
+    "delta_eps_fracs": [
+      0.01,
+      0.05
+    ],
+    "tau_by_freq": {
+      "06": 0.98,
+      "10": 0.97,
+      "23": 0.93,
+      "36": 0.88,
+      "89": 0.75
+    }
+  },
+  "rows": 60,
+  "notes": {
+    "model": "TB_toa = tau*(1-R)*Ts + (1-tau)*Tatm, R from Fresnel",
+    "sensitivity": "finite difference around eps_ref with +/- delta_eps_frac"
+  }
+}

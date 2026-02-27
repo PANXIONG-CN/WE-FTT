@@ -1,0 +1,2 @@
+placebo_type,n_repeats,real_mcc,placebo_mean_mcc,placebo_std_mcc,z_score,p_value_ge,zone_filter,aggregation,thr_select_mode,thr_selected_on_val
+time_shift,398,0.38586041963298984,-0.03722237977572526,0.12927924619371972,3.2726273695274335,0.007518796992481203,land,day_mean,fixed,0.5

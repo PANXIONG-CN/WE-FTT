@@ -1,0 +1,19 @@
+{
+  "version": "sigma_eff_v2",
+  "generated_at_utc": "2026-02-27T07:05:28.296249Z",
+  "eval_parquet": "/mnt/hdd_4tb_data/ArchivedWorks/MBT/Final/WE-FTT/evaluation_protocol/datasets/mbt_eval_samples_v1.parquet",
+  "out_csv": "/mnt/hdd_4tb_data/ArchivedWorks/MBT/Final/WE-FTT/evaluation_protocol/noise_budget/tables/tab_s8_sigma_eff_v2.csv",
+  "notes": {
+    "nedt_k_approx": "来自任务计划文档中的近似值（用于理论量级对照）",
+    "sigma_control_sample_k": "对照窗样本级标准差（经验）",
+    "sigma_control_window_mean_k": "对照窗窗口均值的标准差（经验 σ_eff，全局口径）",
+    "sigma_control_within_event_k": "同事件内 control 窗口均值标准差的事件均值（经验 σ_eff，同事件口径）",
+    "sigma_control_paired_robust_mean_se_k": "同事件 control-control 差分绝对值的 MAD，并按事件数换算的稳健均值标准误",
+    "sigma_eff_theory_k": "NEDT/sqrt(mean_samples_per_window) 的理论噪声下界",
+    "mean_abs_event_control_delta_k": "同区同事件 event/control 窗口均值差的绝对值均值",
+    "z_eff_abs_vs_empirical_sigma": "mean_abs_event_control_delta_k / sigma_control_window_mean_k",
+    "z_eff_abs_vs_empirical_within_event_sigma": "mean_abs_event_control_delta_k / sigma_control_within_event_k",
+    "z_eff_abs_vs_empirical_paired_robust_sigma": "mean_abs_event_control_delta_k / sigma_control_paired_robust_mean_se_k",
+    "z_eff_abs_vs_theory_sigma": "mean_abs_event_control_delta_k / sigma_eff_theory_k"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "version": "nonseismic_extreme_plan_v1",
+  "generated_at_utc": "2026-02-26T05:42:34.948536Z",
+  "inputs": {
+    "catalog_csv": "/mnt/hdd_4tb_data/ArchivedWorks/MBT/Final/WE-FTT/data/raw/earthquake_catalog.csv",
+    "splits_json": "/mnt/hdd_4tb_data/ArchivedWorks/MBT/Final/WE-FTT/evaluation_protocol/data_splits/event_grouped_splits_v1.json",
+    "era5_daily_cache_dir": "/mnt/hdd_4tb_data/ArchivedWorks/MBT/Final/WE-FTT/evaluation_protocol/era5/cache/daily",
+    "use_split": "test",
+    "zone_filter": "land"
+  },
+  "params": {
+    "n_repeats": 400,
+    "seed": 42,
+    "pre_days": 20,
+    "post_days": 10,
+    "min_days_from_eq_window": 31,
+    "wind_thresh_mps": 10.0,
+    "precip_thresh_mm_day": 5.0,
+    "min_candidates_per_event": 1,
+    "strict_event_coverage": false
+  },
+  "stats": {
+    "cache_days_total": 2757,
+    "source_events_selected": 5,
+    "source_events_kept": 5,
+    "source_events_dropped": [],
+    "rows_written": 2000
+  },
+  "artifacts": {
+    "plan_jsonl": "/mnt/hdd_4tb_data/ArchivedWorks/MBT/Final/WE-FTT/evaluation_protocol/placebo/plans/nonseismic_extreme_plan_v1.jsonl"
+  }
+}

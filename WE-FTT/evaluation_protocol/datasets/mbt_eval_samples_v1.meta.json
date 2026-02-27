@@ -1,0 +1,26 @@
+{
+  "generated_at_utc": "2026-02-23T11:28:06.117486Z",
+  "catalog_csv": "/mnt/hdd_4tb_data/ArchivedWorks/MBT/Final/WE-FTT/data/raw/earthquake_catalog.csv",
+  "amsr2_root": "/mnt/hdd_4tb_data/ArchivedWorks/MBTpaper_raw_data/AMSR2",
+  "out_path": "/mnt/hdd_4tb_data/ArchivedWorks/MBT/Final/WE-FTT/evaluation_protocol/datasets/mbt_eval_samples_v1.parquet",
+  "min_mag": 7.0,
+  "event_ids": null,
+  "pre_days": 20,
+  "post_days": 10,
+  "pixels_per_event_day": 200,
+  "control_dates_per_event": 2,
+  "doy_window": 15,
+  "seed": 42,
+  "lat_limit": 70.0,
+  "max_events": null,
+  "amsr2_spec": {
+    "orbit_tag": "EQMD",
+    "mean_tag": "01D",
+    "product_suffix": "LA2220220"
+  },
+  "write_stats": {
+    "total_rows": 1944400,
+    "kept_rows": 1387517,
+    "dropped_nan_rows": 556883
+  }
+}

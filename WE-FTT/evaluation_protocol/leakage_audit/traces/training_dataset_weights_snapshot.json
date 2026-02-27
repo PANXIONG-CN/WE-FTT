@@ -1,0 +1,166 @@
+{
+  "parquet_path": "/mnt/hdd_4tb_data/ArchivedWorks/MBT/FTT/updated_code/training_dataset.parquet",
+  "generated_at_utc": "2026-02-23T09:29:45.479821Z",
+  "row_groups": 175,
+  "inspected_row_group": 0,
+  "inspected_rows": 200000,
+  "schema_names": [
+    "BT_06_H",
+    "BT_06_V",
+    "BT_10_H",
+    "BT_10_V",
+    "BT_23_H",
+    "BT_23_V",
+    "BT_36_H",
+    "BT_36_V",
+    "BT_89_H",
+    "BT_89_V",
+    "BT_06_H_cluster_labels_weight",
+    "BT_06_V_cluster_labels_weight",
+    "BT_10_H_cluster_labels_weight",
+    "BT_10_V_cluster_labels_weight",
+    "BT_23_H_cluster_labels_weight",
+    "BT_23_V_cluster_labels_weight",
+    "BT_36_H_cluster_labels_weight",
+    "BT_36_V_cluster_labels_weight",
+    "BT_89_H_cluster_labels_weight",
+    "BT_89_V_cluster_labels_weight",
+    "label"
+  ],
+  "weight_columns": [
+    "BT_06_H_cluster_labels_weight",
+    "BT_06_V_cluster_labels_weight",
+    "BT_10_H_cluster_labels_weight",
+    "BT_10_V_cluster_labels_weight",
+    "BT_23_H_cluster_labels_weight",
+    "BT_23_V_cluster_labels_weight",
+    "BT_36_H_cluster_labels_weight",
+    "BT_36_V_cluster_labels_weight",
+    "BT_89_H_cluster_labels_weight",
+    "BT_89_V_cluster_labels_weight"
+  ],
+  "weight_stats": {
+    "BT_06_H_cluster_labels_weight": {
+      "count": 200000,
+      "non_nan": 200000,
+      "min": 1.0,
+      "max": 2.0,
+      "unique_count": 2,
+      "unique_head": [
+        1.0,
+        2.0
+      ]
+    },
+    "BT_06_V_cluster_labels_weight": {
+      "count": 200000,
+      "non_nan": 200000,
+      "min": 1.0,
+      "max": 1.864235520362854,
+      "unique_count": 2,
+      "unique_head": [
+        1.0,
+        1.864235520362854
+      ]
+    },
+    "BT_10_H_cluster_labels_weight": {
+      "count": 200000,
+      "non_nan": 200000,
+      "min": 1.0,
+      "max": 1.9863404035568237,
+      "unique_count": 2,
+      "unique_head": [
+        1.0,
+        1.9863404035568237
+      ]
+    },
+    "BT_10_V_cluster_labels_weight": {
+      "count": 200000,
+      "non_nan": 200000,
+      "min": 1.0,
+      "max": 1.8572925329208374,
+      "unique_count": 2,
+      "unique_head": [
+        1.0,
+        1.8572925329208374
+      ]
+    },
+    "BT_23_H_cluster_labels_weight": {
+      "count": 200000,
+      "non_nan": 200000,
+      "min": 1.0,
+      "max": 1.0,
+      "unique_count": 1,
+      "unique_head": [
+        1.0
+      ]
+    },
+    "BT_23_V_cluster_labels_weight": {
+      "count": 200000,
+      "non_nan": 200000,
+      "min": 1.0,
+      "max": 2.0,
+      "unique_count": 6,
+      "unique_head": [
+        1.0,
+        1.0001589059829712,
+        1.8572925329208374,
+        1.9779117107391357,
+        1.9863404035568237,
+        2.0
+      ]
+    },
+    "BT_36_H_cluster_labels_weight": {
+      "count": 200000,
+      "non_nan": 200000,
+      "min": 1.0,
+      "max": 1.9779117107391357,
+      "unique_count": 2,
+      "unique_head": [
+        1.0,
+        1.9779117107391357
+      ]
+    },
+    "BT_36_V_cluster_labels_weight": {
+      "count": 200000,
+      "non_nan": 200000,
+      "min": 1.0,
+      "max": 2.0,
+      "unique_count": 5,
+      "unique_head": [
+        1.0,
+        1.0001589059829712,
+        1.8572925329208374,
+        1.864235520362854,
+        2.0
+      ]
+    },
+    "BT_89_H_cluster_labels_weight": {
+      "count": 200000,
+      "non_nan": 200000,
+      "min": 1.0,
+      "max": 2.0,
+      "unique_count": 4,
+      "unique_head": [
+        1.0,
+        1.9779117107391357,
+        1.9863404035568237,
+        2.0
+      ]
+    },
+    "BT_89_V_cluster_labels_weight": {
+      "count": 200000,
+      "non_nan": 200000,
+      "min": 1.0,
+      "max": 1.9863404035568237,
+      "unique_count": 6,
+      "unique_head": [
+        1.0,
+        1.0001589059829712,
+        1.8572925329208374,
+        1.864235520362854,
+        1.9779117107391357,
+        1.9863404035568237
+      ]
+    }
+  }
+}

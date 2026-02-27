@@ -15,6 +15,24 @@
   - `WE-FTT/tasks/02_tables_figures_captions.md`
   - `WE-FTT/tasks/03_manuscript_revision_3nd.md`
 
+## 快速运行（建议先跑评估子集）
+
+评估协议优先保证 **Placebo/残差化/条件化** 端到端可运行与可审计；当前默认使用可扩展的 sklearn 分类器作为“最小可用实现”（先把因果证据链跑通），Transformer 复刻可在此基础上增量接入。
+
+```bash
+AMSR2_ROOT="/mnt/hdd_4tb_data/ArchivedWorks/MBTpaper_raw_data/AMSR2"
+PY="WE-FTT/.venv/bin/python"
+
+"${PY}" "WE-FTT/evaluation_protocol/run_evaluation.py" \
+  --python "${PY}" \
+  --amsr2_root "${AMSR2_ROOT}" \
+  --control_dates_per_event 2 \
+  --pixels_per_event_day 200 \
+  --placebo_repeats 100 \
+  --placebo_pixels_per_event_day 100 \
+  --use_weights
+```
+
 ## 建议目录结构（后续按任务逐步落地）
 
 ```
@@ -25,9 +43,9 @@ evaluation_protocol/
   era5/                 # ERA5 下载/对齐 + 海洋条件化
   noise_budget/         # 噪声预算与 σ_eff 计算
   land_conditioning/    # 陆地协变量残差化/条件化
+  radiative_sensitivity/# 半物理 Fresnel 灵敏度（Tab S10）
   run_evaluation.py     # 一键评估入口（聚合调用）
   reproduce_results.sh  # 一键复现实验（封装命令）
 ```
 
 > 注意：论文最终引用用的图/表需要拷贝到 `WE-FTT/docs/revision_codex/revisions-3nd/`，避免 LaTeX 依赖跨目录路径。
-

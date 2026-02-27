@@ -16,21 +16,34 @@ import logging
 import os
 import sys
 import json
+from dataclasses import asdict
 import torch
 import numpy as np
 import pandas as pd
 from pathlib import Path
 from typing import Dict, Any, Tuple, Optional
-import yaml
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder, StandardScaler
 
-# 添加src目录到Python路径
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
+try:
+    import yaml
+except Exception:
+    yaml = None
 
-from config import get_config, WEFTTConfig, BaselineConfig, ExperimentConfig
-from data_processing import DatasetCreator
-from models.we_ftt import create_we_ftt_model, create_ft_transformer_model
-from models.baselines import BaselineTrainer
-from utils import setup_logging, set_random_seeds, save_model, load_model
+# 添加 WE-FTT 与 src 目录到 Python 路径
+weftt_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+src_root = os.path.join(weftt_root, "src")
+if weftt_root not in sys.path:
+    sys.path.insert(0, weftt_root)
+if src_root not in sys.path:
+    sys.path.insert(0, src_root)
+
+from src.config import get_config, WEFTTConfig, BaselineConfig, ExperimentConfig
+from src.models.we_ftt import create_we_ftt_model, create_ft_transformer_model
+from src.models.baselines import BaselineTrainer
+from src.utils import setup_logging, set_random_seeds, save_model, load_model
+from evaluation_protocol.common.splits import load_event_splits, split_df_by_event_id
+from evaluation_protocol.common.weighting import add_foldwise_kmeans_weights
 
 
 logger = logging.getLogger(__name__)
@@ -113,7 +126,7 @@ class ModelTrainer:
             scheduler_type = scheduler_params.get('type', 'cosine')
             
             if scheduler_type == 'cosine':
-                from models.components import WarmupCosineSchedule
+                from src.models.components import WarmupCosineSchedule
                 return WarmupCosineSchedule(
                     self.optimizer,
                     warmup_steps=scheduler_params.get('warmup_steps', 100),
@@ -132,7 +145,7 @@ class ModelTrainer:
         if self.model_name in ['we_ftt', 'ft_transformer']:
             # Prepare PyTorch data loaders for deep learning models
             from torch.utils.data import DataLoader
-            from utils import TensorDataset
+            from src.utils import TensorDataset
             
             feature_cols = self.config['feature_columns']
             weight_cols = self.config.get('weight_columns', [])
@@ -339,9 +352,278 @@ def load_config_file(config_path: str) -> Dict[str, Any]:
     """Load configuration file"""
     with open(config_path, 'r') as f:
         if config_path.endswith('.yaml') or config_path.endswith('.yml'):
+            if yaml is None:
+                raise ImportError("缺少依赖 pyyaml，无法读取 YAML 配置文件。")
             return yaml.safe_load(f)
         else:
             return json.load(f)
+
+
+def _load_training_dataframe(data_path: str) -> pd.DataFrame:
+    p = str(data_path)
+    if p.endswith(".parquet"):
+        return pd.read_parquet(p)
+    if p.endswith(".csv"):
+        return pd.read_csv(p)
+    raise ValueError(f"Unsupported file format: {data_path}")
+
+
+def _require_columns(df: pd.DataFrame, columns: list[str], *, context: str) -> None:
+    missing = [c for c in columns if c not in df.columns]
+    if missing:
+        raise ValueError(f"{context} 缺少列: {missing}")
+
+
+def _is_binary_series(series: pd.Series) -> bool:
+    if series.empty:
+        return False
+    if not pd.api.types.is_numeric_dtype(series):
+        return False
+    vals = set(pd.Series(series).dropna().astype(int).tolist())
+    return vals.issubset({0, 1})
+
+
+def _split_dataframe(
+    df: pd.DataFrame,
+    *,
+    label_col: str,
+    splits_json: Optional[str],
+    random_seed: int,
+    test_size: float,
+    val_size: float,
+) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, Dict[str, Any]]:
+    if splits_json:
+        _require_columns(df, ["event_id"], context="事件级切分")
+        splits = load_event_splits(splits_json)
+        train_df, val_df, test_df = split_df_by_event_id(df, splits)
+        if train_df.empty or val_df.empty or test_df.empty:
+            raise ValueError("事件级切分后 train/val/test 至少有一个为空。")
+        meta = {
+            "split_mode": "event_grouped",
+            "splits_json": str(splits_json),
+            "n_events": {
+                "train": int(len(splits.train_event_ids)),
+                "val": int(len(splits.val_event_ids)),
+                "test": int(len(splits.test_event_ids)),
+            },
+        }
+        return train_df.copy(), val_df.copy(), test_df.copy(), meta
+
+    if float(test_size) <= 0 or float(val_size) <= 0 or float(test_size + val_size) >= 1:
+        raise ValueError("test_size 与 val_size 必须 >0 且 test_size+val_size < 1。")
+
+    y = df[label_col]
+    stratify = y if y.nunique(dropna=False) > 1 else None
+    temp_df, test_df = train_test_split(
+        df,
+        test_size=float(test_size),
+        random_state=int(random_seed),
+        stratify=stratify,
+    )
+    val_ratio_adjusted = float(val_size) / (1.0 - float(test_size))
+    y_temp = temp_df[label_col]
+    stratify_temp = y_temp if y_temp.nunique(dropna=False) > 1 else None
+    train_df, val_df = train_test_split(
+        temp_df,
+        test_size=float(val_ratio_adjusted),
+        random_state=int(random_seed),
+        stratify=stratify_temp,
+    )
+    meta = {
+        "split_mode": "random_stratified",
+        "test_size": float(test_size),
+        "val_size": float(val_size),
+    }
+    return train_df.copy(), val_df.copy(), test_df.copy(), meta
+
+
+def _encode_binary_labels(
+    train_df: pd.DataFrame,
+    val_df: pd.DataFrame,
+    test_df: pd.DataFrame,
+    *,
+    label_col: str,
+) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, Dict[str, Any]]:
+    y_train = train_df[label_col]
+    if pd.api.types.is_numeric_dtype(y_train):
+        train_vals = set(pd.Series(y_train).dropna().astype(int).tolist())
+        all_vals = set(pd.concat([train_df[label_col], val_df[label_col], test_df[label_col]], axis=0).dropna().astype(int).tolist())
+        if all_vals.issubset({0, 1}):
+            for d in (train_df, val_df, test_df):
+                d[label_col] = d[label_col].astype(int)
+            return train_df, val_df, test_df, {"label_mode": "already_binary", "classes": [0, 1]}
+
+    encoder = LabelEncoder()
+    encoder.fit(train_df[label_col].astype(str))
+    train_classes = set(encoder.classes_.tolist())
+
+    def _transform(df_in: pd.DataFrame) -> pd.DataFrame:
+        unknown = set(df_in[label_col].astype(str).unique().tolist()) - train_classes
+        if unknown:
+            raise ValueError(f"{label_col} 在训练集未出现的类别: {sorted(list(unknown))}")
+        df_out = df_in.copy()
+        df_out[label_col] = encoder.transform(df_out[label_col].astype(str)).astype(int)
+        return df_out
+
+    train_df = _transform(train_df)
+    val_df = _transform(val_df)
+    test_df = _transform(test_df)
+
+    all_vals = set(pd.concat([train_df[label_col], val_df[label_col], test_df[label_col]], axis=0).dropna().astype(int).tolist())
+    if not all_vals.issubset({0, 1}):
+        raise ValueError(f"当前仅支持二分类标签（0/1），实际编码类别: {sorted(list(all_vals))}")
+    return train_df, val_df, test_df, {"label_mode": "encoded_from_strings", "classes": encoder.classes_.tolist()}
+
+
+def _fit_transform_features(
+    train_df: pd.DataFrame,
+    val_df: pd.DataFrame,
+    test_df: pd.DataFrame,
+    *,
+    feature_columns: list[str],
+) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, Dict[str, Any]]:
+    scaler = StandardScaler()
+    train_df = train_df.copy()
+    val_df = val_df.copy()
+    test_df = test_df.copy()
+    train_df[feature_columns] = scaler.fit_transform(train_df[feature_columns].astype(float))
+    val_df[feature_columns] = scaler.transform(val_df[feature_columns].astype(float))
+    test_df[feature_columns] = scaler.transform(test_df[feature_columns].astype(float))
+    return train_df, val_df, test_df, {
+        "scaler_mean": scaler.mean_.astype(float).tolist(),
+        "scaler_scale": scaler.scale_.astype(float).tolist(),
+    }
+
+
+def _apply_foldwise_weights_if_needed(
+    train_df: pd.DataFrame,
+    val_df: pd.DataFrame,
+    test_df: pd.DataFrame,
+    *,
+    feature_columns: list[str],
+    weight_columns: list[str],
+    label_col: str,
+    enable_foldwise_weights: bool,
+    n_clusters: int,
+    seed: int,
+) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, Dict[str, Any]]:
+    if not weight_columns or not enable_foldwise_weights:
+        return train_df, val_df, test_df, {
+            "foldwise_weights_enabled": bool(enable_foldwise_weights),
+            "artifacts": [],
+        }
+
+    train_df = train_df.copy()
+    val_df = val_df.copy()
+    test_df = test_df.copy()
+
+    for d in (train_df, val_df, test_df):
+        existing_w = [c for c in weight_columns if c in d.columns]
+        if existing_w:
+            d.drop(columns=existing_w, inplace=True)
+
+    train_df, [val_df, test_df], artifacts = add_foldwise_kmeans_weights(
+        train_df=train_df,
+        other_dfs=[val_df, test_df],
+        feature_columns=feature_columns,
+        n_clusters=int(n_clusters),
+        seed=int(seed),
+        flag_col=label_col,
+    )
+    return train_df, val_df, test_df, {
+        "foldwise_weights_enabled": True,
+        "n_clusters": int(n_clusters),
+        "artifacts": [asdict(a) for a in artifacts],
+    }
+
+
+def prepare_training_datasets(config: Dict[str, Any], args) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, Dict[str, Any]]:
+    feature_cols = list(config["feature_columns"])
+    weight_cols = list(config.get("weight_columns", []) or [])
+    label_col = str(config["label_column"])
+
+    data_path = args.data_path or str(get_config("base").TRAINING_DATASET)
+    df = _load_training_dataframe(data_path)
+    _require_columns(df, feature_cols, context="训练数据")
+
+    if label_col not in df.columns:
+        if "flag" in df.columns:
+            logger.warning("标签列 %s 不存在，自动回退到二分类列 flag。", label_col)
+            label_col = "flag"
+            config["label_column"] = "flag"
+        else:
+            raise ValueError(f"训练数据缺少标签列: {label_col}")
+
+    if not _is_binary_series(df[label_col]) and "flag" in df.columns and _is_binary_series(df["flag"]):
+        logger.warning(
+            "标签列 %s 非二分类，自动回退到二分类列 flag（原标签唯一值=%d）。",
+            label_col,
+            int(df[label_col].nunique(dropna=True)),
+        )
+        label_col = "flag"
+        config["label_column"] = "flag"
+
+    if int(args.max_rows) > 0 and len(df) > int(args.max_rows):
+        y = df[label_col]
+        stratify = y if y.nunique(dropna=False) > 1 else None
+        _, df = train_test_split(
+            df,
+            test_size=float(args.max_rows) / float(len(df)),
+            random_state=int(args.random_seed),
+            stratify=stratify,
+        )
+        df = df.copy()
+
+    df = df.drop_duplicates().reset_index(drop=True)
+
+    train_df, val_df, test_df, split_meta = _split_dataframe(
+        df,
+        label_col=label_col,
+        splits_json=args.splits_json,
+        random_seed=int(args.random_seed),
+        test_size=float(args.test_size),
+        val_size=float(args.val_size),
+    )
+
+    train_df, val_df, test_df, label_meta = _encode_binary_labels(
+        train_df,
+        val_df,
+        test_df,
+        label_col=label_col,
+    )
+    train_df, val_df, test_df, scaler_meta = _fit_transform_features(
+        train_df,
+        val_df,
+        test_df,
+        feature_columns=feature_cols,
+    )
+
+    train_df, val_df, test_df, weighting_meta = _apply_foldwise_weights_if_needed(
+        train_df,
+        val_df,
+        test_df,
+        feature_columns=feature_cols,
+        weight_columns=weight_cols,
+        label_col=label_col,
+        enable_foldwise_weights=not bool(args.disable_foldwise_weights),
+        n_clusters=int(args.n_clusters),
+        seed=int(args.random_seed),
+    )
+
+    meta = {
+        "data_path": str(data_path),
+        "n_rows": {
+            "total": int(len(df)),
+            "train": int(len(train_df)),
+            "val": int(len(val_df)),
+            "test": int(len(test_df)),
+        },
+        "split": split_meta,
+        "label": label_meta,
+        "scaler": scaler_meta,
+        "weighting": weighting_meta,
+    }
+    return train_df, val_df, test_df, meta
 
 
 def parse_args():
@@ -357,7 +639,25 @@ def parse_args():
     
     parser.add_argument('--data_path', type=str, default=None,
                        help='Path to training data')
-    
+
+    parser.add_argument('--splits_json', type=str, default=None,
+                       help='事件级切分清单JSON路径（可选，提供后启用事件级切分）')
+
+    parser.add_argument('--test_size', type=float, default=0.2,
+                       help='随机切分测试集占比（仅在未提供 --splits_json 时生效）')
+
+    parser.add_argument('--val_size', type=float, default=0.2,
+                       help='随机切分验证集占比（仅在未提供 --splits_json 时生效）')
+
+    parser.add_argument('--disable_foldwise_weights', action='store_true',
+                       help='关闭训练折内权重重算（默认开启）')
+
+    parser.add_argument('--n_clusters', type=int, default=5,
+                       help='fold-wise KMeans 聚类数（默认5）')
+
+    parser.add_argument('--max_rows', type=int, default=0,
+                       help='仅用于调试：限制读取后的最大样本数（0表示不限制）')
+
     parser.add_argument('--output_dir', type=str, default='results',
                        help='Output directory for results')
     
@@ -437,16 +737,18 @@ def main():
     else:
         config['optimizer_params']['lr'] = args.learning_rate
     
-    # Prepare data
-    logger.info("Preparing data...")
-    dataset_creator = DatasetCreator()
-    
-    if args.data_path:
-        train_data, val_data, test_data = dataset_creator.create_training_datasets(args.data_path)
-    else:
-        # Use default data path
-        base_config = get_config('base')
-        train_data, val_data, test_data = dataset_creator.create_training_datasets()
+    # Prepare data（主训练链：切分后拟合，fold-wise 防泄漏）
+    logger.info("Preparing data with leakage-safe pipeline...")
+    train_data, val_data, test_data, data_meta = prepare_training_datasets(config, args)
+    logger.info(
+        "Data prepared. total=%d, train=%d, val=%d, test=%d, split_mode=%s, foldwise_weights=%s",
+        data_meta["n_rows"]["total"],
+        data_meta["n_rows"]["train"],
+        data_meta["n_rows"]["val"],
+        data_meta["n_rows"]["test"],
+        data_meta["split"]["split_mode"],
+        data_meta["weighting"]["foldwise_weights_enabled"],
+    )
     
     # Initialize trainer
     trainer = ModelTrainer(config)
@@ -466,6 +768,9 @@ def main():
     # Save configuration
     with open(output_dir / 'config.json', 'w') as f:
         json.dump(config, f, indent=2)
+
+    with open(output_dir / 'data_pipeline_meta.json', 'w') as f:
+        json.dump(data_meta, f, indent=2, default=str)
     
     logger.info(f"Training completed. Results saved to {output_dir}")
 

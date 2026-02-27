@@ -1,0 +1,2 @@
+placebo_type,n_repeats,real_mcc,placebo_mean_mcc,placebo_std_mcc,z_score,p_value_ge
+random_date,100,-0.045004999532166856,0.004998318730023163,0.02638535506203147,-1.8951163682557255,0.9801980198019802

@@ -1,0 +1,308 @@
+{
+  "version": "ocean_conditioning_weftt_v1",
+  "generated_at_utc": "2026-02-25T08:07:41.736897Z",
+  "inputs": {
+    "eval_parquet": "/mnt/hdd_4tb_data/ArchivedWorks/MBT/Final/WE-FTT/evaluation_protocol/datasets/mbt_eval_samples_v1.parquet",
+    "splits_json": "/mnt/hdd_4tb_data/ArchivedWorks/MBT/Final/WE-FTT/evaluation_protocol/data_splits/event_grouped_splits_v1.json",
+    "era5_daily_cache_dir": "/mnt/hdd_4tb_data/ArchivedWorks/MBT/Final/WE-FTT/evaluation_protocol/era5/cache/daily"
+  },
+  "params": {
+    "seed": 42,
+    "use_weights": true,
+    "n_clusters": 5,
+    "wind_thresh": 10.0,
+    "precip_thresh": 5.0,
+    "epochs": 5,
+    "batch_size": 4096,
+    "learning_rate": 0.001,
+    "weight_decay": 0.01,
+    "hidden_dim": 128,
+    "ffn_hidden_dim": 256,
+    "n_heads": 4,
+    "n_layers": 2,
+    "dropout_rate": 0.1,
+    "thr_default": 0.5,
+    "thr_val_selected_fpr_max": 0.1,
+    "thr_val_selected": 0.4607999920845032
+  },
+  "standardize": {
+    "mean": [
+      113.88890075683594,
+      186.202392578125,
+      120.75857543945312,
+      192.9933319091797,
+      189.5161590576172,
+      233.58642578125,
+      177.3331756591797,
+      229.02784729003906,
+      236.333740234375,
+      261.5552673339844
+    ],
+    "std": [
+      60.777809143066406,
+      35.84944534301758,
+      58.94709396362305,
+      33.34642028808594,
+      41.30897903442383,
+      22.86613655090332,
+      37.92728805541992,
+      18.413877487182617,
+      26.194412231445312,
+      16.39974021911621
+    ]
+  },
+  "weighting": [
+    {
+      "feature": "BT_06_H",
+      "n_clusters": 5,
+      "cluster_centers": [
+        85.13462829589844,
+        247.74815368652344,
+        169.18344116210938,
+        219.47763061523438,
+        273.3818359375
+      ],
+      "cluster_weights": [
+        0.06842336803674698,
+        0.9076106548309326,
+        0.06300798058509827,
+        0.03904201090335846,
+        1.0
+      ]
+    },
+    {
+      "feature": "BT_06_V",
+      "n_clusters": 5,
+      "cluster_centers": [
+        173.1334228515625,
+        254.77438354492188,
+        280.5021667480469,
+        164.1865234375,
+        223.29354858398438
+      ],
+      "cluster_weights": [
+        0.5820482969284058,
+        0.9692562222480774,
+        1.0,
+        0.5260273814201355,
+        0.0252771507948637
+      ]
+    },
+    {
+      "feature": "BT_10_H",
+      "n_clusters": 5,
+      "cluster_centers": [
+        100.16264343261719,
+        268.9723205566406,
+        231.12612915039062,
+        91.31217193603516,
+        174.10960388183594
+      ],
+      "cluster_weights": [
+        0.4365587532520294,
+        1.0,
+        0.7995898723602295,
+        0.39269399642944336,
+        0.15654534101486206
+      ]
+    },
+    {
+      "feature": "BT_10_V",
+      "n_clusters": 5,
+      "cluster_centers": [
+        180.0704345703125,
+        259.443603515625,
+        237.6241455078125,
+        173.55760192871094,
+        281.6080322265625
+      ],
+      "cluster_weights": [
+        0.6785658001899719,
+        0.7185043096542358,
+        0.23860052227973938,
+        0.6356706619262695,
+        1.0
+      ]
+    },
+    {
+      "feature": "BT_23_H",
+      "n_clusters": 5,
+      "cluster_centers": [
+        225.20346069335938,
+        164.00274658203125,
+        272.7880859375,
+        138.18405151367188,
+        192.14102172851562
+      ],
+      "cluster_weights": [
+        0.6355841755867004,
+        0.1447860598564148,
+        0.6878364682197571,
+        0.8029617667198181,
+        1.0
+      ]
+    },
+    {
+      "feature": "BT_23_V",
+      "n_clusters": 5,
+      "cluster_centers": [
+        254.78872680664062,
+        220.10630798339844,
+        282.26116943359375,
+        236.77288818359375,
+        204.51905822753906
+      ],
+      "cluster_weights": [
+        0.9688714146614075,
+        0.15794266760349274,
+        1.0,
+        0.6371413469314575,
+        0.7639554142951965
+      ]
+    },
+    {
+      "feature": "BT_36_H",
+      "n_clusters": 5,
+      "cluster_centers": [
+        174.02406311035156,
+        273.317138671875,
+        152.52621459960938,
+        207.39588928222656,
+        238.72349548339844
+      ],
+      "cluster_weights": [
+        0.1519695520401001,
+        1.0,
+        0.037946030497550964,
+        0.16104881465435028,
+        0.9529746770858765
+      ]
+    },
+    {
+      "feature": "BT_36_V",
+      "n_clusters": 5,
+      "cluster_centers": [
+        235.38650512695312,
+        214.6833038330078,
+        279.537841796875,
+        224.22987365722656,
+        254.76470947265625
+      ],
+      "cluster_weights": [
+        0.12924735248088837,
+        0.2073303610086441,
+        1.0,
+        0.37350377440452576,
+        0.9630739092826843
+      ]
+    },
+    {
+      "feature": "BT_89_H",
+      "n_clusters": 5,
+      "cluster_centers": [
+        262.622314453125,
+        220.96607971191406,
+        196.5681915283203,
+        242.9286346435547,
+        280.02972412109375
+      ],
+      "cluster_weights": [
+        0.3835016191005707,
+        0.018535131588578224,
+        0.15833346545696259,
+        0.7933669686317444,
+        1.0
+      ]
+    },
+    {
+      "feature": "BT_89_V",
+      "n_clusters": 5,
+      "cluster_centers": [
+        279.6563415527344,
+        242.6390380859375,
+        256.8652038574219,
+        211.0970458984375,
+        269.1457824707031
+      ],
+      "cluster_weights": [
+        1.0,
+        0.3017599284648895,
+        0.8084394335746765,
+        0.5668017268180847,
+        0.07348130643367767
+      ]
+    }
+  ],
+  "train_history": [
+    {
+      "epoch": 1.0,
+      "train_loss": 0.22798538539144728,
+      "val_mcc": 0.0,
+      "val_fpr": 0.0
+    },
+    {
+      "epoch": 2.0,
+      "train_loss": 0.1624292102996369,
+      "val_mcc": 0.0,
+      "val_fpr": 0.0
+    },
+    {
+      "epoch": 3.0,
+      "train_loss": 0.1325405536339297,
+      "val_mcc": 0.0,
+      "val_fpr": 0.0
+    }
+  ],
+  "test": {
+    "before_default": {
+      "mcc": 0.0,
+      "fpr": 0.0,
+      "fpr_ci_low": 6.775794934379843e-21,
+      "fpr_ci_high": 6.915959645941324e-05,
+      "tp": 0,
+      "fp": 0,
+      "tn": 55541,
+      "fn": 37494,
+      "n": 93035
+    },
+    "after_default": {
+      "mcc": 0.0,
+      "fpr": 0.0,
+      "fpr_ci_low": 0.0,
+      "fpr_ci_high": 9.081496970700996e-05,
+      "tp": 0,
+      "fp": 0,
+      "tn": 42296,
+      "fn": 26640,
+      "n": 68936
+    },
+    "before_thr_selected": {
+      "mcc": 0.0,
+      "fpr": 0.0,
+      "fpr_ci_low": 6.775794934379843e-21,
+      "fpr_ci_high": 6.915959645941324e-05,
+      "tp": 0,
+      "fp": 0,
+      "tn": 55541,
+      "fn": 37494,
+      "n": 93035
+    },
+    "after_thr_selected": {
+      "mcc": 0.0,
+      "fpr": 0.0,
+      "fpr_ci_low": 0.0,
+      "fpr_ci_high": 9.081496970700996e-05,
+      "tp": 0,
+      "fp": 0,
+      "tn": 42296,
+      "fn": 26640,
+      "n": 68936
+    },
+    "n_masked": 68936
+  },
+  "artifacts": {
+    "table_csv": "/mnt/hdd_4tb_data/ArchivedWorks/MBT/Final/WE-FTT/evaluation_protocol/era5/tables/tab_s7_era5_ocean_mask_weftt_v1.csv",
+    "figure_png": "/mnt/hdd_4tb_data/ArchivedWorks/MBT/Final/WE-FTT/evaluation_protocol/era5/figures/fig_s6_era5_ocean_fpr_weftt_v1.png",
+    "checkpoint": "/mnt/hdd_4tb_data/ArchivedWorks/MBT/Final/WE-FTT/evaluation_protocol/era5/results/ocean_conditioning_weftt_v1.ckpt.pth"
+  }
+}

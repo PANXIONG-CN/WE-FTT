@@ -1,0 +1,2 @@
+subset,alpha,include_geo_season,use_weights,n,fpr_raw,fpr_raw_ci_low,fpr_raw_ci_high,mcc_raw,fpr_resid,fpr_resid_ci_low,fpr_resid_ci_high,mcc_resid
+zone_a_test,1.0,False,True,93035,0.5757548477701158,0.5716394950103849,0.5798597221804433,0.025862257460282735,0.4693289641886174,0.46518080294628467,0.4734813678238696,-0.009940839082835131

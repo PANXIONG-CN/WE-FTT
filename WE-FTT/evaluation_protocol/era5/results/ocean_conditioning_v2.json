@@ -1,0 +1,96 @@
+{
+  "version": "ocean_conditioning_v2",
+  "generated_at_utc": "2026-02-25T08:53:21.248113Z",
+  "inputs": {
+    "eval_parquet": "/mnt/hdd_4tb_data/ArchivedWorks/MBT/Final/WE-FTT/evaluation_protocol/datasets/mbt_eval_samples_v1.parquet",
+    "splits_json": "/mnt/hdd_4tb_data/ArchivedWorks/MBT/Final/WE-FTT/evaluation_protocol/data_splits/event_grouped_splits_v1.json",
+    "era5_daily_cache_dir": "/mnt/hdd_4tb_data/ArchivedWorks/MBT/Final/WE-FTT/evaluation_protocol/era5/cache/daily"
+  },
+  "params": {
+    "seed": 42,
+    "use_weights": true,
+    "n_clusters": 5,
+    "baseline_fpr_target": 0.242,
+    "thr_grid_n": 999,
+    "conditioned_fpr_target": 0.1,
+    "wind_grid": [
+      5.0,
+      7.5,
+      10.0,
+      12.5,
+      15.0
+    ],
+    "precip_grid": [
+      1.0,
+      2.0,
+      5.0,
+      10.0,
+      20.0
+    ],
+    "hgb_max_iter": 200,
+    "hgb_max_depth": 6,
+    "hgb_learning_rate": 0.1
+  },
+  "selection": {
+    "thr_pred_selected_on_val": 0.41499999165534973,
+    "val_fpr_baseline_at_thr": 0.24224215847085998,
+    "weather_selection_mode": "feasible",
+    "wind_thresh_mps": 5.0,
+    "precip_thresh_mm_day": 5.0
+  },
+  "val": {
+    "before": {
+      "mcc": 0.04039415970378457,
+      "fpr": 0.24224215847085998,
+      "fpr_ci_low": 0.23882334981174483,
+      "fpr_ci_high": 0.24569411085420167,
+      "tp": 10271,
+      "fp": 14473,
+      "tn": 45273,
+      "fn": 26604,
+      "n": 96621
+    },
+    "after": {
+      "mcc": 0.026308069700111177,
+      "fpr": 0.09309409834968031,
+      "fpr_ci_low": 0.0907902949299264,
+      "fpr_ci_high": 0.0954502236577246,
+      "tp": 4030,
+      "fp": 5562,
+      "tn": 54184,
+      "fn": 32845,
+      "n": 96621
+    },
+    "masked": 64966
+  },
+  "test": {
+    "before": {
+      "mcc": 0.12080394706925854,
+      "fpr": 0.1636628796744747,
+      "fpr_ci_low": 0.16060930412609098,
+      "fpr_ci_high": 0.16676297710189047,
+      "tp": 9855,
+      "fp": 9090,
+      "tn": 46451,
+      "fn": 27639,
+      "n": 93035
+    },
+    "after": {
+      "mcc": 0.07072433652366401,
+      "fpr": 0.05662483570695522,
+      "fpr_ci_low": 0.054733172729854986,
+      "fpr_ci_high": 0.05857782597894073,
+      "tp": 3517,
+      "fp": 3145,
+      "tn": 52396,
+      "fn": 33977,
+      "n": 93035
+    },
+    "masked": 61262,
+    "n_unmasked": 31773
+  },
+  "artifacts": {
+    "table_csv": "/mnt/hdd_4tb_data/ArchivedWorks/MBT/Final/WE-FTT/evaluation_protocol/era5/tables/tab_s7_era5_ocean_mask_v2.csv",
+    "figure_png": "/mnt/hdd_4tb_data/ArchivedWorks/MBT/Final/WE-FTT/evaluation_protocol/era5/figures/fig_s6_era5_ocean_fpr_v2.png"
+  }
+}
