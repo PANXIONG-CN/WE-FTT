@@ -42,7 +42,7 @@
 \begin{frontmatter}
 
 % Title
-\title{Resolving signal ambiguity in earthquake precursor detection with an environment-specific deep learning framework for AMSR-2 data}
+\title{Resolving signal ambiguity in earthquake-window-associated anomaly characterization with an environment-specific deep learning framework for AMSR-2 data}
 
 % Authors and affiliations (mapped from original superscripts)
 \author[inst1]{Pan Xiong\corref{cor1}}
@@ -78,12 +78,12 @@
 
 % Abstract
 \begin{abstract}
-Satellite-based earthquake monitoring using microwave brightness temperature (MBT) is fundamentally challenged by the signal ambiguity problem, where pre-seismic anomalies are difficult to distinguish from non-seismic environmental variations. We address this challenge by developing an environment-specific, knowledge-guided deep learning framework to analyze Advanced Microwave Scanning Radiometer 2 (AMSR-2) data. Our approach first classifies the Earth's surface into five distinct environmental zones. Within each zone, we use association rule mining to discover reliable precursor signatures (e.g., specific 89 GHz H-polarization patterns over marine environments). This knowledge is then integrated into a novel Weight-Enhanced Feature-Tailored Transformer (WE-FTT) model to guide its focus. Validated on a dataset of 346.56 million MBT measurements across 154 major earthquakes (M$\ge$7.0, 2013-2023), the WE-FTT achieves a Matthews Correlation Coefficient of approximately 0.84, significantly outperforming conventional global methods. This environment-specific approach transforms satellite earthquake monitoring from an ambiguous global analysis into a reliable, context-aware detection system. This methodology not only advances satellite-based geohazard assessment but also provides a robust foundation for developing future operational earthquake early warning systems.
+Satellite-based earthquake monitoring using microwave brightness temperature (MBT) is fundamentally challenged by the signal ambiguity problem, where pre-seismic anomalies are difficult to distinguish from non-seismic environmental variations. We address this challenge by developing an environment-specific, knowledge-guided deep learning framework to analyze Advanced Microwave Scanning Radiometer 2 (AMSR-2) data. Our approach first classifies the Earth's surface into five distinct environmental zones. Within each zone, we use association rule mining to discover statistically significant, zone-dependent anomaly signatures (e.g., specific 89 GHz H-polarization patterns over marine environments). This knowledge is then integrated into a novel Weight-Enhanced Feature-Tailored Transformer (WE-FTT) model to guide its focus. Validated on a dataset of 346.56 million MBT measurements across 154 major earthquakes (M$\ge$7.0, 2013-2023), the WE-FTT achieves a Matthews Correlation Coefficient of approximately 0.84, significantly outperforming conventional global methods. This environment-specific approach transforms satellite earthquake monitoring from an ambiguous global analysis into a statistically testable, context-aware anomaly characterization system. This methodology advances satellite-based geohazard assessment and provides a foundation for reproducible monitoring and evaluation protocols.
 \end{abstract}
 
 % Keywords
 \begin{keyword}
-AMSR-2 \sep Microwave brightness temperature \sep Earthquake precursor detection \sep Environment-specific analysis \sep Knowledge-guided deep learning \sep Weight-Enhanced Feature-Tailored Transformer
+AMSR-2 \sep Microwave brightness temperature \sep Earthquake-window-associated anomaly characterization \sep Environment-specific analysis \sep Knowledge-guided deep learning \sep Weight-Enhanced Feature-Tailored Transformer
 \end{keyword}
 
 \end{frontmatter}
@@ -92,21 +92,23 @@ AMSR-2 \sep Microwave brightness temperature \sep Earthquake precursor detection
 % \linenumbers
 
 \section{Introduction} 
-Satellite microwave remote sensing, particularly using passive radiometry in the 6.9--89 GHz range, offers unique capabilities for monitoring pre-earthquake surface anomalies due to its all-weather operation and sensitivity to dielectric property variations \citep{pulinetsLithosphereAtmosphereIonosphere2011,wuGEOSSbasedThermalParameters2012}. The Advanced Microwave Scanning Radiometer 2 (AMSR-2) provides global coverage with multi-frequency brightness temperature (MBT) observations that may capture surface-observable perturbations in microwave emission potentially associated with lithosphere--atmosphere coupling processes \citep{kawanishiAdvancedMicrowaveScanning2003}. However, the operational implementation of this technology faces a fundamental challenge: distinguishing genuine seismic precursors from environmental variations in MBT data---a problem commonly referred to as signal ambiguity \citep{troninRemoteSensingEarthquakes2006,tramutoliRobustSatelliteTechniques2013}.
+Satellite microwave remote sensing, particularly using passive radiometry in the 6.9--89 GHz range, offers unique capabilities for monitoring pre-earthquake surface anomalies due to its all-weather operation and sensitivity to dielectric property variations \citep{pulinetsLithosphereAtmosphereIonosphere2011,wuGEOSSbasedThermalParameters2012}. The Advanced Microwave Scanning Radiometer 2 (AMSR-2) provides global coverage with multi-frequency brightness temperature (MBT) observations that may capture surface-observable perturbations in microwave emission potentially associated with lithosphere--atmosphere coupling processes \citep{kawanishiAdvancedMicrowaveScanning2003}. However, the operational implementation of this technology faces a fundamental challenge: distinguishing earthquake-window-associated anomalies from environmental variations in MBT data---a problem commonly referred to as signal ambiguity \citep{troninRemoteSensingEarthquakes2006,tramutoliRobustSatelliteTechniques2013}.
 
 The signal ambiguity problem manifests as similar MBT anomaly patterns arising from both seismic and non-seismic sources. Environmental factors such as soil moisture fluctuations, vegetation phenology, and atmospheric water vapor can produce MBT signatures that mimic those potentially associated with earthquake preparation \citep{qiCharacteristicBackgroundMicrowave2023}. While previous studies have documented promising anomalies preceding individual earthquakes \citep{akhoondzadehMultiPrecursorsAnalysis2018,qiSpatiotemporallyWeightedTwostep2020}, systematic global analyses have failed to establish statistically robust detection thresholds with acceptable false positive rates \citep{gellerEarthquakesCannotPredicted1997,cuiSatelliteThermalInfrared2019,contiSystematicReviewMetaAnalysis2021,ciceroneSystematicCompilationEarthquake2009}. This inconsistency indicates that prevailing methodologies, which often treat Earth's surface as homogeneous, may be fundamentally misaligned with the physical nature of pre-seismic signals.
 
+Accordingly, we frame this problem as a testable evaluation task under strong environmental confounding, rather than as single-pixel deterministic prediction. Our objective is to quantify whether earthquake-window-associated anomalies remain distinguishable from matched non-seismic background under explicit falsification tests and uncertainty bounds.
+
 We hypothesize that this limitation stems from a critical oversight: the failure to account for the diverse microwave radiative transfer characteristics across different environments \citep{njokuRetrievalLandSurface1999,guptaMicrowaveEmissionScattering2014}. A universal detection algorithm inevitably conflates environment-specific signatures with potential seismic signals, amplifying rather than resolving ambiguity. 
 
-To address this, we develop a novel framework that integrates environmental stratification with knowledge-guided deep learning, leveraging recent advances in machine learning for Earth observation \citep{reichsteinDeepLearningEarth2019,zhuDeepLearningRemote2017}. This study makes three primary contributions to remote sensing methodology. First, we implement an automated surface classification that partitions Earth into five distinct zones based on vegetation and soil moisture, enabling an analysis that respects the underlying physics of microwave emission. Second, we introduce the Weight-Enhanced Feature-Tailored Transformer (WE-FTT), a new deep learning architecture that explicitly incorporates domain knowledge of environment-specific precursor patterns derived from association rule mining. Third, we provide comprehensive validation using 346.56 million AMSR-2 MBT measurements for 154 major (M$\ge$7.0) earthquakes (2013--2023), demonstrating that our approach achieves a Matthews Correlation Coefficient of approximately 0.84, a substantial improvement over conventional global methods.
+To address this, we develop a novel framework that integrates environmental stratification with knowledge-guided deep learning, leveraging recent advances in machine learning for Earth observation \citep{reichsteinDeepLearningEarth2019,zhuDeepLearningRemote2017}. This study makes three primary contributions to remote sensing methodology. First, we implement an automated surface classification that partitions Earth into five distinct zones based on vegetation and soil moisture, enabling an analysis that respects the underlying physics of microwave emission. Second, we introduce the Weight-Enhanced Feature-Tailored Transformer (WE-FTT), a new deep learning architecture that explicitly incorporates domain knowledge of environment-specific anomaly patterns derived from association rule mining. Third, we provide comprehensive validation using 346.56 million AMSR-2 MBT measurements for 154 major (M$\ge$7.0) earthquakes (2013--2023), demonstrating that our approach achieves a Matthews Correlation Coefficient of approximately 0.84, a substantial improvement over conventional global methods.
 
-The overarching goal of this research is to quantitatively demonstrate that reliable MBT-based earthquake precursors can be identified when their environment-specific characteristics are properly modeled. This work provides a robust methodological foundation for developing more reliable satellite-based seismic hazard assessment systems by resolving the long-standing signal ambiguity problem.
+The overarching goal of this research is to quantitatively demonstrate that statistically significant MBT-based earthquake-window-associated anomalies can be identified when their environment-specific characteristics are properly modeled. This work provides a robust methodological foundation for satellite-based seismic hazard assessment by resolving the long-standing signal ambiguity problem.
 
 The remainder of this paper is organized as follows: Section 2 describes the data sources and the methodological framework, including the environment-specific analysis and the WE-FTT model. Section 3 presents the empirical results. Section 4 discusses the findings and their implications, and Section 5 provides the conclusions.
 
 \section{Data and Methods}\label{sec:data_methods}
 
-The methodological framework (Figure~\ref{fig:fig1}) integrates data acquisition, environment-specific partitioning, knowledge mining, and deep learning to address the signal ambiguity problem in earthquake precursor detection. Each component of this framework is detailed in the following subsections.
+The methodological framework (Figure~\ref{fig:fig1}) integrates data acquisition, environment-specific partitioning, knowledge mining, and deep learning to address the signal ambiguity problem in earthquake-window-associated anomaly characterization. Each component of this framework is detailed in the following subsections.
 
 \subsection{Data Acquisition and Preprocessing}\label{sec:data_acquisition}
 
@@ -165,7 +167,7 @@ The model's effectiveness was evaluated using a suite of complementary metrics. 
 To rigorously benchmark our WE-FTT model, we conducted a comparative analysis against several established machine learning models: RandomForest \citep{breiman2001random}, LightGBM, XGBoost \citep{chen2016xgboost}, TabNet \citep{arikTabNetAttentiveInterpretable2021}, CatBoost \citep{prokhorenkovaCatBoostUnbiasedBoosting2018}, and a Multi-Layer Perceptron (MLP). All models were trained and evaluated on identical dataset splits using the same input features (10 MBT channels and their 10 corresponding weight vectors). This extensive comparison framework allows for a robust assessment of the performance gains achieved by our specialized, knowledge-guided architecture.
 
 \subsubsection{Uncertainty Quantification}\label{sec:uncertainty}
-To assess the robustness of our methodological framework, we conducted several uncertainty analyses. Bootstrap resampling (1,000 iterations) was used to generate 95\% confidence intervals for the support values in the association rule mining, the results of which are visualized in our performance analyses. We performed sensitivity analysis on the K-means clustering by varying K from 3 to 20 and examining the stability of the resulting precursor signatures. Additionally, a stratified 5-fold cross-validation scheme was employed during model evaluation to ensure consistent performance across different data splits while maintaining the proportion of samples from each environmental zone.
+To assess the robustness of our methodological framework, we conducted several uncertainty analyses. Bootstrap resampling (1,000 iterations) was used to generate 95\% confidence intervals for the support values in the association rule mining, the results of which are visualized in our performance analyses. We performed sensitivity analysis on the K-means clustering by varying K from 3 to 20 and examining the stability of the resulting anomaly signatures. Additionally, a stratified 5-fold cross-validation scheme was employed during model evaluation to ensure consistent performance across different data splits while maintaining the proportion of samples from each environmental zone.
 
 \subsubsection{Statistical Analysis Overview}
 To ensure consistent interpretation of performance metrics and uncertainty across experiments, we briefly summarize the statistical procedures used throughout the paper. For the association rule mining and channel-weight estimation, bootstrap resampling with 1,000 iterations is used to derive 95\% confidence intervals for support differences, channel weights, and associated thresholds, as described above. For the global false-positive mapping experiment (Figure~\ref{fig:fig13} and Supplementary Table~\ref{tab:tableS1}), per-pixel False Positive Rate (FPR) values on random non-seismic days are summarized for each environmental zone by the median, interquartile range [Q1, Q3], and a bootstrap 95\% confidence interval for the mean FPR (1,000 resamples). For the magnitude--depth stratification experiment (Supplementary Figure~\ref{fig:figS4} and Supplementary Table~\ref{tab:tableS4}), MCC confidence intervals are obtained from 1,000 bootstrap resamples of window-wise confusion matrices, whereas FPR confidence intervals use Wilson binomial 95\% intervals. For the marine control experiment (Supplementary Figure~\ref{fig:figS3} and Supplementary Table~\ref{tab:tableS3}), paired Wilcoxon signed-rank tests (with fallback to paired t-tests when sample sizes are insufficient) are used to compare detection rates under different filtering conditions relative to the baseline, and one-sample t-tests against a 0.5 chance-level detection rate assess whether detection rates remain significantly above random (p<0.05). For the detection rate analysis in Supplementary Figure~\ref{fig:figS3}, we treat 0.5 as the chance-level reference and perform two-sided one-sample t-tests on event-wise detection rates against this reference level, reporting p-values with a significance threshold of $\alpha = 0.05$.
@@ -174,16 +176,16 @@ To ensure consistent interpretation of performance metrics and uncertainty acros
 \subsection{Resolving the Signal Ambiguity Through Environmental Context}
 Our analysis demonstrates that the signal ambiguity that has plagued satellite earthquake monitoring for decades can be effectively resolved through environment-specific analysis. By segmenting our global dataset into five distinct environmental zones and analyzing precursor patterns independently within each zone, we discovered that what appears as intractable noise in global analyses resolves into clear, consistent signatures when properly contextualized.
 
-Figure~\ref{fig:fig2} demonstrated this breakthrough---each environmental zone exhibits unique, highly reliable frequency-polarization combinations for detecting seismic precursors. These environment-specific signatures achieve support values approaching or reaching 1.0, indicating near-perfect reliability within their respective environments. This finding fundamentally challenges the prevailing assumption that earthquake precursors should manifest uniformly across different surface types.
+Figure~\ref{fig:fig2} demonstrates this breakthrough---each environmental zone exhibits unique, high-support frequency-polarization combinations for earthquake-window-associated anomaly characterization. These environment-specific signatures achieve support values up to 1.0 within their respective environments. This finding fundamentally challenges the prevailing assumption that such anomaly signatures should manifest uniformly across different surface types.
 
 \subsection{Analysis of Multi-frequency Microwave for Zone-Dependent Pre-seismic Anomaly Detection}
-An initial exploratory analysis across the full earthquake catalog (M$\ge$4.8) revealed that consistent, statistically significant MBT anomalies were predominantly associated with major earthquakes (M$\ge$7.0). For smaller magnitudes, potential signals were indistinguishable from background noise at a global scale, confirming that the signal ambiguity problem is particularly acute for lower-magnitude events. We therefore focused our main analysis on M$\ge$7.0 earthquakes, where signals, though still ambiguous in conventional global analyses, possess sufficient strength to become distinguishable through our environment-specific framework. The integrated methodological framework presented in Figure~\ref{fig:fig1} enabled comprehensive analysis of AMSR-2 microwave brightness temperature data across five distinct environmental zones has revealed characteristic pre-seismic anomaly patterns through specific frequency-polarization combinations, demonstrating significant detection capabilities for seismic precursor signals. Through comprehensive frequent itemset mining analysis, we have identified environment-specific anomaly signatures that achieve perfect or near-perfect support values, indicating robust seismic precursor detection capabilities across diverse landscape conditions (Figure~\ref{fig:fig2}).
+An initial exploratory analysis across the full earthquake catalog (M$\ge$4.8) revealed that consistent, statistically significant MBT anomalies were predominantly associated with major earthquakes (M$\ge$7.0). For smaller magnitudes, potential signals were indistinguishable from background noise at a global scale, confirming that the signal ambiguity problem is particularly acute for lower-magnitude events. We therefore focused our main analysis on M$\ge$7.0 earthquakes, where signals, though still ambiguous in conventional global analyses, possess sufficient strength to become distinguishable through our environment-specific framework. The integrated methodological framework presented in Figure~\ref{fig:fig1} enabled comprehensive analysis of AMSR-2 microwave brightness temperature data across five distinct environmental zones and revealed characteristic pre-seismic anomaly patterns through specific frequency-polarization combinations. Through comprehensive frequent itemset mining analysis, we identified environment-specific anomaly signatures with high support across diverse landscape conditions (Figure~\ref{fig:fig2}).
 
-In marine environments (Zone A), distinct pre-seismic anomalies were most effectively captured by the combination of 89~GHz H-polarization (anomaly range $\sim$219--253~K) and 36.5~GHz V-polarization (123--248~K), achieving perfect detection reliability (support = 1.0000). A secondary anomaly signature comprising 23.8~GHz H-polarization (177--235~K) and 36.5~GHz H-polarization (109--209~K) also showed near-perfect reliability (support = 0.9923). The overlapping temperature range ($\sim$177--209~K) between these channels defines a critical detection window for marine earthquake precursors.
+In marine environments (Zone A), distinct pre-seismic anomalies were most effectively captured by the combination of 89~GHz H-polarization (anomaly range $\sim$219--253~K) and 36.5~GHz V-polarization (123--248~K), with support = 1.0000. A secondary anomaly signature comprising 23.8~GHz H-polarization (177--235~K) and 36.5~GHz H-polarization (109--209~K) also showed high support (support = 0.9923). The overlapping temperature range ($\sim$177--209~K) between these channels defines a critical detection window for marine earthquake-window-associated anomalies.
 
 Humid forest zones (Zone B) exhibited unique anomaly signatures, with optimal detection achieved through 89~GHz V-polarization (98--295~K) combined with 36.5~GHz V-polarization (140--297~K), yielding perfect support. Detection reliability showed a systematic slight decrease when additional frequency channels were included: for example, including the 10.65~GHz H-polarization channel (169--385~K) maintained a support of 0.5154, while adding 6.9~GHz H-polarization (164--388~K) gave 0.5151. This minimal support difference ($\Delta$support $\approx$ 0.0003) quantifies the effect of dense vegetation on precursor signal detectability.
 
-Dry forest environments (Zone C) revealed seismic precursor signatures through 36.5~GHz H-polarization (121--207~K) combined with 10.65~GHz V-polarization (160--220~K), achieving near-perfect detection reliability. The stability of the 36.5~GHz H-polarization anomaly range (standard deviation <0.1~K) indicates a consistent precursor signature. Secondary combinations including 6.9~GHz V-polarization (152--216~K) also achieved very high reliability (support = 0.9976), with anomalies concentrated around 159--207~K.
+Dry forest environments (Zone C) revealed earthquake-window-associated anomaly signatures through 36.5~GHz H-polarization (121--207~K) combined with 10.65~GHz V-polarization (160--220~K), with support = 0.7028. The stability of the 36.5~GHz H-polarization anomaly range (standard deviation <0.1~K) indicates a consistent signature. Secondary combinations including 6.9~GHz V-polarization (152--216~K) also achieved high support (support = 0.9976), with anomalies concentrated around 159--207~K.
 
 Wetland zones (Zone D) demonstrated complex anomaly patterns. Optimal detection involved various combinations incorporating 6.9~GHz H-polarization (73--166~K). Anomaly signatures showed a stratified pattern: low-frequency H-polarization exhibited broad detection ranges ($\Delta T \approx 93$ K), mid-frequency V-polarization had intermediate detection windows (e.g., $\Delta T \approx 164$ K for 23.8~GHz), and high-frequency channels provided complementary detection characteristics (e.g., $\Delta T \approx 214$ K for 36.5~GHz V-polarization). This stratification suggests multi-layered precursor processes in wetlands.
 
@@ -264,11 +266,17 @@ Third, to evaluate the impact of tsunami and extreme sea-state artifacts in mari
 
 Finally, we examine the robustness of performance under seismological stratification by grouping events into magnitude and depth strata (M7.0--7.4 vs. M$\ge$7.5; shallow 0--70~km vs. deep $\ge$70~km). Supplementary Figure~\ref{fig:figS4} and Supplementary Table~\ref{tab:tableS4} present forest plots and detailed statistics of MCC and FPR with 95\% confidence intervals. The overall mean MCC is 0.804 with an average FPR of 0.038. Performance is highest for shallow events (MCC = 0.821) and mildly decreases with depth (MCC = 0.750--0.798 for deeper strata), consistent with TEC-based threshold studies across latitudinal zones and seismo-ionospheric anomaly statistics obtained from GNSS TEC \citep{shahJin2015,shahTotalElectronContent2020,shahASR2022}. These results confirm that the proposed framework maintains significant skill across diverse magnitude and depth ranges, while highlighting physically plausible depth-dependent sensitivity. Per-event forward-looking results are summarized in Supplementary Table~\ref{tab:tableS2}.
 
+To control leakage and event dependence in the supplementary protocol, we enforce event-grouped train/val/test partitions with disjoint event IDs and use fold-wise fitting/application for all fitted components in robustness experiments (including threshold selection, residual background estimation, and ERA5 covariate conditioning). The corresponding split manifests and audit artifacts are versioned under \texttt{evaluation\_protocol/data\_splits/} and \texttt{evaluation\_protocol/leakage\_audit/}.
+
+As additional protocol-level falsification checks, we run four placebo tests (random date, time shift, random location, and non-seismic extremes). All placebo distributions yield permutation-test significance below 0.01, with $p$ values from 0.0025 to 0.0089 (Supplementary Figure~\ref{fig:figS5}, Supplementary Table~\ref{tab:tableS6}). For marine confounding control, ERA5-based screening (10~m/s wind and 5~mm/day precipitation thresholds) reduces Zone-A test FPR from 0.0906 to 0.0631 under fixed-weather settings (Supplementary Figure~\ref{fig:figS6}, Supplementary Table~\ref{tab:tableS7}). For land zones (B--E), the improved residualization protocol (val-selected thresholds + zone-wise background + ERA5 covariates) yields a residual-space MCC of 0.0997 with $p=0.00498$ at land-all aggregation, while the corresponding raw branch is not significant under the same protocol (Supplementary Figure~\ref{fig:figS7}, Supplementary Table~\ref{tab:tableS9}). To contextualize detectability, we report a dual empirical/theoretical $\sigma_{\mathrm{eff}}$ and effect-size summary: under a paired robust empirical baseline (same-event control-control absolute-difference MAD scaled to mean-SE), all channel$\times$zone entries satisfy $z>2$ (minimum $z=2.72$), whereas broader global empirical baselines remain conservative (Supplementary Table~\ref{tab:tableS8}), together with condensed Fresnel sensitivity estimates (Supplementary Table~\ref{tab:tableS10}).
+
+As a spatial extrapolation stress test, we additionally conduct event-grouped 10$^{\circ}\times$10$^{\circ}$ leave-one-block-out validation using the reproducible protocol scripts. Under the minimal reproducible setting, the weighted mean MCC is -0.0073 across 27 held-out blocks (minimum two events per block), and the worst-performing blocks are summarized in Supplementary Figure~\ref{fig:figS8} and Supplementary Table~\ref{tab:tableS11}. Enhanced protocol variants (zone-adaptive thresholding and land residualization/conditioning) improve false-positive control (weighted mean FPR 0.0379--0.1252) but keep weighted mean MCC near zero (0.0082--0.0124), indicating no substantial uplift in cross-region transportability. These results indicate strong spatial heterogeneity and support region-adaptive calibration in operational settings.
+
 \section{Discussion}\label{sec:discussion}
 
 \subsection{Resolving Signal Ambiguity via an Environment-Specific Framework}\label{sec:discuss_ambiguity}
 
-Our findings demonstrate a robust pathway to resolving the signal ambiguity problem that has challenged satellite-based earthquake monitoring for decades. The key insight, supported by the near-perfect support values for specific channel combinations in distinct environmental zones (Table~\ref{tab:table1}), is that reliable pre-seismic signatures in MBT data are not universal but are fundamentally environment-specific. By abandoning the search for a single, global precursor pattern and instead embracing environmental heterogeneity, our framework successfully transforms what appears as intractable noise in global analyses into clear, context-dependent indicators of potential seismic preparation \citep{qiSpatiotemporallyWeightedTwostep2020,qiMicrowaveBrightnessTemperature2022,wuIdentifyingSeismicAnomalies2024}. This paradigm shift is validated by the performance of the WE-FTT model. The performance gain (MCC: 0.74→0.84) represents a 13.5\% relative improvement and, more importantly, corresponds to a significant enhancement in the trade-off between false positives and true positives. This demonstrates that accounting for environmental context is not merely an incremental improvement but is essential for achieving reliable detection in satellite remote sensing of geohazards.
+Our findings demonstrate a robust pathway to resolving the signal ambiguity problem that has challenged satellite-based earthquake monitoring for decades. The key insight, supported by high-support channel combinations in distinct environmental zones (Table~\ref{tab:table1}), is that MBT anomaly signatures are not universal but are fundamentally environment-specific. By abandoning the search for a single, global pattern and instead embracing environmental heterogeneity, our framework successfully transforms what appears as intractable noise in global analyses into clear, context-dependent indicators of potential seismic preparation \citep{qiSpatiotemporallyWeightedTwostep2020,qiMicrowaveBrightnessTemperature2022,wuIdentifyingSeismicAnomalies2024}. This paradigm shift is validated by the performance of the WE-FTT model. The performance gain (MCC: 0.74→0.84) represents a 13.5\% relative improvement and, more importantly, corresponds to a significant enhancement in the trade-off between false positives and true positives. This demonstrates that accounting for environmental context is not merely an incremental improvement but is essential for robust anomaly characterization in satellite remote sensing of geohazards.
 
 \subsection{Physical Interpretation of MBT Anomalies and Comparison with Prior Studies}\label{sec:discuss_physical}
 
@@ -278,7 +286,7 @@ The observed zone-dependent frequency--polarization responses (Table~\ref{tab:ta
 \subsubsection{Separating precursor signals from background variability}
 \textbf{Quantitative magnitude comparison (soil moisture vs. stress-related dielectric perturbations).} Over land, the observed brightness temperature (TB) variability is strongly controlled by near-surface dielectric changes driven by soil moisture. To quantify the relative magnitude, we provide a first-order sensitivity estimate using Fresnel emissivity for a smooth dielectric half-space at a representative AMSR-2 incidence angle ($\theta \approx 55^{\circ}$), with $TB_p \approx e_p T_s$ and $e_p = 1 - R_p$, where $R_p$ is the Fresnel power reflectivity for polarization $p$. Using representative near-surface permittivity endpoints consistent with established microwave dielectric mixing models, a soil moisture change from $m_v = 0.05$ to $m_v = 0.40$ can increase the real permittivity from approximately $\varepsilon' \approx 4$ (dry) to $\varepsilon' \approx 25$ (wet). For $T_s = 300~\mathrm{K}$, this implies a TB decrease of approximately 106~K (H-pol) and 68~K (V-pol) at 6.9~GHz. In contrast, laboratory studies report that stress-dependent dielectric perturbations of common minerals/rocks at microwave frequencies are typically at the percent level \citep{maoImpactCompressiveStress2020}. A conservative 1--5\% perturbation in $\varepsilon'$ around $\varepsilon' \approx 10$ yields only $\sim$0.6--2.8~K (H-pol) and $\sim$0.4--1.9~K (V-pol) TB changes in the same Fresnel sensitivity calculation. Although real TB is influenced by roughness, vegetation optical depth, and atmospheric emission, this order-of-magnitude contrast illustrates why soil moisture dominates land TB variability, and motivates the need for our environment-specific stratification and statistical background screening to suppress background confounders. A compact summary of this comparison is provided in Supplementary Table~\ref{tab:tableS5}.
 
-Our multi-channel, environment-specific framework represents a significant methodological advance over prior remote sensing studies by explicitly quantifying how precursor signatures rise above background variability. Previous approaches often relied on single-channel analysis or fixed anomaly thresholds. For example, some studies focused on regional, threshold-based detection, while others employed wavelet analysis on individual frequency bands \citep{liuPreearthquakeMBTAnomalies2023,wuIdentifyingSeismicAnomalies2024}. While valuable, these approaches cannot capture the synergistic information we identified through association rule mining and support-difference analysis. Our results (Figure~\ref{fig:fig2} and Table~\ref{tab:table1}) demonstrate that certain channel combinations achieve near-perfect detection reliability *only when analyzed together*, and only after statistically bounding background variability using support-difference confidence intervals and global false-positive mapping (Section~3.6, Figure~\ref{fig:fig13}). This suggests non-linear interactions between frequency-dependent near-surface sensitivities and polarization responses. By combining environment-specific frequency--polarization pairs with stringent statistical controls on support-differences and false-positive rates, the framework provides a quantitative solution to the fundamental challenge of discriminating subtle local seismic changes from overwhelming ambient fluctuations, a problem articulated by \citet{maedaDiscriminationLocalFaint2008} but previously unresolved at a global scale. These environment-specific mechanisms underscore the necessity of our stratified approach, as a universal detection algorithm would inevitably miss these nuanced, zone-dependent signatures. Notably, the magnitude- and depth-stratified performance trends obtained under this framework (Section~3.6) are broadly consistent with TEC-based threshold studies across latitudinal zones \citep{shahTotalElectronContent2020}, suggesting that the MBT-based precursors we identify respect seismologically motivated scaling relationships rather than contradicting them.
+Our multi-channel, environment-specific framework represents a significant methodological advance over prior remote sensing studies by explicitly quantifying how anomaly signatures rise above background variability. Previous approaches often relied on single-channel analysis or fixed anomaly thresholds. For example, some studies focused on regional, threshold-based detection, while others employed wavelet analysis on individual frequency bands \citep{liuPreearthquakeMBTAnomalies2023,wuIdentifyingSeismicAnomalies2024}. While valuable, these approaches cannot capture the synergistic information we identified through association rule mining and support-difference analysis. Our results (Figure~\ref{fig:fig2} and Table~\ref{tab:table1}) demonstrate that certain channel combinations reach high support *only when analyzed together*, and only after statistically bounding background variability using support-difference confidence intervals and global false-positive mapping (Section~3.6, Figure~\ref{fig:fig13}). This suggests non-linear interactions between frequency-dependent near-surface sensitivities and polarization responses. By combining environment-specific frequency--polarization pairs with stringent statistical controls on support-differences and false-positive rates, the framework provides a quantitative solution to the fundamental challenge of discriminating subtle local seismic changes from overwhelming ambient fluctuations, a problem articulated by \citet{maedaDiscriminationLocalFaint2008} but previously unresolved at a global scale. These environment-specific mechanisms underscore the necessity of our stratified approach, as a universal detection algorithm would inevitably miss these nuanced, zone-dependent signatures. Notably, the magnitude- and depth-stratified performance trends obtained under this framework (Section~3.6) are broadly consistent with TEC-based threshold studies across latitudinal zones \citep{shahTotalElectronContent2020}, suggesting that the MBT-based anomalies we identify respect seismologically motivated scaling relationships rather than contradicting them.
 
 \subsection{Methodological Implications and Physics-Informed AI}\label{sec:discuss_implications}
 This subsection synthesizes the broader methodological implications of our framework from the perspective of physics-informed AI for geophysical applications. This work presents a novel approach for Earth observation by demonstrating that a knowledge-guided architectural design can fundamentally outperform generic deep learning. The remarkable alignment between the mined frequency importance and the model's architectural component sensitivity---with key channels such as 6.9 GHz H-pol (Channel 0), 10.65 GHz V-pol (Channel 3), 23.8 GHz H-pol (Channel 4), and 89.0 GHz H-pol (Channel 8) showing a threefold higher vulnerability to weight projection removal in our ablation study (Figs.~\ref{fig:fig8}-\ref{fig:fig10})---confirms that the WE-FTT has learned physically meaningful representations rather than just statistical artifacts \citep{maoAdditionalMicrowaveRadiation2020}. This correspondence suggests that the learned hierarchy of model components may reflect a conceptual hierarchy of surface-coupled processes, from lithospheric stress accumulation to surface-observable perturbations in microwave emission.
@@ -296,7 +304,7 @@ Addressing these limitations is crucial for moving toward operational implementa
 
 \section{Conclusion}
 
-This study successfully addresses the long-standing signal ambiguity problem in satellite-based earthquake monitoring through the development and validation of an environment-specific, knowledge-guided analytical framework. Our analysis of 346.56 million AMSR-2 observations for 154 major (M$\ge$7.0) earthquakes demonstrates that reliable pre-seismic MBT signatures are not universal but manifest distinctly across five environmental zones, with specific frequency-polarization combinations achieving near-perfect detection reliability. This finding explains the limited success of previous global, uniform approaches.
+This study successfully addresses the long-standing signal ambiguity problem in satellite-based earthquake monitoring through the development and validation of an environment-specific, knowledge-guided analytical framework. Our analysis of 346.56 million AMSR-2 observations for 154 major (M$\ge$7.0) earthquakes demonstrates that MBT anomaly signatures are not universal but manifest distinctly across five environmental zones, with specific frequency-polarization combinations achieving high support. This finding explains the limited success of previous global, uniform approaches.
 
 Our key methodological contribution is the Weight-Enhanced Feature-Tailored Transformer (WE-FTT), a novel architecture that architecturally integrates domain knowledge of these environment-specific signatures. This "physics-informed AI" approach achieved a Matthews Correlation Coefficient of 0.84, substantially outperforming conventional methods and confirming that accounting for environmental heterogeneity is a fundamental requirement for robust precursor detection. This research therefore provides both a practical solution to the signal ambiguity problem and a generalizable framework for other remote sensing applications where environmental context fundamentally modulates signal characteristics.
 
@@ -327,7 +335,7 @@ Looking forward, the integration of this framework with complementary observatio
 \begin{figure*}[p]
 \centering
 \includegraphics[width=1.0\linewidth]{image2.png}
-\caption{Environment-specific precursor signatures achieving near-perfect reliability.}\label{fig:fig2}
+\caption{Environment-specific frequency--polarization anomaly signatures with zone-dependent support.}\label{fig:fig2}
 \end{figure*}
 \clearpage
 
@@ -495,7 +503,7 @@ P.X., C.L., and X.S. conceived the study. P.X. and C.L. performed the analysis a
 \section*{Supplementary Figures and Tables}
 
 \begin{center}
-{\Large \textbf{Resolving signal ambiguity in earthquake precursor detection with an environment-specific deep learning framework for AMSR-2 data}}\\[0.75em]
+{\Large \textbf{Resolving signal ambiguity in earthquake-window-associated anomaly characterization with an environment-specific deep learning framework for AMSR-2 data}}\\[0.75em]
 Pan Xiong, Cheng Long, Huiyu Zhou, Roberto Battiston, Angelo De Santis, Xuhui Shen
 \end{center}
 
@@ -508,11 +516,21 @@ Pan Xiong, Cheng Long, Huiyu Zhou, Roberto Battiston, Angelo De Santis, Xuhui Sh
     \item Figure S2: Global spatial coverage of the 26 out-of-sample M$\ge$7.0 earthquakes used for forward-looking validation.
     \item Figure S3: Marine control experiment assessing the impact of tsunami-related and extreme wave conditions on MBT detections.
     \item Figure S4: Magnitude--depth--stratified performance of the WE-FTT framework.
+    \item Figure S5: Placebo zero-distribution comparison across four placebo designs.
+    \item Figure S6: ERA5 ocean conditioning before/after FPR comparison.
+    \item Figure S7: Land residualization before/after placebo comparison (v2 protocol).
+    \item Figure S8: Spatial leave-one-block-out MCC distribution across 10$^{\circ}\times$10$^{\circ}$ blocks.
     \item Table S1: Zone-wise statistics of false positive rate (FPR) under randomly sampled non-seismic days.
     \item Table S2: Forward-looking performance on 26 out-of-sample M$\ge$7.0 earthquakes (2023--2025).
     \item Table S3: Marine zone controls under different filtering conditions.
     \item Table S4: Stratified performance (2$\times$2) by magnitude and depth for M$\ge$7.0 earthquakes.
     \item Table S5: First-order Fresnel sensitivity comparison for soil-moisture-driven vs. percent-level dielectric perturbations at the land surface.
+    \item Table S6: Placebo significance summary (MCC zero distributions and permutation-test $p$ values).
+    \item Table S7: ERA5 ocean conditioning summary under fixed-weather thresholds.
+    \item Table S8: dual empirical/theoretical $\sigma_{\mathrm{eff}}$ and effect-size summary by environmental zone.
+    \item Table S9: Land residualization summary under the improved v2 protocol.
+    \item Table S10: Condensed Fresnel sensitivity table from the reproducible evaluation protocol.
+    \item Table S11: Condensed summary of the worst held-out blocks in spatial leave-one-block-out validation.
 \end{itemize}
 }
 
@@ -554,6 +572,39 @@ Pan Xiong, Cheng Long, Huiyu Zhou, Roberto Battiston, Angelo De Santis, Xuhui Sh
 \caption{Forest plots of MCC (left) and FPR (right) by magnitude and depth strata for M$\ge$7.0 earthquakes. Points denote estimates and horizontal whiskers denote 95\% confidence intervals. Vertical dashed lines mark the overall means (MCC = 0.804; FPR = 0.038). Strata sample sizes: shallow (0--70~km) $\times$ M7.0--7.4: $n=70$; shallow $\times$ M$\ge$7.5: $n=38$; deep ($\ge$70~km) $\times$ M7.0--7.4: $n=28$; deep $\times$ M$\ge$7.5: $n=18$. Performance mildly decreases with greater depth, consistent with TEC-based threshold studies across latitudinal zones.}
 \label{fig:figS4}
 \end{figure*}
+\clearpage
+
+\begin{figure*}[p]
+\centering
+\includegraphics[width=0.98\linewidth]{fig_s5_placebo_mcc_distribution.png}
+\caption{Placebo MCC distributions across four designs (random date, time shift, random location, and non-seismic extreme proxies). All runs use land-only, day-mean aggregation, and permutation-test settings defined in the evaluation protocol; corresponding $p$ values and repeat counts are listed in Supplementary Table~\ref{tab:tableS6}.}
+\label{fig:figS5}
+\end{figure*}
+\clearpage
+
+\begin{figure*}[p]
+\centering
+\includegraphics[width=0.78\linewidth]{fig_s6_era5_ocean_conditioning.png}
+\caption{ERA5 ocean conditioning (Zone A) with fixed weather thresholds (wind $\le$10~m/s, precipitation $\le$5~mm/day). Bars denote test-set FPR before and after conditioning with Wilson 95\% confidence intervals; numerical values and sample counts are provided in Supplementary Table~\ref{tab:tableS7}.}
+\label{fig:figS6}
+\end{figure*}
+\clearpage
+
+\begin{figure*}[p]
+\centering
+\includegraphics[width=0.86\linewidth]{fig_s7_residualization_vs_placebo.png}
+\caption{Land residualization comparison (Zones B--E) under the v2 protocol (val-selected thresholds, zone-wise background models, and ERA5 covariates). Boxplots show placebo MCC distributions for raw and residual feature spaces; horizontal lines indicate real-test MCC values. Detailed statistics are listed in Supplementary Table~\ref{tab:tableS9}.}
+\label{fig:figS7}
+\end{figure*}
+\clearpage
+
+\begin{figure*}[p]
+\centering
+\includegraphics[width=0.92\linewidth]{fig_s8_spatial_cv_mcc.png}
+\caption{Spatial leave-one-block-out stress test using event-grouped 10$^{\circ}\times$10$^{\circ}$ blocks. Each bar reports MCC on one held-out block under the minimal reproducible protocol; red bars indicate blocks below the failure line (MCC < 0.6). The weighted mean across 27 evaluated blocks is -0.0073.}
+\label{fig:figS8}
+\end{figure*}
+\clearpage
 \begin{table*}[p]
 \footnotesize
 \centering
@@ -669,6 +720,40 @@ Percent-level perturbation & $\varepsilon' \approx 10$ with 1--5\% change & $\si
 \bottomrule
 \end{tabular}
 \end{table*}
+\clearpage
+
+\input{tab_s6_placebo_summary.tex}
+\clearpage
+
+\input{tab_s7_era5_ocean_mask.tex}
+\clearpage
+
+\subsection*{Supplementary Methods: Robust $\sigma_{\mathrm{eff}}$ Definition (MAD$\rightarrow$SE)}
+For each zone $z$ and channel $c$, let $C_{e,k,c}$ denote the mean brightness temperature of the $k$-th control window of event $e$. We construct a same-event paired null distribution using control-control absolute differences:
+\begin{equation}
+D_{e,ij,c}=\left|C_{e,i,c}-C_{e,j,c}\right|,\quad i<j.
+\end{equation}
+We then estimate a robust dispersion scale by median absolute deviation (MAD):
+\begin{equation}
+\sigma^{\mathrm{MAD}}_{z,c}=1.4826\cdot \mathrm{MAD}\!\left(\{D_{e,ij,c}\}\right).
+\end{equation}
+Given event-level event-control contrasts $\Delta_{e,c}$ and $N_{z,c}$ valid events, we define a paired-robust effective noise as mean standard error (SE) and the corresponding $z$-score:
+\begin{equation}
+\sigma^{\mathrm{paired}}_{\mathrm{eff},z,c}=\frac{\sigma^{\mathrm{MAD}}_{z,c}}{\sqrt{N_{z,c}}},\qquad
+z^{\mathrm{paired}}_{z,c}=\frac{\frac{1}{N_{z,c}}\sum_{e=1}^{N_{z,c}}\left|\Delta_{e,c}\right|}{\sigma^{\mathrm{paired}}_{\mathrm{eff},z,c}}.
+\end{equation}
+In this work, we use $z^{\mathrm{paired}}_{z,c}>2$ as the per-channel detectability criterion under the robust paired empirical baseline.
+
+\input{tab_s8_sigma_eff_summary.tex}
+\clearpage
+
+\input{tab_s9_land_residualize_v2.tex}
+\clearpage
+
+\input{tab_s10_fresnel_sensitivity_condensed.tex}
+\clearpage
+
+\input{tab_s11_spatial_cv_blocks.tex}
 \clearpage
 
 \end{document}

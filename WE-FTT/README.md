@@ -12,6 +12,7 @@ Official PyTorch implementation of **Weight-Enhanced Feature-based Transformer (
 - [Key Features](#-key-features)
 - [Installation](#-installation)
 - [Quick Start](#-quick-start)
+- [Reproducibility](#-reproducibility)
 - [Usage](#-usage)
 - [Project Structure](#-project-structure)
 - [Model Architecture](#-model-architecture)
@@ -48,6 +49,7 @@ The WE-FTT framework follows a four-stage process:
 - **⚡ High Performance**: Achieves ~84% accuracy with robust evaluation metrics
 - **🔬 Comprehensive Evaluation**: Includes ablation studies and baseline comparisons
 - **📊 Visualization Tools**: Built-in plotting and analysis utilities
+- **🔁 Reproducible Evaluation Protocol**: Standalone `evaluation_protocol/` workflow for placebo, ERA5 conditioning, leakage audit, and event-grouped splits
 - **🐍 Modern Python Stack**: Built with PyTorch, scikit-learn, and modern ML libraries
 - **📦 Easy Installation**: Simple pip install with comprehensive documentation
 
@@ -137,6 +139,35 @@ python scripts/train.py --model_name ft_transformer
 # Run comprehensive ablation study
 python scripts/run_ablation.py --output_dir results/ablation_study
 ```
+
+## 🔁 Reproducibility
+
+For revision-oriented, auditable experiments, use the standalone protocol under `evaluation_protocol/` instead of mixing logic into training scripts.
+
+### Protocol entry points
+
+- `evaluation_protocol/README.md`: protocol overview and directory contract
+- `evaluation_protocol/run_evaluation.py`: one-command orchestrator
+- `evaluation_protocol/reproduce_results.sh`: reproducible command bundle
+- `evaluation_protocol/data_splits/event_grouped_splits_v1.json`: versioned event-grouped split manifest
+
+### Typical run
+
+```bash
+AMSR2_ROOT="/path/to/AMSR2"
+PY="WE-FTT/.venv/bin/python"
+
+"${PY}" "WE-FTT/evaluation_protocol/run_evaluation.py" \
+  --python "${PY}" \
+  --amsr2_root "${AMSR2_ROOT}" \
+  --control_dates_per_event 2 \
+  --pixels_per_event_day 200 \
+  --placebo_repeats 100 \
+  --placebo_pixels_per_event_day 100 \
+  --use_weights
+```
+
+For full details and output paths, see `evaluation_protocol/README.md`.
 
 ## 📖 Usage
 

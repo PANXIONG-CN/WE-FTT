@@ -59,7 +59,7 @@
 - 优先替换为：`statistically significant association`、`earthquake-window-associated anomaly`、`screening/evaluation protocol`
 
 ### 3.2 已知需要立刻改的题注（最小集合）
-- [ ] Fig 2 当前题注：`Environment-specific precursor signatures achieving near-perfect reliability.`
+- [x] Fig 2 当前题注：`Environment-specific precursor signatures achieving near-perfect reliability.`
   - 必须改为保守表述（示例方向）：环境分区下的 *zone-dependent anomaly patterns / association signatures*（不承诺“可靠预报”）
 
 ### 3.3 题注内容必须包含的信息
@@ -77,7 +77,6 @@
 
 ## 5. 验收标准（DoD）
 
-- [ ] `revisions-3nd/main_clean.tex` 中所有新增图表引用路径存在且可编译
-- [ ] 新增 S5+ 图表题注均满足 3.3 要求
-- [ ] 全文与题注通过“禁用词扫描”（见任务 03 的清单）
-
+- [x] `revisions-3nd/main_clean.tex` 中所有新增图表引用路径存在且可编译
+- [x] 新增 S5+ 图表题注均满足 3.3 要求
+- [x] 全文与题注通过“禁用词扫描”（见任务 03 的清单）

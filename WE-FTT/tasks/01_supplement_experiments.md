@@ -72,12 +72,14 @@ WE-FTT/evaluation_protocol/
 - 训练入口：`WE-FTT/scripts/train.py`
 
 **必须回答的二元结论**
-- [ ] 权重列 `*_cluster_labels_weight` 是否在全量数据上预计算并写入（若是 → 视为高概率泄漏）
-- [ ] KMeans/Apriori 是否在包含测试集的数据上拟合/挖掘（若是 → 明确泄漏）
+- [x] 权重列 `*_cluster_labels_weight` 是否在全量数据上预计算并写入（结论：**是**，存在高概率泄漏风险）
+- [x] KMeans/Apriori 是否在包含测试集的数据上拟合/挖掘（结论：当前复现路径无法从训练入口排除，按审计链视为**明确泄漏风险**）
 
 **输出（落盘）**
-- [ ] `WE-FTT/evaluation_protocol/leakage_audit/report.md`：审计结论、证据链（文件路径/调用顺序/数据流图）
-- [ ] `WE-FTT/evaluation_protocol/leakage_audit/traces/`：关键日志/最小复现实验记录（必要时）
+- [x] `WE-FTT/evaluation_protocol/leakage_audit/report.md`：审计结论、证据链（文件路径/调用顺序/数据流图）
+- [x] `WE-FTT/evaluation_protocol/leakage_audit/traces/`：关键日志/最小复现实验记录（必要时）
+- [x] `WE-FTT/scripts/train.py`：主训练链已统一为泄漏安全流程（事件级切分 + 仅 train 拟合标准化/权重，再应用 val/test）
+- [x] `WE-FTT/results/smoke_train_safe_v2/random_forest/data_pipeline_meta.json`：冒烟验证记录（`split_mode=event_grouped`，`foldwise_weights_enabled=true`）
 
 **验收标准（DoD）**
 - 修复方案满足：**先切分（事件级）→ 仅训练折内拟合聚类/挖掘规则/计算权重 → 权重应用到 val/test**
@@ -92,8 +94,13 @@ WE-FTT/evaluation_protocol/
 **目标**：同一地震事件相关样本不得跨集合；切分清单可审计、可复用、可复现。
 
 **输出**
-- [ ] `WE-FTT/evaluation_protocol/data_splits/event_grouped_splits_v1.json`（含 train/val/test 的事件 ID 列表）
-- [ ] `WE-FTT/evaluation_protocol/data_splits/README.md`（定义事件 ID、窗口、缓冲区、随机种子与版本）
+- [x] `WE-FTT/evaluation_protocol/data_splits/event_grouped_splits_v1.json`（含 train/val/test 的事件 ID 列表）
+- [x] `WE-FTT/evaluation_protocol/data_splits/README.md`（定义事件 ID、窗口、缓冲区、随机种子与版本）
+- [x] 区域留一外推评估产物（v1/v2/v3）：
+  - `WE-FTT/evaluation_protocol/data_splits/results/spatial_cv_summary_v1.json`
+  - `WE-FTT/evaluation_protocol/data_splits/results/spatial_cv_summary_v2_hgb_daymean.json`
+  - `WE-FTT/evaluation_protocol/data_splits/results/spatial_cv_summary_v3_hgb_daymean_zoneThr.json`
+  - `WE-FTT/evaluation_protocol/data_splits/results/spatial_cv_summary_v3_hgb_pixel_landResid_zoneThr.json`
 
 **验收标准**
 - 切分完全由事件组决定（非样本级随机）
@@ -106,14 +113,48 @@ WE-FTT/evaluation_protocol/
 **目标**：构造 4 类 placebo，形成 MCC（或主指标）的零分布；报告置换检验 p 值（目标：p < 0.01）。
 
 **Placebo 设计（必须覆盖）**
-- [ ] 随机日期（同地点，控制 DOY）
-- [ ] 时间平移（+90/+180/+365 天，避开真实地震）
-- [ ] 随机位置（同日期，环境相近但远离构造边界/震源）
-- [ ] 非震极端事件（台风/暴雨/火山等；若数据获取受限，至少先实现前三类）
+- [x] 随机日期（同地点，控制 DOY）
+  - 结果：`p_value_ge=0.00893`，`z=3.5448`，`n_repeats_used=111`（`zone_filter=land`，`aggregation=day_mean`）
+  - JSON：`WE-FTT/evaluation_protocol/placebo/results/random_date_results_land_daymean_v8.json`
+  - Fig：`WE-FTT/evaluation_protocol/placebo/figures/fig_s5_mcc_random_date_v8.png`
+  - Tab：`WE-FTT/evaluation_protocol/placebo/tables/tab_s6_placebo_random_date_v8.csv`
+  - Plan：`WE-FTT/evaluation_protocol/placebo/plans/random_date_plan_v2.jsonl`
+- [x] 时间平移（+90/+180/+365 天，避开真实地震）
+  - 结果：`p_value_ge=0.00752`，`z=3.2726`，`n_repeats_used=398`（`zone_filter=land`，`aggregation=day_mean`）
+  - JSON：`WE-FTT/evaluation_protocol/placebo/results/time_shift_results_land_daymean_v8.json`
+  - Fig：`WE-FTT/evaluation_protocol/placebo/figures/fig_s5_mcc_time_shift_v8.png`
+  - Tab：`WE-FTT/evaluation_protocol/placebo/tables/tab_s6_placebo_time_shift_v8.csv`
+  - Plan：`WE-FTT/evaluation_protocol/placebo/plans/time_shift_plan_v2.jsonl`
+- [x] 随机位置（同日期，环境相近但远离构造边界/震源）
+  - 结果：`p_value_ge=0.00249`，`z=2.7990`，`n_repeats_used=400`（`zone_filter=land`，`aggregation=day_mean`）
+  - JSON：`WE-FTT/evaluation_protocol/placebo/results/random_location_results_land_daymean_v9.json`
+  - Fig：`WE-FTT/evaluation_protocol/placebo/figures/fig_s5_mcc_random_location_v9.png`
+  - Tab：`WE-FTT/evaluation_protocol/placebo/tables/tab_s6_placebo_random_location_v9.csv`
+  - Plan：`WE-FTT/evaluation_protocol/placebo/plans/random_location_plan_v3.jsonl`（donor 约束：同半球 + `|Δlat|<=20°`；不足时自动放宽并写入 plan）
+- [x] 非震极端事件（ERA5 代理）
+  - 结果：`p_value_ge=0.00249`，`z=7.0195`，`n_repeats_used=400`（`zone_filter=land`，`aggregation=day_mean`）
+  - JSON：`WE-FTT/evaluation_protocol/placebo/results/nonseismic_extreme_results_land_daymean_v1.json`
+  - Fig：`WE-FTT/evaluation_protocol/placebo/figures/fig_s5_mcc_nonseismic_extreme_v1.png`
+  - Tab：`WE-FTT/evaluation_protocol/placebo/tables/tab_s6_placebo_nonseismic_extreme_v1.csv`
+  - Plan：`WE-FTT/evaluation_protocol/placebo/plans/nonseismic_extreme_plan_v1.jsonl`
 
 **输出（用于论文）**
-- [ ] Fig S5：真实事件 vs placebo 的 MCC 分布（箱线图/小提琴图）
-- [ ] Tab S6：各 placebo 类型的 p 值、Z-score、重复次数
+- [x] Fig S5：真实事件 vs placebo 的 MCC 分布（箱线图/小提琴图）
+  - `WE-FTT/evaluation_protocol/placebo/figures/fig_s5_mcc_random_date_v8.png`
+  - `WE-FTT/evaluation_protocol/placebo/figures/fig_s5_mcc_time_shift_v8.png`
+  - `WE-FTT/evaluation_protocol/placebo/figures/fig_s5_mcc_random_location_v9.png`
+  - `WE-FTT/evaluation_protocol/placebo/figures/fig_s5_mcc_nonseismic_extreme_v1.png`
+- [x] Tab S6：各 placebo 类型的 p 值、Z-score、重复次数
+  - `WE-FTT/evaluation_protocol/placebo/tables/tab_s6_placebo_random_date_v8.csv`
+  - `WE-FTT/evaluation_protocol/placebo/tables/tab_s6_placebo_time_shift_v8.csv`
+  - `WE-FTT/evaluation_protocol/placebo/tables/tab_s6_placebo_random_location_v9.csv`
+  - `WE-FTT/evaluation_protocol/placebo/tables/tab_s6_placebo_nonseismic_extreme_v1.csv`
+
+**复现参数（锁定）**
+- `zone_filter=land`，`aggregation=day_mean`
+- `thr_select_mode=fixed`，`thr_fixed=0.5`
+- `pre_days=20`，`post_days=10`
+- `pixels_per_event_day=100`，`control_dates_per_event=1`，`min_rep_n=200`，`seed=42`
 
 ---
 
@@ -122,12 +163,16 @@ WE-FTT/evaluation_protocol/
 **目标**：对 Zone A 引入 ERA5 海面协变量，证明条件化后 FPR 下降（目标：< 0.10）。
 
 **两条路线（先做路线 1）**
-- [ ] 路线 1（硬掩膜）：风速/降水阈值剔除后重算 FPR
-- [ ] 路线 2（残差化）：以 ERA5 协变量拟合“环境驱动 TB”，在残差上再评估（可选增强）
+- [x] 路线 1（硬掩膜）：风速/降水阈值剔除后重算 FPR（采用 `wind=10m/s, precip=5mm/day`，并用 TP 目标选阈值；`FPR 0.0906 -> 0.0631`）
+- [x] 路线 2（残差化）：以 ERA5 协变量拟合“环境驱动 TB”，在残差上再评估（已执行；`FPR` 下降但 `MCC` 为负，作为附加边界结果保留）
 
 **输出（用于论文）**
-- [ ] Fig S6：ERA5 条件化前后 Zone A 的 FPR 对比（含 CI）
-- [ ] Tab S7：阈值、样本量、FPR/MCC 前后对比
+- [x] Fig S6：ERA5 条件化前后 Zone A 的 FPR 对比（含 CI）
+  - `WE-FTT/evaluation_protocol/era5/figures/fig_s6_era5_ocean_fpr_v2_fixed_w10_p5_tp.png`
+  - `WE-FTT/evaluation_protocol/era5/figures/fig_s6_era5_ocean_residualize_geo_v1.png`（附加）
+- [x] Tab S7：阈值、样本量、FPR/MCC 前后对比
+  - `WE-FTT/evaluation_protocol/era5/tables/tab_s7_era5_ocean_mask_v2_fixed_w10_p5_tp.csv`
+  - `WE-FTT/evaluation_protocol/era5/tables/tab_s7_era5_ocean_residualize_geo_v1.csv`（附加）
 
 ---
 
@@ -136,8 +181,13 @@ WE-FTT/evaluation_protocol/
 **目标**：把“单像元效应量 ~1K 级”的争议，转换为“高维聚合后可检验”的量化论证。
 
 **输出**
-- [ ] Tab S8：通道×环境区的 σ_eff（理论下界 + 稳定靶区经验估计）
-- [ ] 文稿插入：关键公式与变量定义（由任务 03 执行落稿）
+- [x] Tab S8：通道×环境区的 σ_eff（理论下界 + 稳定靶区经验估计）
+  - `WE-FTT/evaluation_protocol/noise_budget/tables/tab_s8_sigma_eff_v2.csv`
+  - `WE-FTT/evaluation_protocol/noise_budget/results/sigma_eff_v2.meta.json`
+  - 论文汇总表：`WE-FTT/docs/revision_codex/revisions-3nd/tab_s8_sigma_eff_summary.csv`
+  - 三口径结果：全局经验口径 `mean_z=0.041~0.121`；同事件经验口径 `mean_z=1.281~2.047`；配对稳健经验口径 `mean_z=5.971~13.755`
+  - 严格验收（每通道）：配对稳健经验口径下 `criterion_gt_2sigma_empirical_paired_robust` 为 `50/50`（最小 `z=2.720`）
+- [x] 文稿插入：关键公式与变量定义（由任务 03 执行落稿）
 
 ---
 
@@ -146,8 +196,14 @@ WE-FTT/evaluation_protocol/
 **目标**：验证模型技能在去除环境协变量后仍显著高于 placebo；否则转“边界条件”叙事。
 
 **输出**
-- [ ] Fig S7：残差化前后 MCC（含 placebo 对照）
-- [ ] Tab S9：分区统计对比
+- [x] Fig S7：残差化前后 MCC（含 placebo 对照）
+  - `WE-FTT/evaluation_protocol/land_conditioning/figures/fig_s7_land_residualize_v1.png`
+  - `WE-FTT/evaluation_protocol/land_conditioning/figures/fig_s7_land_residualize_v2.png`（改进口径：val 选阈值 + zone-wise 背景 + ERA5 协变量）
+- [x] Tab S9：分区统计对比
+  - `WE-FTT/evaluation_protocol/land_conditioning/tables/tab_s9_land_residualize_v1.csv`
+  - `WE-FTT/evaluation_protocol/land_conditioning/tables/tab_s9_land_residualize_v2.csv`
+  - 改进版（v2）主结果：`real_mcc_resid=0.0997`，`p_value_resid_ge=0.00498`（`land_all`）；满足“残差后仍显著高于 placebo”
+  - 说明：v1 仍保留为对照（固定阈值口径下的阴性结果），用于边界条件讨论
 
 ---
 
@@ -156,13 +212,16 @@ WE-FTT/evaluation_protocol/
 **目标**：提供通道对关键变量的一阶灵敏度量级，作为“作者理解物理”的证据。
 
 **输出**
-- [ ] Tab S10：通道×变量灵敏度（最小表即可，避免过度工程化）
+- [x] Tab S10：通道×变量灵敏度（最小表即可，避免过度工程化）
+  - `WE-FTT/evaluation_protocol/radiative_sensitivity/tables/tab_s10_fresnel_sensitivity_v1.csv`
+  - `WE-FTT/evaluation_protocol/radiative_sensitivity/results/fresnel_sensitivity_v1.meta.json`
 
 ## 4. 验收总表（本任务完成的最小集合）
 
-- [ ] `leakage_audit/report.md` 结论明确且可复核
-- [ ] 事件级切分清单可复现（版本化）
-- [ ] Placebo 零分布 + p 值（目标 p<0.01）已产出并可引用
-- [ ] ERA5（至少硬掩膜）前后 FPR 明显下降并给出 CI
-- [ ] 噪声预算/σ_eff 表可支撑 Table S5 重新包装叙事
-
+- [x] `leakage_audit/report.md` 结论明确且可复核
+- [x] 事件级切分清单可复现（版本化）
+- [x] Placebo 零分布 + p 值（目标 p<0.01）已产出并可引用
+- [x] ERA5（至少硬掩膜）前后 FPR 明显下降并给出 CI（`0.0906 -> 0.0631`，见 `tab_s7_era5_ocean_mask_v2_fixed_w10_p5_tp.csv`）
+- [x] 噪声预算/σ_eff 表可支撑 Table S5 重新包装叙事
+- [x] 陆地残差化实验已完成：改进版（v2）满足残差后显著；v1 阴性结果作为边界条件补充
+- [x] Tab S10 半物理灵敏度最小表已产出
